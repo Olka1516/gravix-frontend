@@ -1,0 +1,14 @@
+@mixin gradient-text {
+  .gradient-text {
+    background: -webkit-linear-gradient(0deg, rgba(255, 87, 240, 1) 0%, rgba(87, 108, 255, 1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+@mixin border-text {
+  .border-text {
+    color: transparent;
+    -webkit-text-stroke: 0.5px white;
+  }
+}

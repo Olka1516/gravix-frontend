@@ -1,0 +1,26 @@
+@import './components/baseHeader';
+@import './components/landing/main';
+@import './general/container';
+@import './general/circle';
+@import './general/texts';
+@import './general/buttons';
+@import './general/lines';
+@import './themes';
+
+@mixin header {
+  @include container;
+  @include header-component;
+  @include border-button;
+}
+
+@mixin main {
+  @include container;
+  @include main-component;
+  @include border-text;
+  @include gradient-text;
+  @include animated-lines;
+}
+
+@mixin circle {
+  @include circle-component;
+}

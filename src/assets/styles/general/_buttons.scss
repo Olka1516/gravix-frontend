@@ -1,0 +1,22 @@
+@mixin border-button {
+  .border-button {
+    padding: 10px 32px;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: linear-gradient(to left, $pink, $purple, $pink) border-box;
+      -webkit-mask:
+        linear-gradient(#fff 0 0) padding-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask-composite: exclude;
+    }
+  }
+}

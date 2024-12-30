@@ -1,0 +1,77 @@
+@mixin circle-component {
+  .box {
+    width: 20vmin;
+    height: 20vmin;
+    position: relative;
+    top: -60px;
+    left: 100px;
+    z-index: 1;
+    @media screen and (max-width: 1440px) {
+      left: 4px;
+    }
+    @media screen and (max-width: 1024px) {
+      left: 200px;
+    }
+    @media screen and (max-width: 768px) {
+      left: 100px;
+    }
+  }
+
+  .spin-container {
+    width: 100%;
+    height: 100%;
+    animation: spin 12s ease-in-out infinite alternate;
+    position: relative;
+  }
+
+  .shape {
+    width: 100%;
+    height: 100%;
+    transition: border-radius 1s ease-out;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    animation: morph 8s ease-in-out infinite both alternate;
+    position: absolute;
+    overflow: hidden;
+    border: #fff solid 3px;
+    box-shadow:
+      0 0 0.1rem #fff,
+      0 0 0.1rem #fff,
+      0 0 1rem #fff;
+  }
+
+  .bd {
+    background-color: #000;
+    width: 142%;
+    height: 142%;
+    position: absolute;
+    left: -21%;
+    top: -21%;
+    background-size: 100%;
+    background-position: center center;
+    display: flex;
+    font-size: 5vw;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-transform: uppercase;
+    animation: spin 12s ease-in-out infinite alternate-reverse;
+    opacity: 1;
+    z-index: 2;
+  }
+
+  @keyframes morph {
+    0% {
+      border-radius: 40% 60% 60% 40% / 60% 30% 70% 40%;
+    }
+    100% {
+      border-radius: 40% 60%;
+    }
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+}
