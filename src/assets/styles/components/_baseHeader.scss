@@ -9,10 +9,10 @@
     top: 0;
     left: 0;
     z-index: 10;
-    background-color: #0000004d;
+    background-color: $background_color_header;
     box-shadow:
-      rgba(7, 5, 9, 0.25) 0px 6px 12px -2px,
-      rgba(125, 125, 125, 0.3) 0px 3px 7px -3px;
+      $shadow_header 0px 6px 12px -2px,
+      $shadow_2_header 0px 3px 7px -3px;
     backdrop-filter: blur(2px);
   }
 

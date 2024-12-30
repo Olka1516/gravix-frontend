@@ -15,12 +15,10 @@ body {
   padding: 0;
   margin: 0;
   &::-webkit-scrollbar {
-    width: 10px;
-    background-color: #fff;
+    display: none;
   }
   &::-webkit-scrollbar-thumb {
-    height: 60px;
-    background-color: #ccc;
+    display: none;
   }
 }
 
@@ -75,6 +73,7 @@ h5 {
   font-family: serif;
   font-weight: 600;
   font-style: normal;
+  color: #fff;
 }
 
 h1 {
@@ -101,8 +100,8 @@ p {
   font-family: serif;
   font-weight: 600;
   font-style: normal;
-  font-size: 30px;
-  color: #191919;
+  font-size: 20px;
+  color: #fff;
 }
 
 img {
@@ -116,6 +115,12 @@ li {
   font-family: serif;
   font-weight: 600;
   font-style: normal;
+}
+
+hr {
+  height: 3px;
+  border: 0;
+  background-color: #fff;
 }
 
 @media screen and (max-width: 1024px) {

@@ -1,5 +1,7 @@
 @import './components/baseHeader';
+@import './components/baseCard';
 @import './components/landing/main';
+@import './components/landing/rhythm';
 @import './general/container';
 @import './general/circle';
 @import './general/texts';
@@ -23,4 +25,17 @@
 
 @mixin circle {
   @include circle-component;
+}
+
+@mixin colored-circle {
+  @include colored-circle-component;
+}
+
+@mixin rhythm {
+  @include container;
+  @include rhythm-component;
+}
+
+@mixin card {
+  @include card-component;
 }
