@@ -3,6 +3,7 @@
     <BaseHeader />
     <MainBlock />
     <RhythmBlock />
+    <TrendBlock />
   </div>
 </template>
 
@@ -10,4 +11,5 @@
 import BaseHeader from '@/components/BaseHeader.vue'
 import MainBlock from '@/components/landing/MainBlock.vue'
 import RhythmBlock from '@/components/landing/RhythmBlock.vue'
+import TrendBlock from '@/components/landing/TrendBlock.vue'
 </script>

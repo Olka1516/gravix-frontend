@@ -2,6 +2,7 @@
 @import './components/baseCard';
 @import './components/landing/main';
 @import './components/landing/rhythm';
+@import './components/landing/trend';
 @import './general/container';
 @import './general/circle';
 @import './general/texts';
@@ -38,4 +39,9 @@
 
 @mixin card {
   @include card-component;
+}
+
+@mixin trend {
+  @include container;
+  @include trend-component;
 }

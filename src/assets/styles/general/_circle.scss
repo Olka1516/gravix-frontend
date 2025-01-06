@@ -79,6 +79,7 @@
 @mixin colored-circle-component {
   .circle {
     position: absolute;
+    z-index: 1;
     top: var(--top);
     right: var(--right);
     width: var(--size);
