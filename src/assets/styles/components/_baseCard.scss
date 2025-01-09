@@ -13,6 +13,13 @@
     width: 360px;
   }
 
+  .transparent {
+    text-align: left;
+    background: $shadow_2_header;
+    backdrop-filter: blur(1px);
+    border: 1px solid $pink;
+  }
+
   .card-id {
     display: flex;
     flex-direction: column;

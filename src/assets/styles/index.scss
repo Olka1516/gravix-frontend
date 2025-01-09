@@ -1,13 +1,19 @@
 @import './components/baseHeader';
 @import './components/baseCard';
+@import './components/singerCard';
 @import './components/landing/main';
 @import './components/landing/rhythm';
 @import './components/landing/trend';
+@import './components/landing/journey';
+@import './components/landing/power';
+@import './components/landing/contact';
+@import './components/inputs/input';
 @import './general/container';
 @import './general/circle';
 @import './general/texts';
 @import './general/buttons';
 @import './general/lines';
+@import './general/form';
 @import './themes';
 
 @mixin header {
@@ -44,4 +50,30 @@
 @mixin trend {
   @include container;
   @include trend-component;
+}
+
+@mixin journey {
+  @include animated-lines;
+  @include container;
+  @include journey-component;
+}
+
+@mixin power {
+  @include container;
+  @include power-component;
+}
+
+@mixin singer-card {
+  @include singer-card-component;
+}
+
+@mixin contact {
+  @include container;
+  @include form;
+  @include border-button;
+  @include contact-component;
+}
+
+@mixin field {
+  @include input;
 }

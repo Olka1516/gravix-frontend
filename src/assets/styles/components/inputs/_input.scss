@@ -1,0 +1,26 @@
+@mixin input {
+  input {
+    position: relative;
+    padding: 16px 10px 8px;
+    font-weight: 500;
+    font-size: 1em;
+  }
+
+  i {
+    position: absolute;
+    left: 0;
+    top: 12px;
+    transition: 0.5s;
+    pointer-events: none;
+  }
+
+  input:focus ~ i,
+  input:valid ~ i {
+    transform: translateY(-21.5px);
+    font-size: 0.9em;
+  }
+
+  .invalid {
+    border: 1px solid $red;
+  }
+}

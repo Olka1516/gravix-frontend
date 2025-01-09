@@ -1,0 +1,21 @@
+@mixin power-component {
+  .container {
+    padding-top: 100px;
+    height: 100vh;
+    width: 100%;
+    text-align: center;
+  }
+
+  .cards {
+    padding-top: 40px;
+    display: flex;
+    overflow-x: auto;
+    gap: 24px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    &::-webkit-scrollbar-thumb {
+      display: none;
+    }
+  }
+}

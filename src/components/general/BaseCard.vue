@@ -5,7 +5,7 @@
       '--height': rhythm.id & 1 ? '80%' : '50%',
     }"
   >
-    <div class="card">
+    <div class="card" :class="{ transparent: isTransparent }">
       <div class="card-id">
         <h4>
           {{ rhythm.id }}
@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ rhythm: { id: number; text: string } }>()
+defineProps<{ rhythm: { id: number; text: string }; isTransparent?: boolean }>()
 </script>
 
 <style scoped lang="scss">

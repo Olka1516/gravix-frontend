@@ -1,0 +1,20 @@
+@mixin singer-card-component {
+  .singer-card {
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding: 24px;
+    border-radius: 8px;
+    background: $gradiend_text;
+  }
+
+  .singer-img {
+    width: 300px;
+    height: 300px;
+    object-position: top;
+    object-fit: cover;
+    border-radius: 4px;
+    border: solid 3px $pink;
+  }
+}
