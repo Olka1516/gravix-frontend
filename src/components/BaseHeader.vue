@@ -1,5 +1,5 @@
 <template>
-  <header class="container">
+  <header class="container header">
     <div class="header-content">
       <img src="@/assets/images/logo.png" alt="" />
       <button>All songs</button>

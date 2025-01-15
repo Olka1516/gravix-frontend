@@ -1,4 +1,5 @@
 @import './components/baseHeader';
+@import './components/baseFooter';
 @import './components/baseCard';
 @import './components/singerCard';
 @import './components/landing/main';
@@ -18,8 +19,13 @@
 
 @mixin header {
   @include container;
-  @include header-component;
   @include border-button;
+  @include header-component;
+}
+
+@mixin footer {
+  @include container;
+  @include footer-component;
 }
 
 @mixin main {

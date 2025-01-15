@@ -1,0 +1,26 @@
+@mixin footer-component {
+  .container {
+    border-top: 1px solid $white;
+    text-align: center;
+    padding-block: 34px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+  }
+
+  .footer-content {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  span {
+    color: $white;
+    font-size: 16px;
+  }
+
+  .footer-text {
+    max-width: 1000px;
+  }
+}

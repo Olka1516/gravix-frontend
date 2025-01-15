@@ -4,6 +4,9 @@
     width: 100%;
     padding-top: 100px;
     text-align: right;
+    @media screen and (max-width: 540px) {
+      text-align: center;
+    }
   }
 
   .journey-card {
@@ -13,10 +16,37 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    @media screen and (max-width: 1024px) {
+      height: 50vh;
+      .jorney-img {
+        opacity: 0.3;
+        position: absolute;
+        top: 50%;
+        transform: translate(50%, -50%) scale(0.5);
+      }
+    }
+    @media screen and (max-width: 768px) {
+      justify-content: center;
+      .jorney-img {
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.5);
+      }
+    }
   }
 
   .reverse {
     flex-direction: row-reverse;
+    @media screen and (max-width: 1024px) {
+      flex-direction: row;
+      .jorney-img {
+        left: 40%;
+      }
+    }
+    @media screen and (max-width: 768px) {
+      .jorney-img {
+        left: 50%;
+      }
+    }
   }
 
   .journey-cards {
@@ -38,23 +68,8 @@
     height: 400px;
     background-size: contain;
     background-repeat: no-repeat;
-    // left: -240px;
     left: -100px;
     top: 100px;
-    // @media screen and (max-width: 1280px) {
-    //   left: -440px;
-    //   top: -150px;
-    // }
-    // @media screen and (max-width: 1024px) {
-    //   width: -webkit-fill-available;
-    //   height: 100%;
-    //   z-index: 2;
-    // }
-    // @media screen and (max-width: 768px) {
-    //   left: -250px;
-    //   top: -100px;
-    //   height: 100%;
-    // }
   }
 
   .line-2 {

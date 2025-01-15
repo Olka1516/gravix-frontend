@@ -10,17 +10,14 @@
       >
         <BaseCard :rhythm="{ id: data.id, text: data.text }" :isTransparent="true"></BaseCard>
         <div v-if="data.id & 1">
-          <div
-            class="animated-lines line-1"
-            style="background-image: url('public/lines_1.png')"
-          ></div>
+          <div class="animated-lines line-1" style="background-image: url('/lines_1.png')"></div>
           <img class="line-2" src="@/assets/images/lines_2.png" alt="" />
         </div>
         <div class="circles" v-else>
           <BaseColoredCircle size="240px" top="40%" right="70%" />
           <BaseColoredCircle size="180px" top="50%" right="10%" />
         </div>
-        <img :src="data.image" alt="" />
+        <img class="jorney-img" :src="data.image" alt="" />
       </div>
     </div>
   </div>

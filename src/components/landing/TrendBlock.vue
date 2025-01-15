@@ -40,6 +40,7 @@ onMounted(() => {
         temp.style.left = '50%'
         temp.style.transform = 'translateX(-50%)'
         temp.style.top = `${row * 0.85 * rowHeight}px`
+        temp.style.zIndex = '2'
         if (column === 1) {
           temp.style.height = '200px'
         }
