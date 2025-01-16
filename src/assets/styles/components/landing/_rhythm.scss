@@ -1,0 +1,38 @@
+@mixin rhythm-component {
+  .container {
+    position: relative;
+    height: 80vh;
+    width: 100%;
+    padding-top: 100px;
+  }
+
+  .rhythm {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+  }
+
+  .rhythm-cards {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @media screen and (max-width: 1200px) {
+      overflow-x: auto;
+    }
+    @media screen and (max-width: 1024px) {
+      margin-top: 36px;
+      overflow-x: hidden;
+      flex-direction: column;
+      gap: 24px;
+    }
+  }
+
+  h2 {
+    @media screen and (max-width: 540px) {
+      text-align: center;
+    }
+  }
+}

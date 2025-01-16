@@ -1,0 +1,69 @@
+@mixin trend-component {
+  .container {
+    position: relative;
+    height: 140vh;
+    width: 100%;
+    padding-top: 100px;
+    text-align: center;
+  }
+
+  .triangle-demo {
+    position: absolute;
+    z-index: 1;
+    height: 0;
+    width: 0;
+    top: 60%;
+    left: 50%;
+    opacity: 0.5;
+    transform: translate(-50%, -50%);
+    border-top: calc(100vh - 300px) solid $pink;
+    border-left: calc(100vh - 300px) solid transparent;
+    border-right: calc(100vh - 300px) solid transparent;
+    filter: blur(80px);
+  }
+
+  .trend-card {
+    position: absolute;
+    width: 247px;
+    height: 247px;
+    border-radius: 8px;
+    border: 1px solid $pink;
+    & img {
+      border-radius: 8px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    &:hover > .trend-card-text {
+      opacity: 1;
+      bottom: 0;
+      border-bottom-right-radius: 8px;
+      border-bottom-left-radius: 8px;
+      backdrop-filter: blur(2px);
+      background-color: $background_color_header;
+      height: 40px;
+    }
+  }
+
+  .trend-card-text {
+    transition: all 0.8s ease-out;
+    position: absolute;
+    bottom: -1px;
+    opacity: 0;
+    text-align: center;
+    background-color: $shadow_2_header;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 5px;
+    backdrop-filter: blur(0);
+  }
+
+  .trend-cards {
+    z-index: 1;
+    margin: 46px auto 0;
+    max-width: 1000px;
+    position: relative;
+  }
+}

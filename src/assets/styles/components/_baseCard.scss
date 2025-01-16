@@ -1,0 +1,28 @@
+@mixin card-component {
+  .card-container {
+    height: var(--height);
+  }
+
+  .card {
+    background: $gradiend_text;
+    padding: 42px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+    width: 360px;
+  }
+
+  .transparent {
+    text-align: left;
+    background: $shadow_2_header;
+    backdrop-filter: blur(1px);
+    border: 1px solid $pink;
+  }
+
+  .card-id {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}

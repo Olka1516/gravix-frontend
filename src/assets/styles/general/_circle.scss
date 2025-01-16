@@ -32,15 +32,15 @@
     animation: morph 8s ease-in-out infinite both alternate;
     position: absolute;
     overflow: hidden;
-    border: #fff solid 3px;
+    border: $white solid 3px;
     box-shadow:
-      0 0 0.1rem #fff,
-      0 0 0.1rem #fff,
-      0 0 1rem #fff;
+      0 0 0.1rem $white,
+      0 0 0.1rem $white,
+      0 0 1rem $white;
   }
 
   .bd {
-    background-color: #000;
+    background-color: $black;
     width: 142%;
     height: 142%;
     position: absolute;
@@ -72,6 +72,32 @@
   @keyframes spin {
     to {
       transform: rotate(1turn);
+    }
+  }
+}
+
+@mixin colored-circle-component {
+  .circle {
+    position: absolute;
+    z-index: 1;
+    top: var(--top);
+    right: var(--right);
+    width: var(--size);
+    height: var(--size);
+    border-radius: 100%;
+    background-color: $pink;
+    filter: blur(106px);
+    animation: animate 6s ease-in-out infinite;
+  }
+  @keyframes animate {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.4);
+    }
+    100% {
+      transform: scale(1);
     }
   }
 }

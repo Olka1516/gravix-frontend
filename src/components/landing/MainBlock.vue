@@ -7,7 +7,7 @@
     </div>
 
     <img class="main-note" src="@/assets/images/note.png" alt="" />
-    <div class="animated-lines line-1" style="background-image: url('public/lines_1.png')"></div>
+    <div class="animated-lines line-1" style="background-image: url('/lines_1.png')"></div>
     <img class="line-2" src="@/assets/images/lines_2.png" alt="" />
   </div>
 </template>
