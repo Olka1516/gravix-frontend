@@ -8,11 +8,18 @@
   <i>{{ props.type }}</i>
 </template>
 <script setup lang="ts">
+import { ErrorMessageEnum } from '@/types'
 import { ref } from 'vue'
 
 const props = defineProps<{
   modelValue: string
   type: string
+  v: {
+    $invalid: boolean
+    $dirty: boolean
+    $touch: Function
+  }
+  error?: string
 }>()
 
 const emit = defineEmits<{
@@ -22,13 +29,21 @@ const emit = defineEmits<{
 const userInfo = ref(props.modelValue)
 
 const handleInput = (event: Event) => {
+  props.v.$touch()
   const target = event.target as HTMLInputElement
   if (!target) return
   userInfo.value = target.value
   emit('update:modelValue', target.value)
 }
+
+const { UsernameOrPasswordWrong, EmailInUse, EmailIsNotValid, UsernameInUse } = ErrorMessageEnum
 const isInfoInvalid = () => {
-  console.log('invalid')
+  return (
+    (props.v.$invalid && props.v.$dirty) ||
+    ((props.error === EmailInUse || props.error === EmailIsNotValid) && props.type === 'Email') ||
+    (props.error === UsernameInUse && props.type === 'Username') ||
+    props.error === UsernameOrPasswordWrong
+  )
 }
 </script>
 <style scoped lang="scss">

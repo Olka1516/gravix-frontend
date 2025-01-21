@@ -17,12 +17,19 @@
 </template>
 
 <script setup lang="ts">
+import { ErrorMessageEnum } from '@/types'
 import { ref, watch } from 'vue'
 
 const bloke = ref('password')
 const props = defineProps<{
   modelValue: string
   type: string
+  v: {
+    $invalid: boolean
+    $dirty: boolean
+    $touch: Function
+  }
+  error?: string
 }>()
 
 const emit = defineEmits<{
@@ -33,12 +40,20 @@ const userPassword = ref(props.modelValue)
 const inputFocused = ref(false)
 
 const handleInput = (event: Event) => {
+  props.v.$touch()
   const target = event.target as HTMLInputElement
   if (!target) return
   emit('update:modelValue', target.value)
 }
+
+const { UsernameOrPasswordWrong, PasswordMinLength, PasswordIsEqual } = ErrorMessageEnum
 const isPasswordInvalid = () => {
-  console.log('invalid')
+  return (
+    (props.v.$invalid && props.v.$dirty) ||
+    props.error === PasswordMinLength ||
+    props.error === PasswordIsEqual ||
+    props.error === UsernameOrPasswordWrong
+  )
 }
 
 const isVisible = () => {
