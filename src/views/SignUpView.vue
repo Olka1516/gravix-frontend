@@ -3,24 +3,31 @@
     <div class="form">
       <h2>Sign up</h2>
       <div class="field">
-        <BaseText v-model="userData.username" type="Username" />
+        <BaseText v-model="userData.nickname" :v="v$.nickname" type="Username" :error="error" />
+        <ErrorMessage :v="v$.nickname" :error="error" />
       </div>
       <div class="field">
-        <BaseText v-model="userData.email" type="Email" />
+        <BaseText v-model="userData.email" :v="v$.email" :error="error" type="Email" />
+        <ErrorMessage :v="v$.email" :error="error" />
       </div>
       <div class="field">
-        <BasePassword v-model="userData.password" type="Password" />
+        <BasePassword v-model="userData.password" :v="v$.password" type="Password" />
+        <ErrorMessage :v="v$.password" />
       </div>
       <div class="field">
-        <BasePassword v-model="userData.confirmPassword" type="Confirm password" />
+        <BasePassword
+          v-model="userData.confirmPassword"
+          :v="v$.confirmPassword"
+          type="Confirm password"
+        />
+        <ErrorMessage :v="v$.confirmPassword" />
       </div>
 
       <button @click="submit" class="border-button">Submit</button>
     </div>
     <img class="auth-img" src="@/assets/images/notes.webp" alt="" />
     <div class="auth-navs">
-      <button class="border-button">Sign up</button>
-      <button @click="routeToSignIn">Sign in</button>
+      <button class="border-button" @click="routeToSignIn">Sign in</button>
     </div>
   </div>
 </template>
@@ -28,19 +35,41 @@
 <script setup lang="ts">
 import BasePassword from '@/components/inputs/BasePassword.vue'
 import BaseText from '@/components/inputs/BaseText.vue'
-import { reactive } from 'vue'
+import { email, required, sameAs, minLength } from '@vuelidate/validators'
+import { useVuelidate } from '@vuelidate/core'
+import { computed, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import ErrorMessage from '@/components/inputs/ErrorMessage.vue'
 
 const router = useRouter()
+const error = ref('')
 const userData = reactive({
-  username: '',
+  nickname: '',
   email: '',
   password: '',
   confirmPassword: '',
 })
 
-const submit = () => {
-  console.log('submit')
+const rules = {
+  nickname: { required },
+  email: { required, email },
+  password: { required, minLength: minLength(6) },
+  confirmPassword: {
+    required,
+    sameAs: sameAs(computed(() => userData.password)),
+  },
+}
+
+const v$ = useVuelidate(rules, userData)
+
+const submit = async () => {
+  const isFormCorrect = await v$.value.$validate()
+  if (!isFormCorrect) return
+  try {
+    console.log('submit')
+  } catch (err: any) {
+    error.value = err.response?.data.message || ''
+  }
 }
 
 const routeToSignIn = async () => {

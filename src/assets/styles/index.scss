@@ -9,6 +9,7 @@
 @import './components/landing/power';
 @import './components/landing/contact';
 @import './components/inputs/input';
+@import './components/inputs/errors';
 @import './general/container';
 @import './general/circle';
 @import './general/texts';
@@ -102,4 +103,8 @@
 @mixin sign-up {
   @include sign-in;
   @include sign-up-component;
+}
+
+@mixin errors {
+  @include error-container;
 }
