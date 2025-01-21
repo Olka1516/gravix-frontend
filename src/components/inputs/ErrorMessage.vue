@@ -31,7 +31,8 @@ const {
   PasswordMinLength,
   PasswordIsEqual,
   UsernameInUse,
-  UsernameOrPasswordWrong,
+  InvalidCredentials,
+  PassMissMach,
 } = ErrorMessageEnum
 
 const getError = () => {
@@ -40,12 +41,13 @@ const getError = () => {
     case 'email':
       if (message === EmailIsNotValid) return EmailIsNotValid
       else if (message === IsRequired) return IsRequired
-      else if (props.error === EmailInUse) return EmailInUse
+      else if (props.error === EmailInUse) return 'Email already in use!'
+      else if (props.error === InvalidCredentials) return 'Email not found!'
       break
     case 'password':
       if (message === IsRequired) return IsRequired
       else if (message === PasswordMinLength) return PasswordMinLength
-      else if (props.error === UsernameOrPasswordWrong) return UsernameOrPasswordWrong
+      else if (props.error === PassMissMach) return 'Password is wrong'
       break
     case 'confirmPassword':
       if (message === IsRequired) return IsRequired
@@ -53,7 +55,7 @@ const getError = () => {
       break
     case 'username':
       if (message === IsRequired) return IsRequired
-      else if (props.error === UsernameInUse) return UsernameInUse
+      else if (props.error === UsernameInUse) return 'Username already in use!'
       break
   }
 }
