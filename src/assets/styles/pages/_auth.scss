@@ -1,0 +1,114 @@
+@mixin auth {
+  .auth {
+    height: 100vh;
+    width: 100%;
+    background-color: $black;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 38px;
+    position: relative;
+    @media screen and (max-width: 1024px) {
+      flex-direction: column-reverse;
+    }
+  }
+
+  .auth-navs {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    z-index: 1;
+    animation: 4s shows;
+    @keyframes shows {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    @media screen and (max-width: 1024px) {
+      flex-direction: row;
+    }
+  }
+
+  .auth-img {
+    position: fixed;
+    height: 110vh;
+    top: -5%;
+    left: -8%;
+    animation:
+      2s linear appearance,
+      18s linear 0s infinite alternate rotate;
+    @keyframes appearance {
+      from {
+        opacity: 0;
+        transform: scale(0.1);
+        top: 50%;
+        left: 50%;
+      }
+      to {
+        top: -5%;
+        left: -8%;
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    @keyframes rotate {
+      10% {
+        transform: rotate(90deg);
+      }
+      25% {
+        transform: rotate(135deg);
+      }
+      40% {
+        transform: rotate(180deg);
+      }
+      55% {
+        transform: rotate(225deg);
+      }
+      70% {
+        transform: rotate(270deg);
+      }
+      85% {
+        transform: rotate(315deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media screen and (max-width: 1024px) {
+      top: 60%;
+      left: -1%;
+      @keyframes appearance {
+        from {
+          opacity: 0;
+          transform: scale(0.1);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    }
+    @media screen and (max-width: 768px) {
+      left: -15%;
+    }
+  }
+
+  .form {
+    background-color: $black;
+    z-index: 1;
+    animation: 3s slide-in;
+    @keyframes slide-in {
+      from {
+        translate: 150vw 0;
+      }
+      to {
+        translate: 0 0;
+      }
+    }
+  }
+}

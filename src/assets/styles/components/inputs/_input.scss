@@ -24,3 +24,11 @@
     border: 1px solid $red;
   }
 }
+
+@mixin password-input {
+  button {
+    position: absolute;
+    right: 5px;
+    margin: 12px 13px;
+  }
+}

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h2>Contact Us</h2>
-    <div class="contact">
+    <div class="form">
       <div class="field">
         <BaseText v-model="form.email" type="Email" />
       </div>
