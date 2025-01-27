@@ -2,7 +2,7 @@
   <div class="auth">
     <img class="auth-img" src="@/assets/images/notes.webp" alt="" />
     <div class="auth-navs">
-      <button class="border-button" @click="routeToSignUp">Sign up</button>
+      <button class="border-button" @click="routeNavigateTo('sign-up')">Sign up</button>
     </div>
     <div class="form">
       <h2>Sign in</h2>
@@ -29,8 +29,12 @@ import ErrorMessage from '@/components/inputs/ErrorMessage.vue'
 import { email, required } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
 
-const error = ref('')
+import type { TRequestError } from '@/types'
+import { authStore } from '@/stores'
+
+const store = authStore()
 const router = useRouter()
+const error = ref('')
 const userData = reactive({
   email: '',
   password: '',
@@ -48,14 +52,16 @@ const submit = async () => {
     return
   }
   try {
-    console.log('submit')
-  } catch (err: any) {
-    error.value = err.response?.data.message || ''
+    await store.signIn(userData)
+    await routeNavigateTo('profile')
+  } catch (err) {
+    const message = err as TRequestError
+    error.value = message.response?.data.message || ''
   }
 }
 
-const routeToSignUp = async () => {
-  await router.push('/sign-up')
+const routeNavigateTo = async (name: string) => {
+  await router.push(`/${name}`)
 }
 </script>
 

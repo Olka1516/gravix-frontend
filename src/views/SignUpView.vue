@@ -3,8 +3,8 @@
     <div class="form">
       <h2>Sign up</h2>
       <div class="field">
-        <BaseText v-model="userData.nickname" :v="v$.nickname" type="Username" :error="error" />
-        <ErrorMessage :v="v$.nickname" :error="error" />
+        <BaseText v-model="userData.username" :v="v$.username" type="Username" :error="error" />
+        <ErrorMessage :v="v$.username" :error="error" />
       </div>
       <div class="field">
         <BaseText v-model="userData.email" :v="v$.email" :error="error" type="Email" />
@@ -27,7 +27,7 @@
     </div>
     <img class="auth-img" src="@/assets/images/notes.webp" alt="" />
     <div class="auth-navs">
-      <button class="border-button" @click="routeToSignIn">Sign in</button>
+      <button class="border-button" @click="routeNavigateTo('sign-in')">Sign in</button>
     </div>
   </div>
 </template>
@@ -41,17 +41,21 @@ import { computed, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ErrorMessage from '@/components/inputs/ErrorMessage.vue'
 
+import { authStore } from '@/stores'
+import type { TRequestError } from '@/types'
+
+const store = authStore()
 const router = useRouter()
 const error = ref('')
 const userData = reactive({
-  nickname: '',
+  username: '',
   email: '',
   password: '',
   confirmPassword: '',
 })
 
 const rules = {
-  nickname: { required },
+  username: { required },
   email: { required, email },
   password: { required, minLength: minLength(6) },
   confirmPassword: {
@@ -66,14 +70,22 @@ const submit = async () => {
   const isFormCorrect = await v$.value.$validate()
   if (!isFormCorrect) return
   try {
-    console.log('submit')
-  } catch (err: any) {
-    error.value = err.response?.data.message || ''
+    const { username, email, password } = userData
+
+    await store.signUp({
+      username,
+      email,
+      password,
+    })
+    await routeNavigateTo('profile')
+  } catch (err) {
+    const message = err as TRequestError
+    error.value = message.response?.data.message || ''
   }
 }
 
-const routeToSignIn = async () => {
-  await router.push('/sign-in')
+const routeNavigateTo = async (name: string) => {
+  await router.push(`/${name}`)
 }
 </script>
 

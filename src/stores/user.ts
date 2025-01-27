@@ -1,3 +1,4 @@
+import { getUserInfoByUsername } from '@/services'
 import type { IUser } from '@/types'
 import { defineStore } from 'pinia'
 import { reactive, toRefs } from 'vue'

@@ -46,13 +46,13 @@ const handleInput = (event: Event) => {
   emit('update:modelValue', target.value)
 }
 
-const { UsernameOrPasswordWrong, PasswordMinLength, PasswordIsEqual } = ErrorMessageEnum
+const { PasswordMinLength, PasswordIsEqual, PassMissMach } = ErrorMessageEnum
 const isPasswordInvalid = () => {
   return (
     (props.v.$invalid && props.v.$dirty) ||
     props.error === PasswordMinLength ||
     props.error === PasswordIsEqual ||
-    props.error === UsernameOrPasswordWrong
+    props.error === PassMissMach
   )
 }
 
