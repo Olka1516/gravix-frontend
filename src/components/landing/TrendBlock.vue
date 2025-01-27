@@ -5,7 +5,7 @@
     <div class="trend-cards">
       <div
         v-for="trend in trends"
-        v-bind:key="trend.id"
+        :key="trend.id"
         class="trend-card"
         :id="`trend-card-${trend.id}`"
       >

@@ -2,7 +2,7 @@
   <div class="container">
     <h2>Power Of Music</h2>
     <div class="cards">
-      <div v-for="singer in singers" v-bind:key="singer.id">
+      <div v-for="singer in singers" :key="singer.id">
         <BaseSingerCard :singer />
       </div>
     </div>

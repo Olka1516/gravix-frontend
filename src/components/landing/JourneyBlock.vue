@@ -5,7 +5,7 @@
       <div
         class="journey-card"
         v-for="data in journey"
-        v-bind:key="data.id"
+        :key="data.id"
         :class="{ reverse: data.id % 2 == 0 }"
       >
         <BaseCard :rhythm="{ id: data.id, text: data.text }" :isTransparent="true"></BaseCard>
