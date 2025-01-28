@@ -5,7 +5,7 @@
       <h3>{{ song.song }}</h3>
       <p>{{ song.singer }}</p>
     </div>
-    <button class="card-play">
+    <button class="circle-button card-play">
       <img src="../../assets/images/icons/play.svg" alt="" />
     </button>
   </div>

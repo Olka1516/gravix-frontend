@@ -1,8 +1,8 @@
 export interface UserSignIn {
-  email: string
+  username: string
   password: string
 }
 
 export interface UserSignUp extends UserSignIn {
-  username: string
+  email: string
 }

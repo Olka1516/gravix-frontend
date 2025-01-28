@@ -4,19 +4,24 @@
       <div class="content-texts">
         <h4>Profile</h4>
         <div class="texts-info">
-          <h2>Username</h2>
-          <h4>Email</h4>
+          <h2>{{ username }}</h2>
+          <h4>{{ email }}</h4>
         </div>
       </div>
       <div class="content-avatar">
-        <span>U</span>
-        <!-- <img src="" alt="" /> -->
+        <button class="circle-button avatar-icon">
+          <img src="@/assets/images/icons/upload.svg" alt="" />
+        </button>
+        <span v-if="!avatar">{{ username[0] }}</span>
+        <img v-else class="avatar-img" :src="avatar" alt="" />
       </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+defineProps<{ username: string; avatar: null | string; email: string }>()
+</script>
 
 <style scoped lang="scss">
 @use '@/assets/styles/index';

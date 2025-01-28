@@ -12,7 +12,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: calc(100% - 380px);
+    width: calc(100% - 250px);
+    @media screen and (max-width: 1024px) {
+      flex-direction: column-reverse;
+      gap: 38px;
+    }
   }
 
   .content-texts {
@@ -20,6 +24,11 @@
     flex-direction: column;
     gap: 50px;
     justify-content: space-between;
+    @media screen and (max-width: 1024px) {
+      gap: 24px;
+      text-align: center;
+      align-items: center;
+    }
   }
   .texts-info {
     & h4 {
@@ -38,9 +47,39 @@
     align-items: center;
     justify-content: center;
     & span {
+      text-transform: uppercase;
       position: absolute;
       font-size: 200px;
       color: $dark_pink;
     }
+    &:hover {
+      .avatar-icon {
+        opacity: 1;
+        visibility: visible;
+        bottom: 24px;
+        transition: all 0.3s ease-out;
+      }
+    }
+    @media screen and (max-width: 1024px) {
+      width: 280px;
+      height: 280px;
+    }
+  }
+
+  .avatar-img {
+    width: 350px;
+    height: 350px;
+    border-radius: 100%;
+    box-shadow: $dark_pink 0px 0px 10px 0px;
+  }
+
+  .avatar-icon {
+    position: absolute;
+    bottom: 0;
+    right: 24px;
+    background-color: $grey;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-out;
   }
 }
