@@ -20,3 +20,15 @@
     }
   }
 }
+
+@mixin circle-button {
+  .circle-button {
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: $shadow_play 0px 2px 8px 0px;
+    border-radius: 100%;
+    background-color: $dark_grey;
+  }
+}

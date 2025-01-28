@@ -114,6 +114,7 @@
 
 @mixin profile-content {
   @include container;
+  @include circle-button;
   @include content-component;
 }
 
@@ -124,5 +125,6 @@
 }
 
 @mixin song-card {
+  @include circle-button;
   @include song-card-component;
 }

@@ -1,5 +1,5 @@
 import { getUserInfoByUsername } from '@/services'
-import type { IUser } from '@/types'
+import type { IUser, IUserDictionary } from '@/types'
 import { defineStore } from 'pinia'
 import { reactive, toRefs } from 'vue'
 
@@ -11,7 +11,9 @@ export const userStore = defineStore('userInfo', () => {
     id: '',
   })
 
-  const getOnlyUserInfo = async (username: string) => {
+  const users: IUserDictionary = reactive({})
+
+  const getUserInfo = async (username: string) => {
     const data = await getUserInfoByUsername(username)
     state.username = data.username
     state.email = data.email
@@ -19,8 +21,17 @@ export const userStore = defineStore('userInfo', () => {
     state.id = data.id
   }
 
+  const getAnotherUserInfo = async (username: string) => {
+    if (!users[username]) {
+      users[username] = await getUserInfoByUsername(username)
+    }
+    return users[username]
+  }
+
   return {
     ...toRefs(state),
-    getOnlyUserInfo,
+    users,
+    getAnotherUserInfo,
+    getUserInfo,
   }
 })

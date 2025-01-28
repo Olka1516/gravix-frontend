@@ -4,3 +4,7 @@ export interface IUser {
   id: string
   avatar: string | null
 }
+
+export interface IUserDictionary {
+  [username: string]: IUser
+}

@@ -7,8 +7,8 @@
     <div class="form">
       <h2>Sign in</h2>
       <div class="field">
-        <BaseText v-model="userData.email" :v="v$.email" :error="error" type="Email" />
-        <ErrorMessage :v="v$.email" :error="error" />
+        <BaseText v-model="userData.username" :v="v$.username" :error="error" type="Username" />
+        <ErrorMessage :v="v$.username" :error="error" />
       </div>
       <div class="field">
         <BasePassword v-model="userData.password" :v="v$.password" :error="error" type="Password" />
@@ -26,7 +26,7 @@ import { useRouter } from 'vue-router'
 import { reactive, ref } from 'vue'
 import BasePassword from '@/components/inputs/BasePassword.vue'
 import ErrorMessage from '@/components/inputs/ErrorMessage.vue'
-import { email, required } from '@vuelidate/validators'
+import { required } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
 
 import type { TRequestError } from '@/types'
@@ -36,12 +36,12 @@ const store = authStore()
 const router = useRouter()
 const error = ref('')
 const userData = reactive({
-  email: '',
+  username: '',
   password: '',
 })
 
 const rules = {
-  email: { required, email },
+  username: { required },
   password: { required },
 }
 
@@ -53,7 +53,7 @@ const submit = async () => {
   }
   try {
     await store.signIn(userData)
-    await routeNavigateTo('profile')
+    await routeNavigateTo('profile/' + userData.username)
   } catch (err) {
     const message = err as TRequestError
     error.value = message.response?.data.message || ''

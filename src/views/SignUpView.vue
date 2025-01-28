@@ -77,7 +77,7 @@ const submit = async () => {
       email,
       password,
     })
-    await routeNavigateTo('profile')
+    await routeNavigateTo('profile/' + userData.username)
   } catch (err) {
     const message = err as TRequestError
     error.value = message.response?.data.message || ''
