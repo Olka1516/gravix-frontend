@@ -1,6 +1,7 @@
 @import './components/baseHeader';
 @import './components/baseFooter';
 @import './components/baseCard';
+@import './components/baseSongCard';
 @import './components/singerCard';
 @import './components/landing/main';
 @import './components/landing/rhythm';
@@ -10,6 +11,8 @@
 @import './components/landing/contact';
 @import './components/inputs/input';
 @import './components/inputs/errors';
+@import './components/profile/contentBlock';
+@import './components/profile/songsBlock';
 @import './general/container';
 @import './general/circle';
 @import './general/texts';
@@ -107,4 +110,19 @@
 
 @mixin errors {
   @include error-container;
+}
+
+@mixin profile-content {
+  @include container;
+  @include content-component;
+}
+
+@mixin profile-songs {
+  @include container;
+  @include border-button;
+  @include songs-component;
+}
+
+@mixin song-card {
+  @include song-card-component;
 }

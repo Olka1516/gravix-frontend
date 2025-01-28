@@ -1,5 +1,6 @@
-import { ENDPOINTS, type UserSignIn, type UserSignUp } from '@/types'
+import { type UserSignIn, type UserSignUp } from '@/types'
 import http from '../http'
+import { ENDPOINTS } from '@/constants'
 
 const setTokens = (refreshToken: string, accessToken: string) => {
   localStorage.setItem('refreshToken', refreshToken)

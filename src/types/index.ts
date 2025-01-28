@@ -1,3 +1,3 @@
 export * from './errors'
+export * from './user'
 export * from './userAuth'
-export * from './endpoints'

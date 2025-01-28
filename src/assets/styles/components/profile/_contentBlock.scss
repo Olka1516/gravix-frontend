@@ -1,0 +1,46 @@
+@mixin content-component {
+  .container {
+    height: 100vh;
+    background: $black;
+    background: linear-gradient(180deg, $dark_purple 0%, $black 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100% - 380px);
+  }
+
+  .content-texts {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    justify-content: space-between;
+  }
+  .texts-info {
+    & h4 {
+      color: $grey;
+    }
+  }
+
+  .content-avatar {
+    width: 350px;
+    height: 350px;
+    position: relative;
+    background-color: $dark_grey;
+    border-radius: 100%;
+    padding: 80px 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & span {
+      position: absolute;
+      font-size: 200px;
+      color: $dark_pink;
+    }
+  }
+}

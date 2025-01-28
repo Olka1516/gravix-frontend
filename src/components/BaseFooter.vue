@@ -1,10 +1,10 @@
 <template>
   <footer class="container">
     <div class="footer-content">
-      <h3 v-for="text in arrayTexts" v-bind:key="text">{{ text }}</h3>
+      <h4 v-for="text in arrayTexts" :key="text">{{ text }}</h4>
     </div>
     <div class="footer-content">
-      <img v-for="icon in icons" v-bind:key="icon" :src="getImage(icon)" alt="" />
+      <img v-for="icon in icons" :key="icon" :src="getImage(icon)" alt="" />
     </div>
     <span>Cookie declaration</span>
     <p class="footer-text">
