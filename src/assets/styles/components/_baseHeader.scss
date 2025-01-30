@@ -1,3 +1,5 @@
+@use '@/assets/styles/themes' as *;
+
 @mixin header-component {
   .header {
     height: 80px;

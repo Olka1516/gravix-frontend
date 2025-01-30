@@ -1,0 +1,43 @@
+@use '@/assets/styles/themes' as *;
+
+@mixin drag-file-component {
+  #drop-area {
+    width: 500px;
+    height: 480px;
+    border: 2px dashed $white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .invalid {
+    border-color: $red !important;
+  }
+
+  #drop-area.highlight {
+    border-color: $pink;
+  }
+
+  #gallery :deep(#previewImage) {
+    width: 470px;
+    height: 450px;
+    border-radius: 16px;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .my-form {
+    padding-inline: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
+  #fileElem {
+    display: none;
+  }
+}

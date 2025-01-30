@@ -1,27 +1,30 @@
-@import './components/baseHeader';
-@import './components/baseFooter';
-@import './components/baseCard';
-@import './components/baseSongCard';
-@import './components/singerCard';
-@import './components/landing/main';
-@import './components/landing/rhythm';
-@import './components/landing/trend';
-@import './components/landing/journey';
-@import './components/landing/power';
-@import './components/landing/contact';
-@import './components/inputs/input';
-@import './components/inputs/errors';
-@import './components/profile/contentBlock';
-@import './components/profile/songsBlock';
-@import './general/container';
-@import './general/circle';
-@import './general/texts';
-@import './general/buttons';
-@import './general/lines';
-@import './general/form';
-@import './pages/auth';
-@import './pages/signUp';
-@import './themes';
+@use './components/baseHeader' as *;
+@use './components/baseFooter' as *;
+@use './components/baseCard' as *;
+@use './components/baseSongCard' as *;
+@use './components/singerCard' as *;
+@use './components/landing/main' as *;
+@use './components/landing/rhythm' as *;
+@use './components/landing/trend' as *;
+@use './components/landing/journey' as *;
+@use './components/landing/power' as *;
+@use './components/landing/contact' as *;
+@use './components/inputs/dragFile' as *;
+@use './components/inputs/input' as *;
+@use './components/inputs/errors' as *;
+@use './components/inputs/selection' as *;
+@use './components/profile/contentBlock' as *;
+@use './components/profile/songsBlock' as *;
+@use './general/container' as *;
+@use './general/circle' as *;
+@use './general/texts' as *;
+@use './general/buttons' as *;
+@use './general/lines' as *;
+@use './general/form' as *;
+@use './pages/auth' as *;
+@use './pages/signUp' as *;
+@use './pages/modify' as *;
+@use './themes' as *;
 
 @mixin header {
   @include container;
@@ -127,4 +130,25 @@
 @mixin song-card {
   @include circle-button;
   @include song-card-component;
+}
+
+@mixin modify {
+  @include form;
+  @include general-form;
+  @include waves;
+  @include modify-component;
+  @include border-button;
+}
+
+@mixin drag-file {
+  @include border-button;
+  @include drag-file-component;
+}
+
+@mixin description {
+  @include description-container;
+}
+
+@mixin selection {
+  @include selection-component;
 }

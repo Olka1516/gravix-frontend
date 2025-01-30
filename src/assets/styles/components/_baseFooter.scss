@@ -1,3 +1,5 @@
+@use '@/assets/styles/themes' as *;
+
 @mixin footer-component {
   .container {
     border-top: 1px solid $white;

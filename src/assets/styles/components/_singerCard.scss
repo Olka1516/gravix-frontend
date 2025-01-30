@@ -1,3 +1,5 @@
+@use '@/assets/styles/themes' as *;
+
 @mixin singer-card-component {
   .singer-card {
     height: 450px;

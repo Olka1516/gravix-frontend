@@ -1,0 +1,42 @@
+@use '@/assets/styles/themes' as *;
+
+@mixin modify-component {
+  .modify {
+    position: relative;
+    height: 100vh;
+    background-color: $black;
+  }
+
+  .form {
+    max-width: calc(100vw - 100px);
+    width: 1200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $black;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .form-inputs {
+    padding-block: 12px;
+    padding-right: 24px;
+    height: 95%;
+    overflow-y: auto;
+    width: 45%;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-direction: column;
+    &::-webkit-scrollbar {
+      width: 2px;
+      background-color: $black;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $grey;
+      border-radius: 11px;
+    }
+  }
+}

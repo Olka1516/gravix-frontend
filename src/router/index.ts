@@ -24,6 +24,12 @@ const router = createRouter({
       component: () => import('../views/ProfileView.vue'),
       meta: { requiresAuth: true },
     },
+    {
+      path: '/modify',
+      name: 'modify',
+      component: () => import('../views/ModifyFormView.vue'),
+      meta: { requiresAuth: true },
+    },
   ],
 })
 
