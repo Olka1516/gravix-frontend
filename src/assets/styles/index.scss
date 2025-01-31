@@ -13,6 +13,7 @@
 @use './components/inputs/input' as *;
 @use './components/inputs/errors' as *;
 @use './components/inputs/selection' as *;
+@use './components/inputs/musicFile' as *;
 @use './components/profile/contentBlock' as *;
 @use './components/profile/songsBlock' as *;
 @use './general/container' as *;
@@ -151,4 +152,9 @@
 
 @mixin selection {
   @include selection-component;
+}
+
+@mixin drag-file-music {
+  @include border-button;
+  @include music-component;
 }

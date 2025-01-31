@@ -12,7 +12,7 @@
   i {
     position: absolute;
     left: 0;
-    top: 12px;
+    top: 16px;
     transition: 0.5s;
     pointer-events: none;
   }
@@ -21,7 +21,7 @@
   input:valid ~ i,
   textarea:focus ~ i,
   textarea:valid ~ i {
-    transform: translateY(-21.5px);
+    transform: translateY(-24px);
     font-size: 0.9em;
   }
 
