@@ -57,6 +57,27 @@ const getError = () => {
       if (message === IsRequired) return IsRequired
       else if (props.error === UsernameInUse) return 'Username already in use!'
       break
+    case 'title':
+      if (message === IsRequired) return IsRequired
+      break
+    case 'description':
+      if (message === IsRequired) return IsRequired
+      break
+    case 'lyrics':
+      if (message === IsRequired) return IsRequired
+      break
+    case 'genres':
+      if (message === IsRequired) return IsRequired
+      break
+    case 'author':
+      if (message === IsRequired) return IsRequired
+      break
+    case 'releaseYear':
+      if (message === IsRequired) return IsRequired
+      break
+    case 'song':
+      if (message === IsRequired) return IsRequired
+      break
   }
 }
 </script>

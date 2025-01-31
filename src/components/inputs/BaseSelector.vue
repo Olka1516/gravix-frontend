@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <div class="select" @click="changeStatus">
+    <div class="select" @click="changeStatus" :class="{ invalid: isInfoInvalid() }">
       <i v-if="!selectedDatas.length">{{ type }}</i>
       <div class="selected-product">
         <span v-for="product in selectedDatas" :key="product">
@@ -24,7 +24,10 @@ const props = defineProps<{
   modelValue: string[]
   allSelections: string[]
   type: string
-  v: string
+  v?: {
+    $invalid: boolean
+    $dirty: boolean
+  }
 }>()
 
 const emit = defineEmits<{
@@ -49,6 +52,11 @@ const deleteChoose = (event: Event, product: string) => {
   event.stopPropagation()
   selectedDatas.value = selectedDatas.value.filter((item) => item !== product)
   emit('update:modelValue', selectedDatas.value)
+}
+
+const isInfoInvalid = () => {
+  if (!props.v) return
+  return props.v.$invalid && props.v.$dirty && !selectedDatas.value
 }
 </script>
 

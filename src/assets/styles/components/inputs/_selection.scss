@@ -11,6 +11,10 @@
     padding-block: 12px 8px;
   }
 
+  .invalid {
+    border-color: $red;
+  }
+
   .select-open {
     position: absolute;
     z-index: 1;

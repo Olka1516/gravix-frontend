@@ -4,31 +4,48 @@
       <div v-for="k in 3" :key="k" class="wave"></div>
     </div>
     <div class="form">
-      <BaseDragFile @update="(item) => setImage(item)" />
+      <BaseDragFile :url="data.image" @update="(item) => setImage(item)" :v="v$.image" />
       <div class="form-inputs">
         <div class="field">
-          <BaseText v-model="data.title" type="Title" v="" />
+          <BaseText v-model="data.title" type="Title" :v="v$.title" />
+          <ErrorMessage :v="v$.title" />
         </div>
         <div class="field">
-          <BaseTextarea v-model="data.description" type="Description" v="" />
+          <BaseTextarea v-model="data.description" type="Description" :v="v$.description" />
+          <ErrorMessage :v="v$.description" />
         </div>
         <div class="field">
-          <BaseMusic v-model="data.song" @update="(item) => setMusic(item)" type="Song" v="" />
+          <BaseMusic :url="data.song" @update="(item) => setMusic(item)" :v="v$.song" />
+          <ErrorMessage :v="v$.song" />
         </div>
         <div class="field">
-          <BaseText v-model="data.author" type="Author" v="" />
+          <BaseText v-model="data.author" type="Author" :v="v$.author" />
+          <ErrorMessage :v="v$.author" />
         </div>
         <div class="field">
-          <BaseSelector v-model="data.genres" :allSelections="songsGenres" type="Genres" v="" />
+          <BaseSelector
+            v-model="data.genres"
+            :allSelections="songsGenres"
+            type="Genres"
+            :v="v$.genres"
+          />
+          <ErrorMessage :v="v$.genres" />
         </div>
         <div class="field">
-          <BaseTextarea v-model="data.lyrics" type="Lyrics" v="" />
+          <BaseTextarea v-model="data.lyrics" type="Lyrics" :v="v$.lyrics" />
+          <ErrorMessage :v="v$.lyrics" />
         </div>
         <div class="field">
-          <BaseTime v-model="data.releaseYear" type="date" name="Release year" v="" />
+          <BaseTime
+            v-model="data.releaseYear"
+            type="date"
+            name="Release year"
+            :v="v$.releaseYear"
+          />
+          <ErrorMessage :v="v$.releaseYear" />
         </div>
 
-        <button class="border-button">Submit</button>
+        <button class="border-button" @click="submit">Submit</button>
       </div>
     </div>
   </div>
@@ -41,8 +58,11 @@ import BaseSelector from '@/components/inputs/BaseSelector.vue'
 import BaseText from '@/components/inputs/BaseText.vue'
 import BaseTextarea from '@/components/inputs/BaseTextarea.vue'
 import BaseTime from '@/components/inputs/BaseTime.vue'
+import ErrorMessage from '@/components/inputs/ErrorMessage.vue'
 import { songsGenres } from '@/constants'
 import type { ISong } from '@/types'
+import useVuelidate from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
 import { reactive } from 'vue'
 
 const data: ISong = reactive({
@@ -58,6 +78,19 @@ const data: ISong = reactive({
   rating: 0,
   ratingCount: 0,
 })
+
+const rules = {
+  title: { required },
+  description: { required },
+  lyrics: { required },
+  image: { required },
+  song: { required },
+  genres: { required },
+  author: { required },
+  releaseYear: { required },
+}
+
+const v$ = useVuelidate(rules, data)
 
 const setMusic = (file: File) => {
   data.song = file
@@ -76,6 +109,18 @@ const setMusic = (file: File) => {
 
 const setImage = (file: File) => {
   data.image = file
+}
+
+const submit = async () => {
+  const isFormCorrect = await v$.value.$validate()
+  if (!isFormCorrect) {
+    return
+  }
+  try {
+    console.log('submit')
+  } catch {
+    console.log('error')
+  }
 }
 </script>
 
