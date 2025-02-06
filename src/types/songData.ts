@@ -1,4 +1,5 @@
 export interface ISong {
+  username: string
   title: string
   description: string
   lyrics: string
