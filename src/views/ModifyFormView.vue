@@ -60,12 +60,17 @@ import BaseTextarea from '@/components/inputs/BaseTextarea.vue'
 import BaseTime from '@/components/inputs/BaseTime.vue'
 import ErrorMessage from '@/components/inputs/ErrorMessage.vue'
 import { songsGenres } from '@/constants'
+import { songStore } from '@/stores'
 import type { ISong } from '@/types'
 import useVuelidate from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
+const store = songStore()
 const data: ISong = reactive({
+  username: '',
   title: '',
   description: '',
   lyrics: '',
@@ -117,7 +122,9 @@ const submit = async () => {
     return
   }
   try {
-    console.log('submit')
+    data.username = localStorage.getItem('username') || ''
+    await store.createSong(data)
+    router.push(`prifile/${data.username}`)
   } catch {
     console.log('error')
   }
