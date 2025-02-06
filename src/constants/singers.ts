@@ -1,9 +1,9 @@
 import singers_1 from '@/assets/images/singer_1.webp'
 import singers_2 from '@/assets/images/singer_2.webp'
 import singers_3 from '@/assets/images/singer_3.webp'
-import singers_4 from '@/assets/images/singer_4.jpg'
-import singers_5 from '@/assets/images/singer_5.jpg'
-import singers_6 from '@/assets/images/singer_6.jpg'
+import singers_4 from '@/assets/images/singer_4.webp'
+import singers_5 from '@/assets/images/singer_5.webp'
+import singers_6 from '@/assets/images/singer_6.webp'
 
 export const singers = [
   {

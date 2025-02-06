@@ -1,5 +1,8 @@
+@use '@/assets/styles/themes' as *;
+
 @mixin input {
-  input {
+  input,
+  textarea {
     position: relative;
     padding: 16px 10px 8px;
     font-weight: 500;
@@ -9,14 +12,16 @@
   i {
     position: absolute;
     left: 0;
-    top: 12px;
+    top: 16px;
     transition: 0.5s;
     pointer-events: none;
   }
 
   input:focus ~ i,
-  input:valid ~ i {
-    transform: translateY(-21.5px);
+  input:valid ~ i,
+  textarea:focus ~ i,
+  textarea:valid ~ i {
+    transform: translateY(-24px);
     font-size: 0.9em;
   }
 
@@ -30,5 +35,12 @@
     position: absolute;
     right: 5px;
     margin: 12px 13px;
+  }
+}
+
+@mixin description-container {
+  @include input;
+  textarea {
+    resize: none;
   }
 }

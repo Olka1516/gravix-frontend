@@ -1,0 +1,97 @@
+@use '@/assets/styles/themes' as *;
+
+@mixin selection-component {
+  .select {
+    display: flex;
+    position: relative;
+    background-color: $black;
+    border-bottom: 1px solid $white;
+    width: 100%;
+    cursor: pointer;
+    padding-block: 12px 8px;
+  }
+
+  .select-open {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 42px;
+    width: 100%;
+    box-shadow: $shadow_header 0px 2px 8px 0px;
+    background-color: $light_grey;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+    height: 250px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 10px;
+      background-color: $white;
+    }
+    &::-webkit-scrollbar-thumb {
+      height: 60px;
+      background-color: $grey;
+      border-radius: 11px;
+    }
+
+    @media screen and (max-width: 767px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  i {
+    top: 0;
+    left: 25px;
+  }
+
+  h5 {
+    padding-left: 15px;
+    background-color: $dark_grey;
+  }
+
+  .selected-product {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    gap: 16px;
+    height: 25px;
+    white-space: nowrap;
+    &::-webkit-scrollbar {
+      height: 0.1px;
+      background-color: $black;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      height: 1px;
+      background-color: $grey;
+      border-radius: 11px;
+    }
+  }
+
+  span {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding-inline: 16px 6px;
+    background-color: $shadow_2_header;
+    color: $white;
+    border-radius: 8px;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    background-color: transparent;
+    height: 100%;
+    width: 16px;
+    & img {
+      height: 16px;
+      width: 16px;
+    }
+  }
+}

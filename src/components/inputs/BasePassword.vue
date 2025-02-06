@@ -27,7 +27,7 @@ const props = defineProps<{
   v: {
     $invalid: boolean
     $dirty: boolean
-    $touch: Function
+    $touch: () => void
   }
   error?: string
 }>()

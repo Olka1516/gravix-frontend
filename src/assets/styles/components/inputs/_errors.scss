@@ -1,3 +1,5 @@
+@use '@/assets/styles/themes' as *;
+
 @mixin error-container {
   .error {
     position: absolute;
