@@ -25,12 +25,11 @@
 import { ref, onMounted, type Ref } from 'vue'
 
 const props = defineProps<{
-  isPostsPage?: boolean
   v?: {
     $invalid: boolean
     $dirty: boolean
   }
-  url?: string
+  url: string | File | null
 }>()
 
 const text = ref('Song')
@@ -109,7 +108,7 @@ const clearPreview = () => {
 
 onMounted(() => {
   dropArea.value = document.querySelector('.drop-area')
-  if (props.url) {
+  if (typeof props.url === 'string') {
     isMusicChosen.value = true
     audioUrl.value = props.url
   }

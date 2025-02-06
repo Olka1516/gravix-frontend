@@ -2,12 +2,11 @@
 import { ref, onMounted, type Ref } from 'vue'
 
 const props = defineProps<{
-  isPostsPage?: boolean
   v?: {
     $invalid: boolean
     $dirty: boolean
   }
-  url?: string
+  url: string | File | null
 }>()
 
 const text = ref(
@@ -111,10 +110,12 @@ const clearGallery = () => {
 onMounted(() => {
   dropArea.value = document.querySelector('.drop-area')
   if (!props.url) return
-  isImageChoosen.value = true
-  const img = document.createElement('img')
-  img.src = props.url
-  document.getElementById('gallery')?.appendChild(img)
+  if (typeof props.url === 'string') {
+    isImageChoosen.value = true
+    const img = document.createElement('img')
+    img.src = props.url
+    document.getElementById('gallery')?.appendChild(img)
+  }
 })
 
 const isInfoInvalid = () => {
@@ -140,7 +141,7 @@ const isInfoInvalid = () => {
       <label class="border-button" for="fileElem">Choose image</label>
     </form>
     <div v-if="isImageChoosen || props.url">
-      <div id="gallery" :class="{ gallery: isPostsPage }"></div>
+      <div id="gallery"></div>
     </div>
   </div>
 </template>

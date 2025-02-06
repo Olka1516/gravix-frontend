@@ -5,6 +5,10 @@
     border-bottom: 1px solid $white;
   }
 
+  .invalid {
+    border-color: $red;
+  }
+
   #audioElem {
     display: none;
   }
