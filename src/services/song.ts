@@ -20,3 +20,8 @@ export const createUserSong = async (songData: ISong) => {
   const data = await http.post(ENDPOINTS.CREATE_SONG, formData)
   return data.data
 }
+
+export const getSongsByUsername = async (username: string) => {
+  const data = await http.get(ENDPOINTS.GET_SONGS(username))
+  return data.data
+}

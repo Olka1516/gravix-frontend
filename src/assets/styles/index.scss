@@ -1,5 +1,6 @@
 @use './components/baseHeader' as *;
 @use './components/baseFooter' as *;
+@use './components/baseAudio' as *;
 @use './components/baseCard' as *;
 @use './components/baseSongCard' as *;
 @use './components/singerCard' as *;
@@ -23,6 +24,7 @@
 @use './general/lines' as *;
 @use './general/form' as *;
 @use './pages/auth' as *;
+@use './pages/profileView' as *;
 @use './pages/signUp' as *;
 @use './pages/modify' as *;
 @use './themes' as *;
@@ -146,6 +148,11 @@
   @include drag-file-component;
 }
 
+@mixin base-audio {
+  @include border-button;
+  @include base-audio-component;
+}
+
 @mixin description {
   @include description-container;
 }
@@ -157,4 +164,8 @@
 @mixin drag-file-music {
   @include border-button;
   @include music-component;
+}
+
+@mixin profile-view {
+  @include profile-view-component;
 }

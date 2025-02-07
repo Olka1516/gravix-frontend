@@ -11,11 +11,21 @@
   .navs {
     display: flex;
     gap: 48px;
+    & button {
+      padding: 10px 32px;
+    }
   }
 
   .songs {
     display: grid;
     gap: 48px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  .empty {
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

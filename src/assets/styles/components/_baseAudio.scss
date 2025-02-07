@@ -1,0 +1,31 @@
+@mixin base-audio-component {
+  .audio {
+    position: fixed;
+    z-index: 999;
+    bottom: 5%;
+    left: 50%;
+    transform: translate(-50%);
+    background-color: black;
+    width: 60%;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: opacity 0.3s ease;
+  }
+
+  .audio-info {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    & img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    & h5 {
+      color: grey;
+    }
+  }
+}
