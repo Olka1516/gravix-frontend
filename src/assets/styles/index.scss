@@ -27,6 +27,7 @@
 @use './pages/profileView' as *;
 @use './pages/signUp' as *;
 @use './pages/modify' as *;
+@use './pages/detailed' as *;
 @use './themes' as *;
 
 @mixin header {
@@ -168,4 +169,10 @@
 
 @mixin profile-view {
   @include profile-view-component;
+}
+
+@mixin detailed-view {
+  @include border-button;
+  @include container;
+  @include detailed-component;
 }

@@ -11,19 +11,12 @@
       </button>
     </div>
 
-    <div class="songs" v-if="isContent()">
-      <BaseSongCard
-        v-for="song in songs"
-        :key="song.id"
-        :title="song.title"
-        :author="song.author"
-        :image="song.image as string"
-        :song="song.song as string"
-      />
+    <div class="songs" v-if="hasContent">
+      <BaseSongCard v-for="song in songs" :key="song.id" v-bind:song="song" />
     </div>
 
     <div class="empty" v-else>
-      <h2>There are no {{ activeNav }} here</h2>
+      <h2>There are no {{ emptyMessage }} here</h2>
     </div>
 
     <button class="border-button" @click="changeRoute">Add</button>
@@ -31,30 +24,32 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import BaseSongCard from '../general/BaseSongCard.vue'
-import type { ISong } from '@/types'
+import type { ISongGetted } from '@/types'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const props = defineProps<{ songs: ISong[] }>()
+const props = defineProps<{ songs: ISongGetted[] }>()
 
 const navs = ['Songs', 'Playlists']
-const activeNav = ref('Songs')
+const activeNav = ref(navs[0])
 
-const changeActiveNav = (nav: number) => {
-  activeNav.value = navs[nav]
+const changeActiveNav = (index: number) => {
+  activeNav.value = navs[index]
 }
+
+const hasContent = computed(() => {
+  if (activeNav.value === 'Songs') return props.songs.length > 0
+  return false
+})
+
+const emptyMessage = computed(() => {
+  return activeNav.value.toLowerCase()
+})
 
 const changeRoute = () => {
   if (activeNav.value === 'Songs') router.push('/modify')
-}
-
-const isContent = () => {
-  return (
-    (activeNav.value === 'Songs' && props.songs.length) ||
-    (activeNav.value === 'Playlists' && false)
-  )
 }
 </script>
 

@@ -1,37 +1,39 @@
 <template>
-  <div class="card">
-    <img class="card-img" :src="image" alt="Song image" />
-    <div>
-      <h3>{{ title }}</h3>
-      <p>{{ author }}</p>
+  <div class="card" @click="detailedSong.setDitailedSong(song)">
+    <img class="card-img" :src="song.image" alt="Song image" />
+
+    <div class="card-content">
+      <h3>{{ song.title }}</h3>
+      <p>{{ song.author }}</p>
     </div>
-    <button class="circle-button card-play" @click="chooseSong">
-      <img src="../../assets/images/icons/play.svg" alt="" />
+
+    <button class="circle-button card-play" @click="chooseSong($event)">
+      <img src="../../assets/images/icons/play.svg" alt="Play" />
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { ISongItem } from '@/types'
-import { inject } from 'vue'
+import type { ISongGetted, ISongItem } from '@/types'
+import { inject, computed } from 'vue'
 
-const props = defineProps<{ title: string; image: string; author: string; song: string }>()
-const { updateSongPlay } = inject<{ updateSongPlay: () => void }>('isSongPlay', {
-  updateSongPlay: () => {},
-})
+const props = defineProps<{ song: ISongGetted }>()
 
-const { updateSong } = inject<{ updateSong: (item: ISongItem) => void }>('song', {
-  updateSong: () => {},
-})
+const detailedSong = inject<{ setDitailedSong: (item: ISongGetted) => void }>('detailedSong')
+const songPlayInject = inject<{ updateSongPlay: () => void }>('isSongPlay')
+const songInject = inject<{ updateSong: (item: ISongItem) => void }>('song')
 
-const chooseSong = () => {
-  updateSongPlay()
-  updateSong({
-    song: props.song,
-    title: props.title,
-    author: props.author,
-    image: props.image,
-  })
+const songData = computed(() => ({
+  song: props.song.song,
+  title: props.song.title,
+  author: props.song.author,
+  image: props.song.image,
+}))
+
+const chooseSong = (event: Event) => {
+  event.stopPropagation()
+  songInject?.updateSong(songData.value)
+  songPlayInject?.updateSongPlay()
 }
 </script>
 

@@ -3,19 +3,21 @@ export interface ISong {
   title: string
   description: string
   lyrics: string
-  image: null | File | string
-  song: null | File | string
+  image: null | File
+  song: null | File
   genres: string[]
   author: string
   duration: string
   releaseYear: string
   rating: number
   ratingCount: number
-  id?: string
 }
 
 export interface ISongDictionary {
-  [username: string]: ISong[]
+  [username: string]: ISongGetted[]
+}
+export interface ISongDictionaryById {
+  [id: string]: ISongGetted
 }
 
 export interface ISongItem {
@@ -23,4 +25,20 @@ export interface ISongItem {
   author: string
   image: string
   song: string
+}
+
+export interface ISongGetted {
+  username: string
+  title: string
+  description: string
+  lyrics: string
+  image: string
+  song: string
+  genres: string[]
+  author: string
+  duration: string
+  releaseYear: string
+  rating: number
+  ratingCount: number
+  id: string
 }

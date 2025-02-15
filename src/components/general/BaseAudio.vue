@@ -21,10 +21,10 @@
 
 <script setup lang="ts">
 import type { ISongItem } from '@/types'
-import { inject, reactive } from 'vue'
+import { inject } from 'vue'
 
 const { song } = inject<{ song: ISongItem }>('song', {
-  song: reactive({ song: '', title: '', author: '', image: '' }),
+  song: { song: '', title: '', author: '', image: '' },
 })
 </script>
 

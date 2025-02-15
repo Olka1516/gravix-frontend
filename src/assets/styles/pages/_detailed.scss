@@ -1,0 +1,75 @@
+@use '@/assets/styles/themes' as *;
+
+@mixin detailed-component {
+  .container {
+    min-height: 100vh;
+    padding-block: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .detailed-exit {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .detailed {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    & span {
+      border-radius: 8px;
+      color: $white;
+      font-size: 14px;
+      padding: 4px 8px;
+      background-color: $grey;
+    }
+  }
+
+  .detailed-rating,
+  .detailed-genres {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .detailed-genres {
+    gap: 8px;
+  }
+
+  .detailed-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .detailed-content {
+    display: flex;
+    gap: 24px;
+  }
+
+  .detailed-content-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    & p {
+      color: $grey;
+      font-size: 14px;
+    }
+  }
+
+  .detailed-album {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .border-button {
+    display: flex;
+    padding: 6px 12px;
+  }
+}
