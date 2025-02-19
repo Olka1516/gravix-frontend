@@ -20,4 +20,5 @@ export const signInByUserData = async (user: UserSignIn) => {
 export const logOutUser = () => {
   localStorage.removeItem('refreshToken')
   localStorage.removeItem('accessToken')
+  localStorage.removeItem('username')
 }

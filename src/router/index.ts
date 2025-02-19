@@ -42,7 +42,7 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const accessToken = localStorage.getItem('accessToken') || ''
 
-  if (!accessToken && to.path === '/profile') {
+  if (!accessToken && to.path.includes('/profile')) {
     next('/')
     return
   }

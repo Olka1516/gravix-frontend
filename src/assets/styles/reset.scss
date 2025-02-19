@@ -76,9 +76,13 @@ a {
   line-height: 22px;
 }
 
+audio::-webkit-media-controls-enclosure {
+  background-color: #000;
+}
+
 audio::-webkit-media-controls-panel {
-  background-color: #7a7a7a;
-  border: none;
+  color-scheme: dark;
+  background-color: #000;
 }
 
 h1,
