@@ -1,7 +1,7 @@
 <template>
   <header class="container header">
     <div class="header-content">
-      <img src="@/assets/images/logo.png" alt="" />
+      <img src="@/assets/images/logo.png" alt="" @click="navigateTo('')" />
       <button>All songs</button>
       <button>Songs for you</button>
     </div>

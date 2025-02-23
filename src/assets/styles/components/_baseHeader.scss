@@ -23,4 +23,9 @@
     align-items: center;
     gap: 24px;
   }
+
+  img {
+    cursor: pointer;
+    pointer-events: all;
+  }
 }

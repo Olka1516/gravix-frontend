@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior() {
+    return { top: 0 }
+  },
   routes: [
     {
       path: '/',
@@ -44,6 +47,9 @@ router.beforeEach(async (to, from, next) => {
 
   if (!accessToken && to.path.includes('/profile')) {
     next('/')
+    return
+  } else if (accessToken && to.path == '/') {
+    next('/songs')
     return
   }
 
