@@ -1,3 +1,5 @@
+@use '@/assets/styles/themes' as *;
+
 @mixin base-audio-component {
   .audio {
     position: fixed;
@@ -5,13 +7,15 @@
     bottom: 5%;
     left: 50%;
     transform: translate(-50%);
-    background-color: black;
+    background-color: $black;
     width: 60%;
-    padding: 24px;
+    padding: 12px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     transition: opacity 0.3s ease;
+    border: 1px $grey solid;
+    border-radius: 12px;
   }
 
   .audio-info {
@@ -25,7 +29,11 @@
       border-radius: 8px;
     }
     & h5 {
-      color: grey;
+      color: $grey;
     }
+  }
+
+  audio {
+    width: 50%;
   }
 }
