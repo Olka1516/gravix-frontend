@@ -2,8 +2,20 @@
   <div>
     <BaseHeader />
     <ContentBlock :username="data.username" :avatar="data.avatar" :email="data.email" />
-    <SongsBlock />
+    <SongsBlock :songs="songs" />
     <BaseFooter />
+    <Teleport to="body">
+      <Transition name="modal">
+        <BaseAudio
+          v-show="isSongPlay"
+          :song="song.song"
+          :title="song.title"
+          :author="song.author"
+          :image="song.image"
+          @exit="isSongPlay = false"
+        />
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
@@ -12,10 +24,11 @@ import BaseHeader from '@/components/BaseHeader.vue'
 import ContentBlock from '@/components/profile/ContentBlock.vue'
 import SongsBlock from '@/components/profile/SongsBlock.vue'
 import BaseFooter from '@/components/BaseFooter.vue'
-import { onMounted, reactive } from 'vue'
-import { userStore } from '@/stores'
+import { onMounted, provide, reactive, ref, type Ref } from 'vue'
+import { songStore, userStore } from '@/stores'
 import { useRoute } from 'vue-router'
-import type { IUser } from '@/types'
+import type { ISong, ISongItem, IUser } from '@/types'
+import BaseAudio from '@/components/general/BaseAudio.vue'
 
 const data = reactive<IUser>({
   username: '',
@@ -24,27 +37,61 @@ const data = reactive<IUser>({
   id: '',
 })
 
+const song = reactive({
+  song: '',
+  title: '',
+  author: '',
+  image: '',
+})
+
+const songs: Ref<ISong[]> = ref([])
+const isSongPlay = ref(false)
+
 const route = useRoute()
 const store = userStore()
+const storeSongs = songStore()
 
-const updateData = (user: IUser) => {
+const updateSong = (item: ISongItem) => {
+  song.song = item.song
+  song.title = item.title
+  song.author = item.author
+  song.image = item.image
+}
+
+const updateSongPlay = () => {
+  isSongPlay.value = true
+}
+
+provide('song', { song, updateSong })
+provide('isSongPlay', { isSongPlay, updateSongPlay })
+
+const updateData = (user: IUser, userSongs: ISong[]) => {
   data.avatar = user.avatar
   data.username = user.username
   data.email = user.email
   data.id = user.id
+
+  songs.value = userSongs
 }
 
 onMounted(async () => {
-  const username = localStorage.getItem('username')
+  const username = localStorage.getItem('username') || ''
   const routeUsername = route.params.username.toString()
   if (!store.username) {
     await store.getUserInfo(routeUsername)
-    updateData(store)
-  } else if (username === store.username) {
-    updateData(store)
+    await storeSongs.getSongs(username)
+    updateData(store, storeSongs.state)
+  } else if (username === routeUsername) {
+    updateData(store, storeSongs.state)
   } else {
     const tempData = await store.getAnotherUserInfo(routeUsername)
-    updateData(tempData)
+    const tempDataSongs = await storeSongs.getAnotherUserSongs(routeUsername)
+    updateData(tempData, tempDataSongs)
   }
 })
 </script>
+
+<style scoped lang="scss">
+@use '@/assets/styles/index';
+@include index.profile-view;
+</style>
