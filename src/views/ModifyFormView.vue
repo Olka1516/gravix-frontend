@@ -124,7 +124,7 @@ const submit = async () => {
   try {
     data.username = localStorage.getItem('username') || ''
     await store.createSong(data)
-    router.push(`prifile/${data.username}`)
+    router.push(`profile/${data.username}`)
   } catch {
     console.log('error')
   }

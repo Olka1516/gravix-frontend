@@ -25,3 +25,8 @@ export const getSongsByUsername = async (username: string) => {
   const data = await http.get(ENDPOINTS.GET_SONGS(username))
   return data.data
 }
+
+export const getSongById = async (id: string) => {
+  const data = await http.get(ENDPOINTS.GET_SONG(id))
+  return data.data
+}
