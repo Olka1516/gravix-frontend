@@ -23,7 +23,7 @@
           </div>
         </div>
       </div>
-      <button class="border-button" @click="isSongPlay = true">
+      <button class="border-button" @click="chooseSong">
         <img src="@/assets/images/icons/play.svg" alt="Play" />
       </button>
     </div>
@@ -32,21 +32,17 @@
       <p>{{ song.lyrics }}</p>
     </div>
   </div>
-  <Teleport to="body">
-    <Transition name="modal">
-      <BaseAudio :isSongPlay v-show="isSongPlay" @exit="isSongPlay = false" />
-    </Transition>
-  </Teleport>
 </template>
 
 <script setup lang="ts">
-import BaseAudio from '@/components/general/BaseAudio.vue'
 import type { ISongGetted } from '@/types'
 import { inject, ref } from 'vue'
-const isSongPlay = ref(false)
 
-const { song } = inject<{ song: ISongGetted }>('songPlayDetails', {
-  song: {
+const songInject = inject<{ song: ISongGetted; updateSong: (item: ISongGetted) => void }>(
+  'songPlayDetails',
+)
+const { detailedSong } = inject<{ detailedSong: ISongGetted }>('detailedSong', {
+  detailedSong: {
     username: '',
     title: '',
     description: '',
@@ -62,6 +58,12 @@ const { song } = inject<{ song: ISongGetted }>('songPlayDetails', {
     id: '',
   },
 })
+
+const song = ref(detailedSong)
+
+const chooseSong = () => {
+  if (song.value) songInject?.updateSong(song.value)
+}
 </script>
 
 <style scoped lang="scss">

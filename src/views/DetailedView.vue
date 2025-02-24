@@ -13,7 +13,7 @@ import ContentBlock from '@/components/detailed/ContentBlock.vue'
 
 import { songStore } from '@/stores'
 import type { ISongGetted } from '@/types'
-import { onMounted, provide, ref } from 'vue'
+import { inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 const storeSongs = songStore()
@@ -35,9 +35,10 @@ const song = ref<ISongGetted>({
   id: '',
 })
 
-provide('songPlayDetails', { song })
+const detailedInject = inject<{ setDitailedSong: (item: ISongGetted) => void }>('detailedSong')
 
 onMounted(async () => {
   song.value = await storeSongs.getSong(route.params.id.toString())
+  detailedInject?.setDitailedSong(song.value)
 })
 </script>
