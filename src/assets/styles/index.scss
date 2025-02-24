@@ -167,7 +167,7 @@
   @include music-component;
 }
 
-@mixin profile-view {
+@mixin modal-view {
   @include profile-view-component;
 }
 
@@ -175,5 +175,4 @@
   @include border-button;
   @include container;
   @include detailed-component;
-  @include profile-view-component;
 }

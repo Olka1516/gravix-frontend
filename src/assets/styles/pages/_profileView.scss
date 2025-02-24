@@ -1,4 +1,8 @@
 @mixin profile-view-component {
+  main {
+    overflow: hidden;
+  }
+
   .modal-enter-from,
   .modal-leave-to {
     opacity: 0;
