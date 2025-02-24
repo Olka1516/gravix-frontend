@@ -8,7 +8,7 @@
     <BaseFooter />
     <Teleport to="body">
       <Transition name="modal">
-        <BaseAudio v-show="isSongPlay" @exit="isSongPlay = false" />
+        <BaseAudio v-show="isSongPlay" @exit="closeSongModal" :isSongPlay />
       </Transition>
     </Teleport>
   </div>
@@ -47,12 +47,24 @@ const router = useRouter()
 const store = userStore()
 const storeSongs = songStore()
 
-const updateSong = (item: ISongItem) => {
-  song.value = { ...item }
+const closeSongModal = () => {
+  isSongPlay.value = false
+  setTimeout(() => {
+    song.value = {
+      song: '',
+      title: '',
+      author: '',
+      image: '',
+    }
+  }, 300)
 }
 
-const updateSongPlay = () => {
-  isSongPlay.value = true
+const updateSong = (item: ISongItem) => {
+  closeSongModal()
+  setTimeout(() => {
+    song.value = { ...item }
+    isSongPlay.value = true
+  }, 320)
 }
 
 const setDitailedSong = (data: ISongGetted) => {
@@ -65,9 +77,8 @@ const updateData = (user: IUser, userSongs: ISongGetted[]) => {
   songs.value = userSongs
 }
 
-provide('song', { song, updateSong })
+provide('songPlayDetails', { song, isSongPlay, updateSong })
 provide('detailedSong', { setDitailedSong })
-provide('isSongPlay', { isSongPlay, updateSongPlay })
 
 onMounted(async () => {
   const routeUsername = route.params.username.toString()

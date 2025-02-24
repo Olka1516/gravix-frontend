@@ -3,16 +3,10 @@
 @mixin detailed-component {
   .container {
     min-height: 100vh;
-    padding-block: 36px;
+    padding-block: 112px 36px;
     display: flex;
     flex-direction: column;
     gap: 24px;
-  }
-
-  .detailed-exit {
-    position: absolute;
-    top: 0;
-    right: 0;
   }
 
   .detailed {

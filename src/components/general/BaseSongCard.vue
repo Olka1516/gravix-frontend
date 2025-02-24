@@ -1,5 +1,5 @@
 <template>
-  <div class="card" @click="detailedSong.setDitailedSong(song)">
+  <div class="card" @click="detailedSong?.setDitailedSong(song)">
     <img class="card-img" :src="song.image" alt="Song image" />
 
     <div class="card-content">
@@ -20,8 +20,7 @@ import { inject, computed } from 'vue'
 const props = defineProps<{ song: ISongGetted }>()
 
 const detailedSong = inject<{ setDitailedSong: (item: ISongGetted) => void }>('detailedSong')
-const songPlayInject = inject<{ updateSongPlay: () => void }>('isSongPlay')
-const songInject = inject<{ updateSong: (item: ISongItem) => void }>('song')
+const songInject = inject<{ updateSong: (item: ISongItem) => void }>('songPlayDetails')
 
 const songData = computed(() => ({
   song: props.song.song,
@@ -33,7 +32,6 @@ const songData = computed(() => ({
 const chooseSong = (event: Event) => {
   event.stopPropagation()
   songInject?.updateSong(songData.value)
-  songPlayInject?.updateSongPlay()
 }
 </script>
 

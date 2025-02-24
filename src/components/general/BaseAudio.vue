@@ -9,6 +9,7 @@
     </div>
     <audio
       v-if="song.song"
+      ref="audioRef"
       controls
       controlslist="nofullscreen nodownload noremoteplayback noplaybackrate foobar"
     >
@@ -21,10 +22,19 @@
 
 <script setup lang="ts">
 import type { ISongItem } from '@/types'
-import { inject } from 'vue'
+import { inject, useTemplateRef, watchEffect } from 'vue'
 
-const { song } = inject<{ song: ISongItem }>('song', {
+const props = defineProps<{ isSongPlay: boolean }>()
+
+const audioRef = useTemplateRef('audioRef')
+
+const { song } = inject<{ song: ISongItem }>('songPlayDetails', {
   song: { song: '', title: '', author: '', image: '' },
+})
+
+watchEffect(() => {
+  if (props.isSongPlay) audioRef.value?.play()
+  else audioRef.value?.pause()
 })
 </script>
 

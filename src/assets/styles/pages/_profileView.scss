@@ -1,15 +1,24 @@
 @mixin profile-view-component {
-  .modal-enter-from {
-    opacity: 0;
-  }
-
+  .modal-enter-from,
   .modal-leave-to {
     opacity: 0;
+    transform: translateY(100%) translateX(-50%);
   }
 
   .modal-enter-from .modal-container,
   .modal-leave-to .modal-container {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
+  }
+
+  .modal-enter-active,
+  .modal-leave-active {
+    transition: all 0.5s ease;
+  }
+
+  .modal-enter-to,
+  .modal-leave-from {
+    opacity: 1;
+    transform: translateY(0) translateX(-50%);
   }
 }
