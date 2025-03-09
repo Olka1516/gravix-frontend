@@ -1,0 +1,41 @@
+@use '@/assets/styles/themes' as *;
+
+@mixin songs-profile-component {
+  .container {
+    min-height: 100vh;
+    background-color: $black;
+    padding-block: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+  }
+
+  .songs-head {
+    display: flex;
+    gap: 32px;
+  }
+
+  .field {
+    width: 25%;
+  }
+
+  .songs-content {
+    min-height: 40vh;
+    display: flex;
+    gap: 24px;
+    overflow: hidden;
+    overflow-x: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    &::-webkit-scrollbar-thumb {
+      display: none;
+    }
+  }
+
+  .songs-info {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+}

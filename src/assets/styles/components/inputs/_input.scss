@@ -44,3 +44,18 @@
     resize: none;
   }
 }
+
+@mixin search-container {
+  @include input;
+  img {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    bottom: 8px;
+  }
+
+  i,
+  input {
+    padding-left: 34px;
+  }
+}

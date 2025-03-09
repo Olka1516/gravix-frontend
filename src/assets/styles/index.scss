@@ -17,6 +17,9 @@
 @use './components/inputs/musicFile' as *;
 @use './components/profile/contentBlock' as *;
 @use './components/profile/songsBlock' as *;
+@use './components/allSongs/playlist' as *;
+@use './components/allSongs/quickSongs' as *;
+@use './components/allSongs/baseSong' as *;
 @use './general/container' as *;
 @use './general/circle' as *;
 @use './general/texts' as *;
@@ -28,6 +31,7 @@
 @use './pages/signUp' as *;
 @use './pages/modify' as *;
 @use './pages/detailed' as *;
+@use './pages/songs' as *;
 @use './themes' as *;
 
 @mixin header {
@@ -96,6 +100,10 @@
 
 @mixin field {
   @include input;
+}
+
+@mixin search {
+  @include search-container;
 }
 
 @mixin password-field {
@@ -175,4 +183,24 @@
   @include border-button;
   @include container;
   @include detailed-component;
+}
+
+@mixin songs {
+  @include form;
+  @include container;
+  @include songs-profile-component;
+}
+
+@mixin playlist {
+  @include circle-button;
+  @include playlist-component;
+}
+
+@mixin quick-songs {
+  @include general-form;
+  @include quick-songs-component;
+}
+
+@mixin base-song {
+  @include base-song-component;
 }

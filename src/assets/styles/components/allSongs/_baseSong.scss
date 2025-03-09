@@ -1,0 +1,77 @@
+@use '@/assets/styles/themes' as *;
+
+@mixin base-song-component {
+  .base-song {
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-radius: 8px;
+    background-color: transparent;
+    transition: all 0.6s ease;
+    height: 100%;
+    &:hover {
+      background-color: $light_grey;
+    }
+    &:hover .song-duration {
+      opacity: 0;
+      visibility: hidden;
+      top: -10px;
+    }
+    &:hover .song-btns {
+      bottom: 30%;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .song-infos {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: inherit;
+  }
+
+  .song-duration {
+    top: 0;
+    right: 0;
+    position: absolute;
+    transition: all 0.6s ease;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .song-btns {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transition: all 0.6s ease;
+    display: flex;
+    gap: 10px;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+
+  .song-content {
+    display: flex;
+    gap: 12px;
+  }
+
+  .song-image {
+    width: 79px;
+    height: 79px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px;
+  }
+
+  span {
+    color: $white;
+    font-size: 18px;
+  }
+
+  p {
+    color: $grey;
+  }
+}
