@@ -8,19 +8,30 @@
     </div>
 
     <button class="circle-button card-play" @click="chooseSong($event)">
-      <img src="../../assets/images/icons/play.svg" alt="Play" />
+      <img
+        v-show="songInject?.isSongPlay.value"
+        src="../../assets/images/icons/pause.svg"
+        alt="Pause"
+      />
+      <img
+        v-show="!songInject?.isSongPlay.value"
+        src="../../assets/images/icons/play.svg"
+        alt="Play"
+      />
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { ISongGetted, ISongItem } from '@/types'
-import { inject, computed } from 'vue'
+import { inject, computed, type Ref } from 'vue'
 
 const props = defineProps<{ song: ISongGetted }>()
 
 const detailedSong = inject<{ setDitailedSong: (item: ISongGetted) => void }>('detailedSong')
-const songInject = inject<{ updateSong: (item: ISongItem) => void }>('songPlayDetails')
+const songInject = inject<{ isSongPlay: Ref<boolean>; updateSong: (item: ISongItem) => void }>(
+  'songPlayDetails',
+)
 
 const songData = computed(() => ({
   song: props.song.song,

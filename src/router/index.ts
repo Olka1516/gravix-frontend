@@ -45,13 +45,22 @@ const router = createRouter({
       component: () => import('../views/SongsView.vue'),
       meta: { requiresAuth: true },
     },
+    {
+      path: '/playlist',
+      name: 'playlist',
+      component: () => import('../views/PlaylistView.vue'),
+      meta: { requiresAuth: true },
+    },
   ],
 })
 
 router.beforeEach(async (to, from, next) => {
   const accessToken = localStorage.getItem('accessToken') || ''
 
-  if (!accessToken && to.path.includes('/profile')) {
+  if (
+    !accessToken &&
+    (to.path.includes('/profile') || to.path.includes('/songs') || to.path.includes('/playlist'))
+  ) {
     next('/')
     return
   } else if (accessToken && to.path == '/') {
