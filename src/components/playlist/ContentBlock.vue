@@ -59,6 +59,9 @@ const playlistActions = [
   },
   {
     icon: 'like',
+    action: () => {
+      console.log('like')
+    },
   },
 ]
 
