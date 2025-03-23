@@ -39,7 +39,10 @@
 import type { ISongGetted, ISongItem } from '@/types'
 import { computed, inject, type Ref } from 'vue'
 
-const props = defineProps<{ song: ISongGetted }>()
+const props = defineProps<{ song: ISongGetted; index: number }>()
+const emit = defineEmits<{
+  (e: 'changeSong', id: number): void
+}>()
 
 const songInject = inject<{ isSongPlay: Ref<boolean>; updateSong: (item: ISongItem) => void }>(
   'songPlayDetails',
@@ -53,8 +56,11 @@ const songData = computed(() => ({
 }))
 
 const chooseSong = () => {
+  emit('changeSong', props.index)
   songInject?.updateSong(songData.value)
 }
+
+defineExpose({ chooseSong })
 </script>
 
 <style scoped lang="scss">

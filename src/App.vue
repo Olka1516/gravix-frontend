@@ -21,6 +21,7 @@ const storeSongs = songStore()
 
 const isSongModal = ref(false)
 const isSongPlay = ref(false)
+const isCanBeChanged = ref(false)
 const song = ref<ISongItem>({
   song: '',
   title: '',
@@ -75,7 +76,7 @@ const setDitailedSong = (data: ISongGetted) => {
   router.push('/detailed/' + data.id)
 }
 
-provide('songPlayDetails', { song, isSongModal, isSongPlay, updateSong })
+provide('songPlayDetails', { song, isSongModal, isSongPlay, isCanBeChanged, updateSong })
 provide('detailedSong', { detailedSong, setDitailedSong })
 </script>
 
