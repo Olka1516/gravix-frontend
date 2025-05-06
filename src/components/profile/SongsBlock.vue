@@ -12,14 +12,14 @@
     </div>
 
     <div class="songs" v-if="hasContent">
-      <BaseSongCard v-for="song in songs" :key="song.id" v-bind:song="song" />
+      <BaseSongCard v-for="song in songs" :key="song._id" v-bind:song="song" />
     </div>
 
     <div class="empty" v-else>
       <h2>There are no {{ emptyMessage }} here</h2>
     </div>
 
-    <button class="border-button" @click="changeRoute">Add</button>
+    <button v-show="isCurrentUser" class="border-button" @click="changeRoute">Add</button>
   </div>
 </template>
 
@@ -28,9 +28,10 @@ import { computed, ref } from 'vue'
 import BaseSongCard from '../general/BaseSongCard.vue'
 import type { ISongGetted } from '@/types'
 import { useRouter } from 'vue-router'
+import type { IPlaylist } from '@/types/playlist'
 
 const router = useRouter()
-const props = defineProps<{ songs: ISongGetted[] }>()
+const props = defineProps<{ songs: ISongGetted[]; isCurrentUser: boolean; playlist: IPlaylist[] }>()
 
 const navs = ['Songs', 'Playlists']
 const activeNav = ref(navs[0])
@@ -41,6 +42,7 @@ const changeActiveNav = (index: number) => {
 
 const hasContent = computed(() => {
   if (activeNav.value === 'Songs') return props.songs.length > 0
+  else if (activeNav.value === 'Playlists') return props.playlist.length > 0
   return false
 })
 

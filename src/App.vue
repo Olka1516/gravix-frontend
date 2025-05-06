@@ -42,7 +42,8 @@ const detailedSong = ref<ISongGetted>({
   releaseYear: '',
   rating: 0,
   ratingCount: 0,
-  id: '',
+  _id: '',
+  likes: [],
 })
 
 const closeSongModal = () => {
@@ -73,7 +74,7 @@ const updateSong = (item: ISongItem | ISongGetted) => {
 const setDitailedSong = (data: ISongGetted) => {
   storeSongs.setSong(data)
   detailedSong.value = data
-  router.push('/detailed/' + data.id)
+  router.push('/detailed/' + data._id)
 }
 
 provide('songPlayDetails', { song, isSongModal, isSongPlay, isCanBeChanged, updateSong })

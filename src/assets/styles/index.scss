@@ -1,6 +1,7 @@
 @use './components/baseHeader' as *;
 @use './components/baseFooter' as *;
 @use './components/baseAudio' as *;
+@use './components/baseQuestion' as *;
 @use './components/baseCard' as *;
 @use './components/baseSongCard' as *;
 @use './components/singerCard' as *;
@@ -24,6 +25,7 @@
 @use './general/circle' as *;
 @use './general/texts' as *;
 @use './general/buttons' as *;
+@use './general/fog' as *;
 @use './general/lines' as *;
 @use './general/form' as *;
 @use './pages/auth' as *;
@@ -33,6 +35,7 @@
 @use './pages/detailed' as *;
 @use './pages/songs' as *;
 @use './pages/playlist' as *;
+@use './pages/questions' as *;
 @use './themes' as *;
 
 @mixin header {
@@ -52,6 +55,7 @@
   @include border-text;
   @include gradient-text;
   @include animated-lines;
+  @include animated-fog;
 }
 
 @mixin circle {
@@ -103,6 +107,16 @@
   @include input;
 }
 
+@mixin questions {
+  @include container;
+  @include questions-component;
+  @include border-button;
+}
+
+@mixin base-question {
+  @include base-question-component;
+}
+
 @mixin search {
   @include search-container;
 }
@@ -131,6 +145,7 @@
 @mixin profile-content {
   @include container;
   @include circle-button;
+  @include border-button;
   @include content-component;
 }
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <BaseHeader />
-    <ContentBlock />
+    <ContentBlock @likeSong="(id: string) => likeSong(id)" />
     <BaseFooter />
   </div>
 </template>
@@ -32,10 +32,17 @@ const song = ref<ISongGetted>({
   releaseYear: '',
   rating: 0,
   ratingCount: 0,
-  id: '',
+  _id: '',
+  likes: [],
 })
 
 const detailedInject = inject<{ setDitailedSong: (item: ISongGetted) => void }>('detailedSong')
+
+const likeSong = async (id: string) => {
+  await storeSongs.likeSong(id)
+  song.value = await storeSongs.getSong(id)
+  detailedInject?.setDitailedSong(song.value)
+}
 
 onMounted(async () => {
   song.value = await storeSongs.getSong(route.params.id.toString())

@@ -11,6 +11,7 @@ export interface ISong {
   releaseYear: string
   rating: number
   ratingCount: number
+  likes: string[]
 }
 
 export interface ISongDictionary {
@@ -40,5 +41,6 @@ export interface ISongGetted {
   releaseYear: string
   rating: number
   ratingCount: number
-  id: string
+  _id: string
+  likes: string[]
 }

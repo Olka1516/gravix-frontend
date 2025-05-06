@@ -31,18 +31,36 @@
     z-index: 4;
   }
 
-  .main-note {
-    width: 540px;
-    height: 655px;
+  .main-person {
+    width: 650px;
+    height: 640px;
+    object-fit: contain;
     position: relative;
     z-index: 2;
-    @media screen and (max-width: 1280px) {
-      width: 400px;
-      height: 505px;
-    }
+    // @media screen and (max-width: 1280px) {
+    //   width: 400px;
+    //   height: 505px;
+    // }
     @media screen and (max-width: 1024px) {
       display: none;
     }
+  }
+
+  .main-fog {
+    position: absolute;
+    z-index: 1;
+    top: -90px;
+    right: -70px;
+    animation: animate_fog 8s ease-in-out infinite alternate-reverse;
+  }
+
+  .main-fog_2 {
+    position: absolute;
+    width: 1000px;
+    top: -65px;
+    right: -40px;
+    z-index: 2;
+    animation: animate_fog_opacity 8s ease-in-out infinite alternate-reverse;
   }
 
   .animated-lines,

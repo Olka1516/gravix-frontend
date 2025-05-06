@@ -1,0 +1,26 @@
+@mixin questions-component {
+  .container {
+    padding: 48px 112px;
+    min-height: 100vh;
+  }
+
+  .questions-content {
+    width: 100%;
+    padding-block: 38px;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 220px 220px 220px 220px 220px;
+    row-gap: 48px;
+    justify-content: space-between;
+  }
+
+  .questions-nav {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

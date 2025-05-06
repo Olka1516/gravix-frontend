@@ -22,7 +22,7 @@
           ref="songRefs"
           v-for="(song, index) in store.state"
           :index="index"
-          :key="song.id"
+          :key="song._id"
           :song
           @changeSong="(i) => (playedIndex = i)"
         ></BaseSong>
