@@ -1,26 +1,26 @@
 import {
-  createUserSong,
-  dislikeSongById,
-  getSongById,
-  getSongsByUsername,
-  likeSongById,
-} from '@/services'
-import { getMyPlayList } from '@/services/playlist'
-import type { ISong, ISongGetted } from '@/types'
+  createUserPlaylist,
+  dislikePlaylistById,
+  getMyPlayList,
+  getPlayListById,
+  getPlayListByUsername,
+  likePlaylistById,
+} from '@/services/playlist'
+import type { IPlaylist, IPlaylistCreate } from '@/types/playlist'
 import { defineStore } from 'pinia'
 import { ref, type Ref } from 'vue'
 
 export const playlistStore = defineStore(
   'playlistInfo',
   () => {
-    const state: Ref<ISongGetted[]> = ref([])
+    const state: Ref<IPlaylist[]> = ref([])
 
-    const playlists = new Map<string, ISongGetted[]>()
-    const selectedPlaylist = new Map<string, ISongGetted>()
+    const playlists = new Map<string, IPlaylist[]>()
+    const selectedPlaylist = new Map<string, IPlaylist>()
 
-    const createPlaylist = async (playlistData: ISong) => {
-      // await createUserSong(songData)
-      // state.value = await getSongsByUsername(songData.username)
+    const createPlaylist = async (playlistData: IPlaylistCreate) => {
+      const data = await createUserPlaylist(playlistData)
+      state.value.push(data)
     }
 
     const getPlaylists = async () => {
@@ -30,31 +30,31 @@ export const playlistStore = defineStore(
 
     const getAnotherUserPlaylists = async (username: string) => {
       if (!playlists.has(username)) {
-        playlists.set(username, await getSongsByUsername(username))
+        playlists.set(username, await getPlayListByUsername(username))
       }
       return playlists.get(username) ?? []
     }
 
-    const setPlaylist = (data: ISongGetted) => {
+    const setPlaylist = (data: IPlaylist) => {
       selectedPlaylist.set(data._id, data)
     }
 
-    const getPlaylist = async (id: string) => {
-      if (selectedPlaylist.has(id)) return selectedPlaylist.get(id)
+    const getPlaylist = async (playlistId: string) => {
+      if (selectedPlaylist.has(playlistId)) return selectedPlaylist.get(playlistId)
 
-      const data = await getSongById(id)
+      const data = await getPlayListById(playlistId)
       setPlaylist(data)
       return data
     }
 
-    const likeSong = async (id: string) => {
+    const likePlaylist = async (id: string) => {
       const data = await getPlaylist(id)
       const userInfo = JSON.parse(localStorage.getItem('userInfo') || '')
 
-      if (!data.likes.includes(userInfo.id)) await likeSongById(id)
-      else await dislikeSongById(id)
+      let updatedSong
+      if (!data.likes.includes(userInfo.id)) updatedSong = await likePlaylistById(id)
+      else updatedSong = await dislikePlaylistById(id)
 
-      const updatedSong = await getSongById(id)
       setPlaylist(updatedSong)
     }
 
@@ -65,7 +65,7 @@ export const playlistStore = defineStore(
       getAnotherUserPlaylists,
       setPlaylist,
       getPlaylist,
-      likeSong,
+      likePlaylist,
     }
   },
   {

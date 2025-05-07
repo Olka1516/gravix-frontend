@@ -21,6 +21,7 @@
 @use './components/allSongs/playlist' as *;
 @use './components/allSongs/quickSongs' as *;
 @use './components/allSongs/baseSong' as *;
+@use './components/playlists/modalPlaylists' as *;
 @use './general/container' as *;
 @use './general/circle' as *;
 @use './general/texts' as *;
@@ -193,6 +194,16 @@
 
 @mixin modal-view {
   @include profile-view-component;
+}
+
+@mixin playlist-effect {
+  @include playlist-effect-component;
+}
+
+@mixin playlist-modal {
+  @include playlist-modal-component;
+  @include form;
+  @include border-button;
 }
 
 @mixin detailed-view {

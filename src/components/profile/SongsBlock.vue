@@ -11,8 +11,13 @@
       </button>
     </div>
 
-    <div class="songs" v-if="hasContent">
-      <BaseSongCard v-for="song in songs" :key="song._id" v-bind:song="song" />
+    <div v-if="hasContent">
+      <div class="songs" v-if="activeNav === 'Songs'">
+        <BaseSongCard v-for="song in songs" :key="song._id" v-bind:song="song" />
+      </div>
+      <div class="playlists" v-if="activeNav === 'Playlists'">
+        <BasePlaylist v-for="playlist in playlists" :key="playlist._id" :playlist />
+      </div>
     </div>
 
     <div class="empty" v-else>
@@ -20,6 +25,11 @@
     </div>
 
     <button v-show="isCurrentUser" class="border-button" @click="changeRoute">Add</button>
+    <Teleport to="body">
+      <Transition name="modal">
+        <CreatePlaylist v-if="open" @close="closeModal" />
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
@@ -29,9 +39,16 @@ import BaseSongCard from '../general/BaseSongCard.vue'
 import type { ISongGetted } from '@/types'
 import { useRouter } from 'vue-router'
 import type { IPlaylist } from '@/types/playlist'
+import BasePlaylist from '../songs/BasePlaylist.vue'
+import CreatePlaylist from '../playlist/CreatePlaylist.vue'
 
 const router = useRouter()
-const props = defineProps<{ songs: ISongGetted[]; isCurrentUser: boolean; playlist: IPlaylist[] }>()
+const open = ref(false)
+const props = defineProps<{
+  songs: ISongGetted[]
+  isCurrentUser: boolean
+  playlists: IPlaylist[]
+}>()
 
 const navs = ['Songs', 'Playlists']
 const activeNav = ref(navs[0])
@@ -42,7 +59,7 @@ const changeActiveNav = (index: number) => {
 
 const hasContent = computed(() => {
   if (activeNav.value === 'Songs') return props.songs.length > 0
-  else if (activeNav.value === 'Playlists') return props.playlist.length > 0
+  else if (activeNav.value === 'Playlists') return props.playlists.length > 0
   return false
 })
 
@@ -50,12 +67,22 @@ const emptyMessage = computed(() => {
   return activeNav.value.toLowerCase()
 })
 
+const closeModal = () => {
+  open.value = false
+  document.body.style.overflow = ''
+}
+
 const changeRoute = () => {
   if (activeNav.value === 'Songs') router.push('/modify')
+  if (activeNav.value === 'Playlists') {
+    open.value = true
+    document.body.style.overflow = 'hidden'
+  }
 }
 </script>
 
 <style scoped lang="scss">
 @use '@/assets/styles/index';
 @include index.profile-songs;
+@include index.playlist-effect;
 </style>

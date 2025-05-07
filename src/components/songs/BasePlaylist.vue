@@ -1,9 +1,9 @@
 <template>
-  <div class="playlist-card">
-    <img :src="playlist.image" alt="" />
+  <div class="playlist-card" @click="changeRoute">
+    <img :src="getPlaylistImage" alt="" />
     <div class="playlist-card-text">
       <p>
-        {{ playlist.text }}
+        {{ playlist.name }}
       </p>
       <button class="playlist-play circle-button" @click="changeRoute">
         <img src="@/assets/images/icons/play.svg" alt="" />
@@ -13,13 +13,21 @@
 </template>
 
 <script setup lang="ts">
+import type { IPlaylist } from '@/types/playlist'
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-defineProps<{ playlist: { id: number; image: string; text: string } }>()
+const props = defineProps<{ playlist: IPlaylist }>()
+
+const getPlaylistImage = computed(() => {
+  if (props.playlist.song[0]) return props.playlist.song[0].image
+  const st = new URL(`../../assets/images/album_1.jpg`, import.meta.url)
+  return st.href
+})
 
 const changeRoute = () => {
-  router.push('/playlist')
+  router.push(`/playlist/${props.playlist._id}`)
 }
 </script>
 

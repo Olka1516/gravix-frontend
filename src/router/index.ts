@@ -52,7 +52,7 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: '/playlist',
+      path: '/playlist/:id',
       name: 'playlist',
       component: () => import('../views/PlaylistView.vue'),
       meta: { requiresAuth: true },

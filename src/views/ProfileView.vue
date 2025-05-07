@@ -10,7 +10,7 @@
         :isCurrentUser
         @updateSubscribers="updateSubscribers"
       />
-      <SongsBlock :songs="songs" :playlist="playlists" :isCurrentUser />
+      <SongsBlock :songs="songs" :playlists="playlists" :isCurrentUser />
     </main>
     <BaseFooter />
   </div>
@@ -26,6 +26,7 @@ import { songStore, userStore } from '@/stores'
 import { useRoute } from 'vue-router'
 import type { IAllUserData, ISongGetted } from '@/types'
 import { playlistStore } from '@/stores/playlist'
+import type { IPlaylist } from '@/types/playlist'
 
 const data = ref<IAllUserData>({
   username: '',
@@ -40,44 +41,51 @@ const data = ref<IAllUserData>({
 const isCurrentUser = ref(true)
 
 const songs: Ref<ISongGetted[]> = ref([])
-const playlists = ref([])
+const playlists: Ref<IPlaylist[]> = ref([])
 
 const route = useRoute()
 const store = userStore()
 const storeSongs = songStore()
 const storePlaylist = playlistStore()
 
-const updateData = (user: IAllUserData, userSongs: ISongGetted[]) => {
+const updateData = (user: IAllUserData, userSongs: ISongGetted[], userPlaylists: IPlaylist[]) => {
   data.value = { ...user }
   songs.value = userSongs
+  console.log(userPlaylists)
+  playlists.value = userPlaylists
 }
 
 const updateSubscribers = async () => {
   const routeUsername = route.params.username.toString()
   await store.updateSubscribers(store.username, routeUsername)
-  const [userInfo, userSongs] = await Promise.all([
+  const [userInfo, userSongs, userPlaylists] = await Promise.all([
     store.getAnotherUserInfo(routeUsername),
     storeSongs.getAnotherUserSongs(routeUsername),
+    storePlaylist.getAnotherUserPlaylists(routeUsername),
   ])
-  updateData(userInfo, userSongs)
+  updateData(userInfo, userSongs, userPlaylists)
 }
 
 const getUserInfo = async () => {
   const routeUsername = route.params.username.toString()
   const username = localStorage.getItem('username') || ''
+
   if (username === routeUsername && !store.username) {
     await store.getUserInfo(username)
     await storeSongs.getSongs(username)
+    await storePlaylist.getPlaylists()
+    updateData(store.$state, storeSongs.state, storePlaylist.state)
     isCurrentUser.value = true
   } else if (username === routeUsername) {
-    updateData(store.$state, storeSongs.state)
+    updateData(store.$state, storeSongs.state, storePlaylist.state)
     isCurrentUser.value = true
   } else if (username !== routeUsername) {
-    const [userInfo, userSongs] = await Promise.all([
+    const [userInfo, userSongs, userPlaylists] = await Promise.all([
       store.getAnotherUserInfo(routeUsername),
       storeSongs.getAnotherUserSongs(routeUsername),
+      storePlaylist.getAnotherUserPlaylists(routeUsername),
     ])
-    updateData(userInfo, userSongs)
+    updateData(userInfo, userSongs, userPlaylists)
     isCurrentUser.value = false
   }
 }
@@ -91,8 +99,5 @@ watch(
 
 onMounted(async () => {
   await getUserInfo()
-  await storePlaylist.getPlaylists()
-  playlists.value = storePlaylist.state
-  console.log('playlists.value', playlists.value)
 })
 </script>
