@@ -23,6 +23,22 @@
       opacity: 1;
       visibility: visible;
     }
+
+    &:hover .song-play {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    &:hover .song-image {
+      filter: brightness(0.5);
+    }
+  }
+
+  .song-assets {
+    position: relative;
   }
 
   .song-infos {
@@ -39,6 +55,16 @@
     transition: all 0.6s ease;
     opacity: 1;
     visibility: visible;
+  }
+
+  .song-play {
+    position: absolute;
+    top: 0;
+    left: 30%;
+    transition: all 0.4s ease;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
   }
 
   .song-btns {
@@ -64,6 +90,7 @@
     object-fit: cover;
     object-position: center;
     border-radius: 8px;
+    transition: all 0.6s ease;
   }
 
   span {

@@ -32,6 +32,7 @@
 @use './pages/modify' as *;
 @use './pages/detailed' as *;
 @use './pages/songs' as *;
+@use './pages/playlist' as *;
 @use './themes' as *;
 
 @mixin header {
@@ -203,4 +204,10 @@
 
 @mixin base-song {
   @include base-song-component;
+}
+
+@mixin playlist-page {
+  @include container;
+  @include circle-button;
+  @include playlist-page-component;
 }
