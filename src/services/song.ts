@@ -30,3 +30,16 @@ export const getSongById = async (id: string) => {
   const data = await http.get(ENDPOINTS.GET_SONG(id))
   return data.data
 }
+
+export const getArtistsByGenres = async (selectedOptions: string[]) => {
+  const data = await http.get(ENDPOINTS.GET_ARTISTS(selectedOptions))
+  return data.data
+}
+
+export const likeSongById = async (id: string) => {
+  await http.patch(ENDPOINTS.UPDATE_SONG_LIKE(id))
+}
+
+export const dislikeSongById = async (id: string) => {
+  await http.patch(ENDPOINTS.UPDATE_SONG_DISLIKE(id))
+}

@@ -12,7 +12,7 @@
     <div class="songs-info">
       <h4>Songs Recommended For You</h4>
       <div class="songs-content">
-        <BaseSongCard v-for="song in store.state" :key="song.id" :song></BaseSongCard>
+        <BaseSongCard v-for="song in store.state" :key="song._id" :song></BaseSongCard>
       </div>
     </div>
 

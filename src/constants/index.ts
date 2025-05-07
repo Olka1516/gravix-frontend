@@ -1,5 +1,6 @@
 export * from './rhythms'
 export * from './trend'
+export * from './genres'
 export * from './journey'
 export * from './singers'
 export * from './endpoints'

@@ -1,6 +1,6 @@
 <template>
   <div class="form">
-    <BaseSong v-for="song in songs" :key="song.id" :song> </BaseSong>
+    <BaseSong v-for="(song, index) in songs" :index="index" :key="song._id" :song> </BaseSong>
   </div>
 </template>
 

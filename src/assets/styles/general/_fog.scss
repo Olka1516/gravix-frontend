@@ -1,0 +1,37 @@
+@mixin animated-fog {
+  @keyframes animate_fog {
+    0% {
+      opacity: 1;
+    }
+    15% {
+      opacity: 0.8;
+    }
+    30% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 0.4;
+    }
+    60% {
+      opacity: 0.6;
+    }
+    75% {
+      opacity: 0.8;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes animate_fog_opacity {
+    0% {
+      transform: translateX(0) scaleZ(1) scaleX(1);
+    }
+    50% {
+      transform: translateX(2%) scaleZ(0.9) scaleX(0.9);
+    }
+    100% {
+      transform: translateX(0) scaleZ(1) scaleX(1);
+    }
+  }
+}

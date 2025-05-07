@@ -5,6 +5,12 @@ export interface IUser {
   avatar: string | null
 }
 
+export interface IAllUserData extends IUser {
+  subscribers: string[]
+  following: string[]
+  preferences: string[]
+}
+
 export interface IUserDictionary {
-  [username: string]: IUser
+  [username: string]: IAllUserData
 }

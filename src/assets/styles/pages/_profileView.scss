@@ -26,3 +26,19 @@
     transform: translateY(0) translateX(-50%);
   }
 }
+
+@mixin playlist-effect-component {
+  .modal-enter-from {
+    opacity: 0;
+  }
+
+  .modal-leave-to {
+    opacity: 0;
+  }
+
+  .modal-enter-from .modal-container,
+  .modal-leave-to .modal-container {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+}

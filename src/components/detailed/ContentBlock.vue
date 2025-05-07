@@ -6,15 +6,15 @@
         <div class="detailed-content-inner">
           <div>
             <h3>{{ song.author }}</h3>
-            <h4>{{ song.username }}</h4>
             <i>{{ song.description }}</i>
             <p>{{ song.duration }}&emsp;&emsp;{{ song.releaseYear }}</p>
           </div>
           <div class="detailed-info">
             <div class="detailed-rating">
-              <strong>{{ song.ratingCount }}</strong>
-              <button class="border-button">
-                <img src="@/assets/images/icons/like.svg" alt="Like" />
+              <strong>{{ song.likes.length }}</strong>
+              <button class="border-button" @click="$emit('likeSong', song._id)">
+                <img v-if="isUserLikeSong()" src="@/assets/images/icons/fullLike.svg" alt="Like" />
+                <img v-else src="@/assets/images/icons/like.svg" alt="Like" />
               </button>
             </div>
             <div class="detailed-genres">
@@ -55,11 +55,17 @@ const { detailedSong } = inject<{ detailedSong: ISongGetted }>('detailedSong', {
     releaseYear: '',
     rating: 0,
     ratingCount: 0,
-    id: '',
+    _id: '',
+    likes: [],
   },
 })
 
 const song = ref(detailedSong)
+
+const isUserLikeSong = () => {
+  const userInfo = JSON.parse(localStorage.getItem('userInfo') || '')
+  return song.value.likes.includes(userInfo.id)
+}
 
 const chooseSong = () => {
   if (song.value) songInject?.updateSong(song.value)

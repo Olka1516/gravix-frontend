@@ -19,10 +19,6 @@
           <ErrorMessage :v="v$.song" />
         </div>
         <div class="field">
-          <BaseText v-model="data.author" type="Author" :v="v$.author" />
-          <ErrorMessage :v="v$.author" />
-        </div>
-        <div class="field">
           <BaseSelector
             v-model="data.genres"
             :allSelections="songsGenres"

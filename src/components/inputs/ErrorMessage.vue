@@ -63,6 +63,9 @@ const getError = () => {
     case 'text':
       if (message === IsRequired) return IsRequired
       break
+    case 'name':
+      if (message === IsRequired) return IsRequired
+      break
     case 'description':
       if (message === IsRequired) return IsRequired
       break
