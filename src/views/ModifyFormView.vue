@@ -66,7 +66,6 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const store = songStore()
 const data: ISong = reactive({
-  username: '',
   title: '',
   description: '',
   lyrics: '',
@@ -78,6 +77,7 @@ const data: ISong = reactive({
   releaseYear: '',
   rating: 0,
   ratingCount: 0,
+  likes: [],
 })
 
 const rules = {
@@ -87,7 +87,6 @@ const rules = {
   image: { required },
   song: { required },
   genres: { required },
-  author: { required },
   releaseYear: { required },
 }
 
@@ -118,9 +117,9 @@ const submit = async () => {
     return
   }
   try {
-    data.username = localStorage.getItem('username') || ''
+    data.author = localStorage.getItem('username') || ''
     await store.createSong(data)
-    router.push(`profile/${data.username}`)
+    router.push(`profile/${data.author}`)
   } catch {
     console.log('error')
   }

@@ -2,6 +2,7 @@
 
 @mixin song-card-component {
   .card {
+    cursor: pointer;
     position: relative;
     display: flex;
     flex-direction: column;

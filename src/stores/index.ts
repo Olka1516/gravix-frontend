@@ -1,3 +1,6 @@
 export * from './user'
 export * from './auth'
 export * from './song'
+export * from './playlist'
+export * from './questions'
+export * from './recommendations'

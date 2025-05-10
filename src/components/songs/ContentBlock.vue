@@ -12,28 +12,27 @@
     <div class="songs-info">
       <h4>Songs Recommended For You</h4>
       <div class="songs-content">
-        <BaseSongCard v-for="song in store.state" :key="song._id" :song></BaseSongCard>
+        <BaseSongCard v-for="song in store.sGenres" :key="song._id" :song></BaseSongCard>
       </div>
     </div>
 
     <div class="songs-info">
       <h4>Playlists Recommended For You</h4>
       <div class="songs-content">
-        <BasePlaylist v-for="playlist in trends" :key="playlist.id" :playlist />
+        <BasePlaylist v-for="playlist in store.pGenres" :key="playlist._id" :playlist />
       </div>
     </div>
 
     <div class="songs-info">
       <h4>A Quick Choice</h4>
       <div class="songs-content">
-        <BaseQuickSongs :songs="store.state"></BaseQuickSongs>
+        <BaseQuickSongs :songs="store.random"></BaseQuickSongs>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { trends } from '@/constants'
 import BaseSearch from '@/components/inputs/BaseSearch.vue'
 import BaseSelector from '@/components/inputs/BaseSelector.vue'
 import { songsGenres } from '@/constants'
@@ -41,18 +40,17 @@ import { onMounted, reactive } from 'vue'
 import BaseSongCard from '../general/BaseSongCard.vue'
 import BasePlaylist from './BasePlaylist.vue'
 import BaseQuickSongs from './BaseQuickSongs.vue'
-import { songStore } from '@/stores'
+import { useRecommendationsStore } from '@/stores/recommendations'
 
 const data = reactive({
   text: '',
   genres: [],
 })
 
-const store = songStore()
+const store = useRecommendationsStore()
 
 onMounted(async () => {
-  const username = localStorage.getItem('username') || ''
-  await store.getSongs(username)
+  await store.getRecomendations()
 })
 </script>
 
