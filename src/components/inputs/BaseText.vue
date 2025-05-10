@@ -9,7 +9,7 @@
 </template>
 <script setup lang="ts">
 import { ErrorMessageEnum } from '@/types'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 const props = defineProps<{
   modelValue: string
@@ -45,6 +45,13 @@ const isInfoInvalid = () => {
     props.error === InvalidCredentials
   )
 }
+
+watch(
+  () => props.modelValue,
+  () => {
+    userInfo.value = props.modelValue
+  },
+)
 </script>
 <style scoped lang="scss">
 @use '@/assets/styles/index';

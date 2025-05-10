@@ -28,6 +28,16 @@
         ></BaseSong>
       </div>
     </div>
+    <Teleport to="body">
+      <Transition name="modal">
+        <CreatePlaylist
+          v-if="isModalOpen"
+          @close="(name?: string) => closeModal(name)"
+          :isUpdate="true"
+          :playlist
+        />
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
@@ -39,7 +49,9 @@ import { useRoute } from 'vue-router'
 import { playlistStore } from '@/stores/playlist'
 import type { IPlaylist } from '@/types/playlist'
 import type { ISongGetted } from '@/types'
+import CreatePlaylist from './CreatePlaylist.vue'
 
+const isModalOpen = ref(false)
 const route = useRoute()
 const store = playlistStore()
 const playlist: Ref<IPlaylist> = ref({
@@ -61,7 +73,13 @@ const { isCanBeChanged } = inject<{
 
 const playlistActions = [
   {
-    icon: () => 'plus',
+    icon: () => (userId.value === playlist.value.ownerID ? 'dots' : 'plus'),
+    action: () => {
+      if (userId.value === playlist.value.ownerID) {
+        isModalOpen.value = true
+        document.body.style.overflow = 'hidden'
+      }
+    },
   },
   {
     icon: () => 'play',
@@ -78,6 +96,12 @@ const playlistActions = [
     },
   },
 ]
+
+const closeModal = (name?: string) => {
+  if (name) playlist.value.name = name
+  isModalOpen.value = false
+  document.body.style.overflow = ''
+}
 
 const getImage = (icon: string) => {
   const st = new URL(`../../assets/images/icons/${icon}.svg`, import.meta.url)

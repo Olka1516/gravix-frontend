@@ -16,7 +16,7 @@
         <BaseSongCard v-for="song in songs" :key="song._id" v-bind:song="song" />
       </div>
       <div class="playlists" v-if="activeNav === 'Playlists'">
-        <BasePlaylist v-for="playlist in playlists" :key="playlist._id" :playlist />
+        <BasePlaylist v-for="playlist in playlists" :key="playlist._id" :playlist :isCurrentUser />
       </div>
     </div>
 
