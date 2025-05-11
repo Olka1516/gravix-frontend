@@ -43,6 +43,7 @@
   }
 
   .playlist-content {
+    position: relative;
     width: 30%;
     display: flex;
     flex-direction: column;
@@ -65,5 +66,23 @@
     display: flex;
     align-items: center;
     gap: 18px;
+  }
+
+  .settings {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+    position: absolute;
+    height: 120px;
+    bottom: -100px;
+    left: 60px;
+    background-color: $light_grey;
+  }
+
+  .settings-btn {
+    padding: 6px;
+    font-size: 12px;
+    border: 1px solid $white;
   }
 }

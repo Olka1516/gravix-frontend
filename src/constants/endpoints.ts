@@ -25,4 +25,6 @@ export const ENDPOINTS = {
   UPDATE_PLAYLIST_DISLIKE: (id: string) => `/playlists/dislike/${id}`,
   UPDATE_PLAYLIST: (id: string) => `/playlists/update/${id}`,
   USERS_INFO: (username: string) => `/users/info/${username}`,
+  DELETE_SONG: (id: string) => `/songs/${id}`,
+  DELETE_PLAYLIST: (id: string) => `/playlists/${id}`,
 }

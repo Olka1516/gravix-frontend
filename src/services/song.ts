@@ -15,7 +15,7 @@ export const createUserSong = async (songData: ISong) => {
   formData.append('rating', songData.rating.toString())
 
   const data = await http.post(ENDPOINTS.CREATE_SONG, formData)
-  return data.data
+  return data.data.song
 }
 
 export const getSongsByUsername = async (username: string) => {
@@ -26,6 +26,10 @@ export const getSongsByUsername = async (username: string) => {
 export const getSongById = async (id: string) => {
   const data = await http.get(ENDPOINTS.GET_SONG(id))
   return data.data
+}
+
+export const deleteSongById = async (id: string) => {
+  await http.delete(ENDPOINTS.DELETE_SONG(id))
 }
 
 export const getArtistsByGenres = async (selectedOptions: string[]) => {

@@ -10,7 +10,13 @@
         :isCurrentUser
         @updateSubscribers="updateSubscribers"
       />
-      <SongsBlock :songs="songs" :playlists="playlists" :isCurrentUser />
+      <SongsBlock
+        :songs="songs"
+        :playlists="playlists"
+        :isCurrentUser
+        @deletePlaylist="(id: string) => deletePlaylist(id)"
+        @deleteSong="(id: string) => deleteSong(id)"
+      />
     </main>
     <BaseFooter />
   </div>
@@ -53,6 +59,16 @@ const updateData = (user: IAllUserData, userSongs: ISongGetted[], userPlaylists:
   songs.value = userSongs
   console.log(userPlaylists)
   playlists.value = userPlaylists
+}
+
+const deletePlaylist = async (id: string) => {
+  await storePlaylist.deletePlaylist(id)
+  document.body.style.overflow = ''
+}
+
+const deleteSong = async (id: string) => {
+  await storeSongs.deleteSong(id)
+  document.body.style.overflow = ''
 }
 
 const updateSubscribers = async () => {
@@ -101,6 +117,13 @@ watch(
   () => storePlaylist.state,
   async () => {
     playlists.value = storePlaylist.state
+  },
+)
+
+watch(
+  () => storeSongs.state,
+  async () => {
+    songs.value = storeSongs.state
   },
 )
 

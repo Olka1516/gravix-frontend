@@ -1,5 +1,6 @@
 import {
   createUserPlaylist,
+  deletePlaylistById,
   dislikePlaylistById,
   getMyPlayList,
   getMyPlayListById,
@@ -34,6 +35,11 @@ export const playlistStore = defineStore('playlistInfo', () => {
 
   const getPlaylists = async () => {
     state.value = await getMyPlayList()
+  }
+
+  const deletePlaylist = async (id: string) => {
+    await deletePlaylistById(id)
+    state.value = state.value.filter((playlist) => playlist._id !== id)
   }
 
   const getAnotherUserPlaylists = async (username: string) => {
@@ -83,5 +89,6 @@ export const playlistStore = defineStore('playlistInfo', () => {
     likePlaylist,
     setDefault,
     updatePlaylist,
+    deletePlaylist,
   }
 })

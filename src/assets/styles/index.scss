@@ -1,3 +1,4 @@
+@use './components/baseDeleteModal' as *;
 @use './components/baseHeader' as *;
 @use './components/baseFooter' as *;
 @use './components/baseAudio' as *;
@@ -61,6 +62,11 @@
 
 @mixin circle {
   @include circle-component;
+}
+
+@mixin delete-modal {
+  @include border-button;
+  @include delete-modal-component;
 }
 
 @mixin colored-circle {

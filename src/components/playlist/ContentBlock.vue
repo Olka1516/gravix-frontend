@@ -16,6 +16,12 @@
             <img :src="getImage(item.icon())" alt="" />
           </button>
         </div>
+        <div v-if="open">
+          <div class="settings">
+            <button class="settings-btn" @click="changeVisibility">Change info</button>
+            <button class="settings-btn" @click="deletePlaylistModal">Delete</button>
+          </div>
+        </div>
       </div>
       <div class="playlist-songs">
         <BaseSong
@@ -38,6 +44,16 @@
         />
       </Transition>
     </Teleport>
+    <Teleport to="body">
+      <Transition name="modal">
+        <DeleteModal
+          v-if="isDeleteModelopen"
+          @close="closeDeleteModal"
+          @delete="deletePlaylist"
+          text="Playlist"
+        />
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
@@ -45,13 +61,17 @@
 import { computed, inject, onMounted, ref, watch, type Ref } from 'vue'
 import BaseColoredCircle from '../general/BaseColoredCircle.vue'
 import BaseSong from '../songs/BaseSong.vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { playlistStore } from '@/stores/playlist'
 import type { IPlaylist } from '@/types/playlist'
 import type { ISongGetted } from '@/types'
 import CreatePlaylist from './CreatePlaylist.vue'
+import DeleteModal from '../general/BaseDeleteModal.vue'
 
+const router = useRouter()
+const open = ref(false)
 const isModalOpen = ref(false)
+const isDeleteModelopen = ref(false)
 const route = useRoute()
 const store = playlistStore()
 const playlist: Ref<IPlaylist> = ref({
@@ -76,8 +96,7 @@ const playlistActions = [
     icon: () => (userId.value === playlist.value.ownerID ? 'dots' : 'plus'),
     action: () => {
       if (userId.value === playlist.value.ownerID) {
-        isModalOpen.value = true
-        document.body.style.overflow = 'hidden'
+        open.value = !open.value
       }
     },
   },
@@ -97,10 +116,34 @@ const playlistActions = [
   },
 ]
 
+const changeVisibility = (event: Event) => {
+  event.stopPropagation()
+  isModalOpen.value = true
+  document.body.style.overflow = 'hidden'
+}
+
+const closeDeleteModal = () => {
+  isDeleteModelopen.value = false
+  document.body.style.overflow = ''
+}
+
+const deletePlaylistModal = (event: Event) => {
+  event.stopPropagation()
+  isDeleteModelopen.value = true
+  document.body.style.overflow = 'hidden'
+}
+
 const closeModal = (name?: string) => {
   if (name) playlist.value.name = name
   isModalOpen.value = false
   document.body.style.overflow = ''
+}
+
+const deletePlaylist = async () => {
+  isDeleteModelopen.value = false
+  document.body.style.overflow = ''
+  await store.deletePlaylist(playlist.value._id)
+  router.push('/songs')
 }
 
 const getImage = (icon: string) => {

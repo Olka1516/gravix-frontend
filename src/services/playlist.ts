@@ -24,6 +24,10 @@ export const getMyPlayList = async () => {
   return data.data
 }
 
+export const deletePlaylistById = async (id: string) => {
+  await http.delete(ENDPOINTS.DELETE_PLAYLIST(id))
+}
+
 export const getPlayListByUsername = async (username: string) => {
   const data = await http.get(ENDPOINTS.GET_PLAYLIST(username))
   return data.data
