@@ -59,7 +59,7 @@ import useVuelidate from '@vuelidate/core'
 import { IPlaylistVisibility, type IPlaylist } from '@/types/playlist'
 import { playlistStore } from '@/stores/playlist'
 
-const props = defineProps<{ isUpdate?: boolean; playlist?: IPlaylist }>()
+const props = defineProps<{ isUpdate?: boolean; playlist?: IPlaylist; songId?: string }>()
 const emit = defineEmits<{ (e: 'close', name?: string): string | void }>()
 
 const text = {
@@ -100,7 +100,10 @@ const submit = async () => {
     if (props.playlist) {
       await store.updatePlaylist(playlistData, props.playlist._id)
     } else {
-      await store.createPlaylist(playlistData)
+      const data: IPlaylist = await store.createPlaylist(playlistData)
+      if (props.songId) {
+        await store.addSongToPlaylist(props.songId, data._id)
+      }
     }
     emit('close', playlistData.name)
   } catch (err) {
@@ -111,7 +114,6 @@ const submit = async () => {
 
 onMounted(() => {
   if (props.playlist) {
-    console.log(props.playlist)
     playlistData.name = props.playlist?.name
     playlistData.visibility = props.playlist?.visibility
   }

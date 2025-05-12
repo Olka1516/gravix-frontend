@@ -57,7 +57,6 @@ const storePlaylist = playlistStore()
 const updateData = (user: IAllUserData, userSongs: ISongGetted[], userPlaylists: IPlaylist[]) => {
   data.value = { ...user }
   songs.value = userSongs
-  console.log(userPlaylists)
   playlists.value = userPlaylists
 }
 
@@ -125,6 +124,14 @@ watch(
   async () => {
     songs.value = storeSongs.state
   },
+)
+
+watch(
+  () => storePlaylist.state.map((p) => p.song),
+  () => {
+    playlists.value = storePlaylist.state
+  },
+  { deep: true },
 )
 
 onMounted(async () => {

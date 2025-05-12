@@ -7,6 +7,7 @@ export const ENDPOINTS = {
   USERS: '/users/all',
   CREATE_SONG: '/songs/create',
   CREATE_PLAYLIST: '/playlists/create',
+  ADD_SONG_TO_PLAYLIST: '/playlists/add/song',
   GET_MY_PLAYLIST: '/playlists/my',
   GET_RECOMMEND_PLAYLISTS_GENRES: '/recommendation/playlists/genres',
   GET_RECOMMEND_PLAYLISTS_AUTHORS: '/recommendation/playlists/authors',

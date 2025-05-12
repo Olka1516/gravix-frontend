@@ -1,4 +1,5 @@
 import {
+  addSongToPlaylistByIds,
   createUserPlaylist,
   deletePlaylistById,
   dislikePlaylistById,
@@ -26,6 +27,7 @@ export const playlistStore = defineStore('playlistInfo', () => {
   const createPlaylist = async (playlistData: IPlaylistCreate) => {
     const data = await createUserPlaylist(playlistData)
     state.value.push(data)
+    return data
   }
 
   const updatePlaylist = async (playlistData: IPlaylistCreate, id: string) => {
@@ -56,6 +58,11 @@ export const playlistStore = defineStore('playlistInfo', () => {
 
   const setPlaylist = (data: IPlaylist) => {
     selectedPlaylist.set(data._id, data)
+  }
+
+  const addSongToPlaylist = async (songId: string, playlistId: string) => {
+    await addSongToPlaylistByIds(songId, playlistId)
+    await getPlaylists()
   }
 
   const getPlaylist = async (playlistId: string) => {
@@ -95,5 +102,6 @@ export const playlistStore = defineStore('playlistInfo', () => {
     setDefault,
     updatePlaylist,
     deletePlaylist,
+    addSongToPlaylist,
   }
 })

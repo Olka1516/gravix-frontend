@@ -1,0 +1,37 @@
+@use '@/assets/styles/themes' as *;
+
+@mixin all-playlists-modal-component {
+  .modal-container {
+    top: 0;
+    margin: auto;
+  }
+
+  .modal-content {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .modal-results {
+    max-height: 250px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    &::-webkit-scrollbar-thumb {
+      display: none;
+    }
+    @media screen and (max-width: 1620px) {
+      max-height: 280px;
+    }
+  }
+
+  .modal-container {
+    max-height: calc(100vh - 50%);
+  }
+
+  .modal-cancel {
+    background-color: $shadow_2_header;
+    padding: 12px 24px;
+    border-radius: 8px;
+  }
+}
