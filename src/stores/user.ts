@@ -1,4 +1,4 @@
-import { getUserInfoByUsername, updateUsersSubscribers } from '@/services'
+import { getUserInfoByUsername, updateUserImageById, updateUsersSubscribers } from '@/services'
 import type { IAllUserData, IUserDictionary } from '@/types'
 import { defineStore } from 'pinia'
 import { reactive, toRefs } from 'vue'
@@ -29,6 +29,10 @@ export const userStore = defineStore(
         state.following = []
         state.preferences = []
       }
+    }
+
+    const updateUserImage = async (file: File) => {
+      await updateUserImageById(file)
     }
 
     const getUserInfo = async (username: string) => {
@@ -67,6 +71,7 @@ export const userStore = defineStore(
       getUserInfo,
       updateSubscribers,
       setDefault,
+      updateUserImage,
     }
   },
   {

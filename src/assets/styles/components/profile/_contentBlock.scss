@@ -79,6 +79,12 @@
     height: 350px;
     border-radius: 100%;
     box-shadow: $dark_pink 0px 0px 10px 0px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .invalid {
+    box-shadow: $red 0px 0px 10px 0px;
   }
 
   .avatar-icon {
@@ -94,5 +100,9 @@
   .subscibe {
     border-radius: 8px;
     background-color: $dark_purple;
+  }
+
+  #fileElem {
+    display: none;
   }
 }

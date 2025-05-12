@@ -9,6 +9,7 @@
         :subscribers="data.subscribers"
         :isCurrentUser
         @updateSubscribers="updateSubscribers"
+        @updatePhoto="(file: File) => updatePhoto(file)"
       />
       <SongsBlock
         :songs="songs"
@@ -79,6 +80,10 @@ const updateSubscribers = async () => {
     storePlaylist.getAnotherUserPlaylists(routeUsername),
   ])
   updateData(userInfo, userSongs, userPlaylists)
+}
+
+const updatePhoto = async (file: File) => {
+  await store.updateUserImage(file)
 }
 
 const getUserInfo = async () => {
