@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 const props = defineProps<{
   modelValue: string[]
@@ -58,6 +58,13 @@ const isInfoInvalid = () => {
   if (!props.v) return
   return props.v.$invalid && props.v.$dirty && !selectedDatas.value
 }
+
+watch(
+  () => props.modelValue,
+  () => {
+    selectedDatas.value = props.modelValue
+  },
+)
 </script>
 
 <style scoped lang="scss">

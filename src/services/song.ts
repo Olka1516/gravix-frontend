@@ -18,6 +18,21 @@ export const createUserSong = async (songData: ISong) => {
   return data.data.song
 }
 
+export const updateUserSong = async (songData: ISong) => {
+  const formData = new FormData()
+  if (songData.song) formData.append('song', songData.song)
+  if (songData.image) formData.append('image', songData.image)
+  formData.append('title', songData.title)
+  formData.append('description', songData.description)
+  formData.append('lyrics', songData.lyrics)
+  formData.append('genres', JSON.stringify(songData.genres))
+  formData.append('duration', songData.duration)
+  formData.append('releaseYear', songData.releaseYear)
+  formData.append('rating', songData.rating.toString())
+
+  await http.put(ENDPOINTS.UPDATE_SONG(songData._id!), formData)
+}
+
 export const getSongsByUsername = async (username: string) => {
   const data = await http.get(ENDPOINTS.GET_SONGS(username))
   return data.data

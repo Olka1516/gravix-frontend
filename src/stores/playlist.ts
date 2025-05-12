@@ -42,9 +42,14 @@ export const playlistStore = defineStore('playlistInfo', () => {
     state.value = state.value.filter((playlist) => playlist._id !== id)
   }
 
-  const getAnotherUserPlaylists = async (username: string) => {
+  const getAnotherUserPlaylists = async (username: string): Promise<IPlaylist[]> => {
     if (!playlists.has(username)) {
-      playlists.set(username, await getPlayListByUsername(username))
+      try {
+        const data = await getPlayListByUsername(username)
+        playlists.set(username, data)
+      } catch {
+        playlists.set(username, [])
+      }
     }
     return playlists.get(username) ?? []
   }

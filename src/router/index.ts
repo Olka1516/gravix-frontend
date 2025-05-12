@@ -40,6 +40,12 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
+      path: '/change-song/:id',
+      name: 'change-song',
+      component: () => import('../views/ModifyFormView.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
       path: '/questions/:id',
       name: 'questions',
       component: () => import('../views/QuestionsView.vue'),

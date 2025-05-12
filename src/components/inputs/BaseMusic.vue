@@ -13,7 +13,7 @@
       <label v-if="!isMusicChosen" class="border-button" for="audioElem">Choose audio file</label>
     </form>
     <div v-if="isMusicChosen">
-      <audio v-if="audioUrl" controls>
+      <audio v-if="audioUrl" :key="audioUrl" controls>
         <source :src="audioUrl" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, type Ref } from 'vue'
+import { ref, onMounted, type Ref, watch } from 'vue'
 
 const props = defineProps<{
   v?: {
@@ -54,6 +54,7 @@ const handleDragLeave = (e: DragEvent) => {
 }
 
 const handleDrop = (e: DragEvent) => {
+  console.log('here work')
   preventDefaults(e)
   const dt = e.dataTransfer
   if (!dt) return
@@ -84,35 +85,44 @@ const handleFiles = (files: FileList) => {
     return
   }
   uploadedFile.value = files[0]
-  uploadFile(files[0])
+  console.log(uploadedFile.value)
   previewFile(files[0])
-}
-
-const uploadFile = (file: File) => {
-  emit('update', file)
 }
 
 const previewFile = (file: File) => {
   isMusicChosen.value = true
   uploadedFile.value = file
   audioUrl.value = URL.createObjectURL(file)
+  console.log('audioUrl.value', audioUrl.value)
   emit('update', file)
 }
 
 const clearPreview = () => {
   const preview = document.getElementById('preview-audio')
+  console.log('preview', preview)
   if (preview) {
     preview.innerHTML = ''
   }
 }
 
-onMounted(() => {
+const setSong = () => {
   dropArea.value = document.querySelector('.drop-area')
   if (typeof props.url === 'string') {
     isMusicChosen.value = true
     audioUrl.value = props.url
   }
+}
+
+onMounted(() => {
+  setSong()
 })
+
+watch(
+  () => props.url,
+  () => {
+    setSong()
+  },
+)
 
 const isInfoInvalid = () => {
   if (isHeavy.value) return isHeavy.value

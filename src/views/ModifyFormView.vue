@@ -59,10 +59,11 @@ import { songsGenres } from '@/constants'
 import { songStore } from '@/stores'
 import type { ISong } from '@/types'
 import useVuelidate from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
-import { reactive } from 'vue'
-import { useRouter } from 'vue-router'
+import { minLength, required } from '@vuelidate/validators'
+import { onMounted, onUnmounted, reactive } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
+const route = useRoute()
 const router = useRouter()
 const store = songStore()
 const data: ISong = reactive({
@@ -86,7 +87,7 @@ const rules = {
   lyrics: { required },
   image: { required },
   song: { required },
-  genres: { required },
+  genres: { required, minLength: minLength(1) },
   releaseYear: { required },
 }
 
@@ -118,12 +119,41 @@ const submit = async () => {
   }
   try {
     data.author = localStorage.getItem('username') || ''
-    await store.createSong(data)
-    router.push(`profile/${data.author}`)
+    await store.updateSong(data)
+    if (data._id) {
+    } else {
+      await store.createSong(data)
+    }
+    await router.push(`/profile/${data.author}`)
   } catch {
     console.log('error')
   }
 }
+
+onMounted(async () => {
+  const id = route.params.id.toString()
+  if (id) {
+    const tempSong = await store.getSong(id)
+    Object.assign(data, tempSong)
+  }
+})
+
+onUnmounted(() => {
+  Object.assign(data, {
+    title: '',
+    description: '',
+    lyrics: '',
+    image: null,
+    song: null,
+    genres: [],
+    author: '',
+    duration: '',
+    releaseYear: '',
+    rating: 0,
+    ratingCount: 0,
+    likes: [],
+  })
+})
 </script>
 
 <style scoped lang="scss">

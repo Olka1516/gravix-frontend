@@ -47,7 +47,9 @@
 import type { ISongGetted, ISongItem } from '@/types'
 import { inject, computed, type Ref, ref } from 'vue'
 import DeleteModal from './BaseDeleteModal.vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const props = defineProps<{ song: ISongGetted; isCurrentUser?: boolean }>()
 const emit = defineEmits<{ (e: 'deleteSong', value: string): void }>()
 
@@ -58,7 +60,6 @@ const songInject = inject<{ isSongPlay: Ref<boolean>; updateSong: (item: ISongIt
 
 const open = ref(false)
 const isDeleteModelopen = ref(false)
-const isModalOpen = ref(false)
 
 const songData = computed(() => ({
   song: props.song.song,
@@ -91,10 +92,10 @@ const openSettings = (event: Event) => {
   open.value = !open.value
 }
 
-const changeVisibility = (event: Event) => {
+const changeVisibility = async (event: Event) => {
   event.stopPropagation()
-  isModalOpen.value = true
-  document.body.style.overflow = 'hidden'
+  document.body.style.overflow = ''
+  await router.push(`/change-song/${props.song._id}`)
 }
 
 const deleteSongModal = (event: Event) => {
