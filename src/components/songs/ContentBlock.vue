@@ -94,7 +94,6 @@ const searchValue = async (data: string, selectedValue: string) => {
   popular.value.popularSongs = data ? store.searchedSongs : store.popularSongs
   popular.value.popularPlaylists = data ? store.searchedPlaylists : store.popularPlaylists
   popular.value.popularAuthors = data ? store.searchedAuthors : store.popularAuthors
-  console.log(popular.value.popularPlaylists)
 }
 
 onMounted(async () => {
