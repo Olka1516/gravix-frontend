@@ -6,7 +6,7 @@
           <img class="detailed-album" :src="song.image" alt="Album cover" />
           <div class="detailed-content-inner">
             <div>
-              <h3>{{ song.author }}</h3>
+              <h3 @click="changeRoute">{{ song.author }}</h3>
               <i>{{ song.description }}</i>
               <p>{{ song.duration }}&emsp;&emsp;{{ song.releaseYear }}</p>
             </div>
@@ -113,6 +113,10 @@ const deleteSong = async () => {
   document.body.style.overflow = ''
   await store.deleteSong(detailedSong.value._id)
   await router.push('/songs')
+}
+
+const changeRoute = async () => {
+  await router.push(`/profile/${detailedSong.value.author}`)
 }
 
 const isUser = computed(() => {

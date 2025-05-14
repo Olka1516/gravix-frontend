@@ -1,8 +1,11 @@
 <template>
   <div>
-    <BaseHeader />
-    <ContentBlock @likeSong="(id: string) => likeSong(id)" />
-    <BaseFooter />
+    <BaseLoading v-if="loading" />
+    <div v-else>
+      <BaseHeader />
+      <ContentBlock @likeSong="(id: string) => likeSong(id)" />
+      <BaseFooter />
+    </div>
   </div>
 </template>
 
@@ -10,6 +13,7 @@
 import BaseFooter from '@/components/BaseFooter.vue'
 import BaseHeader from '@/components/BaseHeader.vue'
 import ContentBlock from '@/components/detailed/ContentBlock.vue'
+import BaseLoading from '@/components/general/BaseLoading.vue'
 
 import { songStore } from '@/stores'
 import type { ISongGetted } from '@/types'
@@ -18,6 +22,7 @@ import { useRoute } from 'vue-router'
 
 const storeSongs = songStore()
 const route = useRoute()
+const loading = ref(true)
 
 const song = ref<ISongGetted>({
   title: '',
@@ -46,5 +51,6 @@ const likeSong = async (id: string) => {
 onMounted(async () => {
   song.value = await storeSongs.getSong(route.params.id.toString())
   detailedInject?.setDitailedSong(song.value)
+  loading.value = false
 })
 </script>

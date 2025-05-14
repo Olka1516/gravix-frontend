@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <BaseLoading v-if="loading" />
+  <div v-else class="container">
     <BaseColoredCircle size="160px" top="40%" right="80%" />
     <BaseColoredCircle size="180px" top="30%" right="10%" />
     <div class="playlist">
@@ -67,7 +68,9 @@ import type { IPlaylist } from '@/types/playlist'
 import type { ISongGetted } from '@/types'
 import CreatePlaylist from './CreatePlaylist.vue'
 import DeleteModal from '../general/BaseDeleteModal.vue'
+import BaseLoading from '../general/BaseLoading.vue'
 
+const loading = ref(true)
 const router = useRouter()
 const open = ref(false)
 const isModalOpen = ref(false)
@@ -174,6 +177,7 @@ onMounted(async () => {
   playlist.value = await store.getPlaylist(playlistId)
   songs.value = playlist.value.song
   userId.value = userInfo.id
+  loading.value = false
 })
 </script>
 

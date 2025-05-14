@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <BaseLoading v-if="loading" />
+  <div v-else>
     <BaseHeader />
     <main>
       <ContentBlock
@@ -34,7 +35,9 @@ import { useRoute } from 'vue-router'
 import type { IAllUserData, ISongGetted } from '@/types'
 import { playlistStore } from '@/stores/playlist'
 import type { IPlaylist } from '@/types/playlist'
+import BaseLoading from '@/components/general/BaseLoading.vue'
 
+const loading = ref(true)
 const data = ref<IAllUserData>({
   username: '',
   email: '',
@@ -141,6 +144,7 @@ watch(
 
 onMounted(async () => {
   await getUserInfo()
+  loading.value = false
 })
 
 onUnmounted(() => {

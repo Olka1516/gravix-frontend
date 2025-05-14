@@ -109,6 +109,7 @@ const clearGallery = () => {
 }
 
 const setImage = () => {
+  clearGallery()
   dropArea.value = document.querySelector('.drop-area')
   if (!props.url) return
   if (typeof props.url === 'string') {

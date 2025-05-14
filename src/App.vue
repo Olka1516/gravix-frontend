@@ -76,7 +76,13 @@ const setDitailedSong = (data: ISongGetted) => {
   router.push('/detailed/' + data._id)
 }
 
-provide('songPlayDetails', { song, isSongModal, isSongPlay, isCanBeChanged, updateSong })
+const likeSong = async (id: string) => {
+  await storeSongs.likeSong(id)
+  const data = await storeSongs.getSong(id)
+  detailedSong.value = data
+}
+
+provide('songPlayDetails', { song, isSongModal, isSongPlay, isCanBeChanged, updateSong, likeSong })
 provide('detailedSong', { detailedSong, setDitailedSong })
 </script>
 

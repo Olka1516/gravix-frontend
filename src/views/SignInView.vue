@@ -1,5 +1,6 @@
 <template>
-  <div class="auth">
+  <BaseLoading v-if="loading" />
+  <div v-else class="auth">
     <img class="auth-img" src="@/assets/images/notes.webp" alt="" />
     <div class="auth-navs">
       <button class="border-button" @click="routeNavigateTo('sign-up')">Sign up</button>
@@ -23,7 +24,7 @@
 <script setup lang="ts">
 import BaseText from '@/components/inputs/BaseText.vue'
 import { useRouter } from 'vue-router'
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import BasePassword from '@/components/inputs/BasePassword.vue'
 import ErrorMessage from '@/components/inputs/ErrorMessage.vue'
 import { required } from '@vuelidate/validators'
@@ -31,7 +32,9 @@ import useVuelidate from '@vuelidate/core'
 
 import type { TRequestError } from '@/types'
 import { authStore } from '@/stores'
+import BaseLoading from '@/components/general/BaseLoading.vue'
 
+const loading = ref(true)
 const store = authStore()
 const router = useRouter()
 const error = ref('')
@@ -63,6 +66,10 @@ const submit = async () => {
 const routeNavigateTo = async (name: string) => {
   await router.push(`/${name}`)
 }
+
+onMounted(() => {
+  loading.value = false
+})
 </script>
 
 <style scoped lang="scss">

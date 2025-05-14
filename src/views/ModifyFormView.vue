@@ -1,5 +1,6 @@
 <template>
-  <div class="modify">
+  <BaseLoading v-if="loading" />
+  <div v-else class="modify">
     <div>
       <div v-for="k in 3" :key="k" class="wave"></div>
     </div>
@@ -48,6 +49,7 @@
 </template>
 
 <script setup lang="ts">
+import BaseLoading from '@/components/general/BaseLoading.vue'
 import BaseDragFile from '@/components/inputs/BaseDragFile.vue'
 import BaseMusic from '@/components/inputs/BaseMusic.vue'
 import BaseSelector from '@/components/inputs/BaseSelector.vue'
@@ -60,9 +62,10 @@ import { songStore } from '@/stores'
 import type { ISong } from '@/types'
 import useVuelidate from '@vuelidate/core'
 import { minLength, required } from '@vuelidate/validators'
-import { onMounted, onUnmounted, reactive } from 'vue'
+import { onMounted, onUnmounted, reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
+const loading = ref(true)
 const route = useRoute()
 const router = useRouter()
 const store = songStore()
@@ -136,6 +139,7 @@ onMounted(async () => {
     const tempSong = await store.getSong(id)
     Object.assign(data, tempSong)
   }
+  loading.value = false
 })
 
 onUnmounted(() => {

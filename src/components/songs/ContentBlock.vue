@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <BaseLoading v-if="loading" />
+  <div v-else class="container">
     <div class="songs-head">
       <div class="field">
         <button class="circle-button" @click="openSearchModal">
@@ -66,7 +67,9 @@ import { useRecommendationsStore } from '@/stores/recommendations'
 import SearchModal from '../general/BaseSearchModal.vue'
 import type { IAllUserData, ISongGetted } from '@/types'
 import type { IPlaylist } from '@/types/playlist'
+import BaseLoading from '../general/BaseLoading.vue'
 
+const loading = ref(true)
 const searchOpen = ref(false)
 const store = useRecommendationsStore()
 const popular: Ref<{
@@ -102,6 +105,7 @@ onMounted(async () => {
   popular.value.popularSongs = store.popularSongs
   popular.value.popularPlaylists = store.popularPlaylists
   popular.value.popularAuthors = store.popularAuthors
+  loading.value = false
 })
 </script>
 
