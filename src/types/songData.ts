@@ -2,7 +2,7 @@ export interface ISong {
   title: string
   description: string
   lyrics: string
-  image: null | File
+  image: null | File | string
   song: null | File
   genres: string[]
   author: string
@@ -11,6 +11,7 @@ export interface ISong {
   rating: number
   ratingCount: number
   likes: string[]
+  _id?: string
 }
 
 export interface ISongDictionary {

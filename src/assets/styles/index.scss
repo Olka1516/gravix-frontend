@@ -1,4 +1,5 @@
 @use './components/baseDeleteModal' as *;
+@use './components/baseSearchModal' as *;
 @use './components/baseHeader' as *;
 @use './components/baseFooter' as *;
 @use './components/baseAudio' as *;
@@ -212,6 +213,11 @@
   @include border-button;
 }
 
+@mixin search-modal {
+  @include border-button;
+  @include search-modal-component;
+}
+
 @mixin detailed-view {
   @include border-button;
   @include container;
@@ -220,6 +226,7 @@
 
 @mixin songs {
   @include form;
+  @include circle-button;
   @include container;
   @include songs-profile-component;
 }

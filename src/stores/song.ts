@@ -5,6 +5,7 @@ import {
   getSongById,
   getSongsByUsername,
   likeSongById,
+  updateUserSong,
 } from '@/services'
 import type { ISong, ISongGetted } from '@/types'
 import { defineStore } from 'pinia'
@@ -23,6 +24,11 @@ export const songStore = defineStore('songInfo', () => {
   const createSong = async (songData: ISong) => {
     const data = await createUserSong(songData)
     state.value.push(data)
+  }
+
+  const updateSong = async (userData: ISong) => {
+    await updateUserSong(userData)
+    await getSongs(userData.author)
   }
 
   const getSongs = async (username: string) => {
@@ -74,5 +80,6 @@ export const songStore = defineStore('songInfo', () => {
     likeSong,
     setDefault,
     deleteSong,
+    updateSong,
   }
 })

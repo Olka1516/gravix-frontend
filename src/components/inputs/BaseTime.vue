@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 const props = defineProps<{
   modelValue: string
@@ -40,6 +40,13 @@ const handleInput = (event: Event) => {
 const isInfoInvalid = () => {
   return props.v.$invalid && props.v.$dirty
 }
+
+watch(
+  () => props.modelValue,
+  () => {
+    userInfo.value = props.modelValue
+  },
+)
 </script>
 
 <style scoped lang="scss">

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, type Ref } from 'vue'
+import { ref, onMounted, type Ref, watch, useTemplateRef } from 'vue'
 
 const props = defineProps<{
   v?: {
@@ -13,6 +13,7 @@ const text = ref(
   'Upload images using the file selection dialog or by dragging the desired images into the highlighted area',
 )
 
+const galleryRef = useTemplateRef('gallery')
 const dropArea: Ref<null | Element> = ref(null)
 const isImageChoosen = ref(false)
 const emit = defineEmits<{ (e: 'update', value: File): void }>()
@@ -95,28 +96,47 @@ const previewFile = (file: File) => {
       const img = document.createElement('img')
       img.src = reader.result
       img.id = 'previewImage'
-      document.getElementById('gallery')?.appendChild(img)
+      galleryRef.value?.appendChild(img)
     }
   }
 }
 
 const clearGallery = () => {
-  const gallery = document.getElementById('gallery')
+  const gallery = galleryRef.value
   if (gallery) {
     gallery.innerHTML = ''
   }
 }
 
-onMounted(() => {
+const setImage = () => {
   dropArea.value = document.querySelector('.drop-area')
   if (!props.url) return
   if (typeof props.url === 'string') {
     isImageChoosen.value = true
     const img = document.createElement('img')
     img.src = props.url
-    document.getElementById('gallery')?.appendChild(img)
+    img.id = 'previewImage'
+    galleryRef.value?.appendChild(img)
   }
+}
+
+onMounted(() => {
+  setImage()
 })
+
+watch(
+  () => props.url,
+  () => {
+    setImage()
+  },
+)
+
+watch(
+  () => galleryRef.value,
+  () => {
+    setImage()
+  },
+)
 
 const isInfoInvalid = () => {
   if (isHeavy.value) return isHeavy.value
@@ -141,7 +161,7 @@ const isInfoInvalid = () => {
       <label class="border-button" for="fileElem">Choose image</label>
     </form>
     <div v-if="isImageChoosen || props.url">
-      <div id="gallery"></div>
+      <div id="gallery" ref="gallery"></div>
     </div>
   </div>
 </template>
