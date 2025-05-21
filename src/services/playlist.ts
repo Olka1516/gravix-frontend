@@ -24,6 +24,10 @@ export const getMyPlayList = async () => {
   return data.data
 }
 
+export const addSongToPlaylistByIds = async (songId: string, playlistId: string) => {
+  await http.put(ENDPOINTS.ADD_SONG_TO_PLAYLIST + `?songId=${songId}&playlistId=${playlistId}`)
+}
+
 export const deletePlaylistById = async (id: string) => {
   await http.delete(ENDPOINTS.DELETE_PLAYLIST(id))
 }

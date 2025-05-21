@@ -54,7 +54,6 @@ const handleDragLeave = (e: DragEvent) => {
 }
 
 const handleDrop = (e: DragEvent) => {
-  console.log('here work')
   preventDefaults(e)
   const dt = e.dataTransfer
   if (!dt) return
@@ -85,7 +84,6 @@ const handleFiles = (files: FileList) => {
     return
   }
   uploadedFile.value = files[0]
-  console.log(uploadedFile.value)
   previewFile(files[0])
 }
 
@@ -93,13 +91,11 @@ const previewFile = (file: File) => {
   isMusicChosen.value = true
   uploadedFile.value = file
   audioUrl.value = URL.createObjectURL(file)
-  console.log('audioUrl.value', audioUrl.value)
   emit('update', file)
 }
 
 const clearPreview = () => {
   const preview = document.getElementById('preview-audio')
-  console.log('preview', preview)
   if (preview) {
     preview.innerHTML = ''
   }

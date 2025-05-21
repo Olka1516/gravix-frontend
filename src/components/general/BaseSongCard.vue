@@ -2,13 +2,16 @@
   <div class="card" @click="detailedSong?.setDitailedSong(song)" @mouseleave="closeSettings">
     <img class="card-img" :src="song.image" alt="Song image" />
     <div class="song-head">
-      <button v-if="isCurrentUser" class="song-settings circle-button" @click="openSettings">
+      <button class="song-settings circle-button" @click="openSettings">
         <img src="@/assets/images/icons/dots.svg" alt="" />
       </button>
       <div v-if="open">
         <div class="settings">
-          <button class="settings-btn" @click="changeVisibility">Change info</button>
-          <button class="settings-btn" @click="deleteSongModal">Delete</button>
+          <button v-if="isCurrentUser" class="settings-btn" @click="changeVisibility">
+            Change info
+          </button>
+          <button v-if="isCurrentUser" class="settings-btn" @click="deleteSongModal">Delete</button>
+          <button class="settings-btn" @click="openPlaylistsModal">Add to Playlist</button>
         </div>
       </div>
     </div>
@@ -40,10 +43,25 @@
         />
       </Transition>
     </Teleport>
+    <Teleport to="body">
+      <Transition name="modal">
+        <div v-show="isModalOpen || isAllPlaylists">
+          <CreatePlaylist v-if="isModalOpen" @close="closeModal" :songId="song._id" />
+          <AllPlaylistsModal
+            v-if="isAllPlaylists"
+            :id="song._id"
+            @close="closeModalPlaylists"
+            @openCreate="openModal"
+          />
+        </div>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
+import AllPlaylistsModal from './AllPlaylistsModal.vue'
+import CreatePlaylist from '../playlist/CreatePlaylist.vue'
 import type { ISongGetted, ISongItem } from '@/types'
 import { inject, computed, type Ref, ref } from 'vue'
 import DeleteModal from './BaseDeleteModal.vue'
@@ -60,6 +78,8 @@ const songInject = inject<{ isSongPlay: Ref<boolean>; updateSong: (item: ISongIt
 
 const open = ref(false)
 const isDeleteModelopen = ref(false)
+const isModalOpen = ref(false)
+const isAllPlaylists = ref(false)
 
 const songData = computed(() => ({
   song: props.song.song,
@@ -67,6 +87,29 @@ const songData = computed(() => ({
   author: props.song.author,
   image: props.song.image,
 }))
+
+const closeModal = () => {
+  isModalOpen.value = false
+  document.body.style.overflow = ''
+}
+
+const closeModalPlaylists = () => {
+  isAllPlaylists.value = false
+  document.body.style.overflow = ''
+}
+
+const openModal = (event: Event) => {
+  event.stopPropagation()
+  isModalOpen.value = true
+  isAllPlaylists.value = false
+  document.body.style.overflow = 'hidden'
+}
+
+const openPlaylistsModal = (event: Event) => {
+  event.stopPropagation()
+  isAllPlaylists.value = true
+  document.body.style.overflow = 'hidden'
+}
 
 const deleteSong = () => {
   emit('deleteSong', props.song._id)
