@@ -4,6 +4,7 @@ export const ENDPOINTS = {
   PROFILE: '/users/profile',
   INTERESTS: '/users/interests',
   UPDATE_SUBSCRIBERS: '/users/update/subscribers',
+  UPDATE_USER_PHOTO: '/users/update/photo',
   USERS: '/users/all',
   CREATE_SONG: '/songs/create',
   CREATE_PLAYLIST: '/playlists/create',

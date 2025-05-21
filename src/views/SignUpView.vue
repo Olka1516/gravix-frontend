@@ -1,5 +1,6 @@
 <template>
-  <div class="auth">
+  <BaseLoading v-if="loading" />
+  <div v-else class="auth">
     <div class="form">
       <h2>Sign up</h2>
       <div class="field">
@@ -37,13 +38,15 @@ import BasePassword from '@/components/inputs/BasePassword.vue'
 import BaseText from '@/components/inputs/BaseText.vue'
 import { email, required, sameAs, minLength } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
-import { computed, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ErrorMessage from '@/components/inputs/ErrorMessage.vue'
 
 import { authStore } from '@/stores'
 import type { TRequestError } from '@/types'
+import BaseLoading from '@/components/general/BaseLoading.vue'
 
+const loading = ref(true)
 const store = authStore()
 const router = useRouter()
 const error = ref('')
@@ -87,6 +90,10 @@ const submit = async () => {
 const routeNavigateTo = async (name: string) => {
   await router.push(`/${name}`)
 }
+
+onMounted(() => {
+  loading.value = false
+})
 </script>
 
 <style scoped lang="scss">

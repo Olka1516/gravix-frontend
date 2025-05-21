@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <BaseLoading v-if="loading" />
+  <div v-else>
     <BaseHeader />
     <main>
       <ContentBlock
@@ -9,6 +10,7 @@
         :subscribers="data.subscribers"
         :isCurrentUser
         @updateSubscribers="updateSubscribers"
+        @updatePhoto="(file: File) => updatePhoto(file)"
       />
       <SongsBlock
         :songs="songs"
@@ -33,7 +35,9 @@ import { useRoute } from 'vue-router'
 import type { IAllUserData, ISongGetted } from '@/types'
 import { playlistStore } from '@/stores/playlist'
 import type { IPlaylist } from '@/types/playlist'
+import BaseLoading from '@/components/general/BaseLoading.vue'
 
+const loading = ref(true)
 const data = ref<IAllUserData>({
   username: '',
   email: '',
@@ -79,6 +83,10 @@ const updateSubscribers = async () => {
     storePlaylist.getAnotherUserPlaylists(routeUsername),
   ])
   updateData(userInfo, userSongs, userPlaylists)
+}
+
+const updatePhoto = async (file: File) => {
+  await store.updateUserImage(file)
 }
 
 const getUserInfo = async () => {
@@ -136,6 +144,7 @@ watch(
 
 onMounted(async () => {
   await getUserInfo()
+  loading.value = false
 })
 
 onUnmounted(() => {

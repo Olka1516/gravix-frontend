@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <BaseLoading v-if="loading" />
+  <div v-else class="container">
     <h4>{{ questionText }}</h4>
     <BaseColoredCircle size="240px" top="40%" right="40%" />
 
@@ -30,7 +31,9 @@ import BaseQuestion from '@/components/general/BaseQuestion.vue'
 import { genresQuestions } from '@/constants'
 import { useQuestionsStore } from '@/stores/questions'
 import type { IAnswers } from '@/types/answer'
+import BaseLoading from '@/components/general/BaseLoading.vue'
 
+const loading = ref(true)
 const route = useRoute()
 const router = useRouter()
 const store = useQuestionsStore()
@@ -107,6 +110,7 @@ watch(
 
 onMounted(() => {
   setupPage(route.params.id as string)
+  loading.value = false
 })
 </script>
 

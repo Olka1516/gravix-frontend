@@ -2,8 +2,7 @@
   <header class="container header">
     <div class="header-content">
       <img src="@/assets/images/logo.png" alt="" @click="navigateTo('')" />
-      <button>All songs</button>
-      <button>Songs for you</button>
+      <button @click="navigateTo('songs')">All songs</button>
     </div>
     <div>
       <div v-if="!username" class="header-content">

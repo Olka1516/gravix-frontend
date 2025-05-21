@@ -67,6 +67,9 @@
       color: $grey;
       font-size: 14px;
     }
+    & h3 {
+      cursor: pointer;
+    }
   }
 
   .detailed-album {

@@ -17,6 +17,12 @@ export const saveUserAnswers = async (genres: string[], artists: string[]) => {
   await http.post(ENDPOINTS.INTERESTS, temp)
 }
 
+export const updateUserImageById = async (file: File) => {
+  const formData = new FormData()
+  if (file) formData.append('image', file)
+  await http.put(ENDPOINTS.UPDATE_USER_PHOTO, formData)
+}
+
 export const updateUsersSubscribers = async (username: string, followee: string) => {
   const temp = {
     username,
