@@ -1,5 +1,4 @@
 export interface ISong {
-  username: string
   title: string
   description: string
   lyrics: string
@@ -29,7 +28,6 @@ export interface ISongItem {
 }
 
 export interface ISongGetted {
-  username: string
   title: string
   description: string
   lyrics: string

@@ -18,6 +18,19 @@ export const userStore = defineStore(
 
     const users: IUserDictionary = reactive({})
 
+    const setDefault = () => {
+      const username = localStorage.getItem('username') || ''
+      if (!username) {
+        state.username = ''
+        state.email = ''
+        state.avatar = ''
+        state.id = ''
+        state.subscribers = []
+        state.following = []
+        state.preferences = []
+      }
+    }
+
     const getUserInfo = async (username: string) => {
       const data = await getUserInfoByUsername(username)
       state.username = data.username
@@ -53,6 +66,7 @@ export const userStore = defineStore(
       getAnotherUserInfo,
       getUserInfo,
       updateSubscribers,
+      setDefault,
     }
   },
   {

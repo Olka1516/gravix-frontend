@@ -21,7 +21,7 @@ import BaseHeader from '@/components/BaseHeader.vue'
 import ContentBlock from '@/components/profile/ContentBlock.vue'
 import SongsBlock from '@/components/profile/SongsBlock.vue'
 import BaseFooter from '@/components/BaseFooter.vue'
-import { onMounted, ref, watch, type Ref } from 'vue'
+import { onMounted, onUnmounted, ref, watch, type Ref } from 'vue'
 import { songStore, userStore } from '@/stores'
 import { useRoute } from 'vue-router'
 import type { IAllUserData, ISongGetted } from '@/types'
@@ -70,7 +70,7 @@ const getUserInfo = async () => {
   const routeUsername = route.params.username.toString()
   const username = localStorage.getItem('username') || ''
 
-  if (username === routeUsername && !store.username) {
+  if (username === routeUsername && (!store.username || storeSongs.state || storePlaylist.state)) {
     await store.getUserInfo(username)
     await storeSongs.getSongs(username)
     await storePlaylist.getPlaylists()
@@ -97,7 +97,32 @@ watch(
   },
 )
 
+watch(
+  () => storePlaylist.state,
+  async () => {
+    playlists.value = storePlaylist.state
+  },
+)
+
 onMounted(async () => {
   await getUserInfo()
+})
+
+onUnmounted(() => {
+  data.value = {
+    username: '',
+    email: '',
+    avatar: null,
+    id: '',
+    subscribers: [],
+    following: [],
+    preferences: [],
+  }
+  songs.value = []
+  playlists.value = []
+
+  store.setDefault()
+  storeSongs.setDefault()
+  storePlaylist.setDefault()
 })
 </script>

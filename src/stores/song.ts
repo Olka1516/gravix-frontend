@@ -9,65 +9,64 @@ import type { ISong, ISongGetted } from '@/types'
 import { defineStore } from 'pinia'
 import { ref, type Ref } from 'vue'
 
-export const songStore = defineStore(
-  'songInfo',
-  () => {
-    const state: Ref<ISongGetted[]> = ref([])
+export const songStore = defineStore('songInfo', () => {
+  const state: Ref<ISongGetted[]> = ref([])
 
-    const songs = new Map<string, ISongGetted[]>()
-    const selectedSongs = new Map<string, ISongGetted>()
+  const songs = new Map<string, ISongGetted[]>()
+  const selectedSongs = new Map<string, ISongGetted>()
 
-    const createSong = async (songData: ISong) => {
-      await createUserSong(songData)
-      state.value = await getSongsByUsername(songData.username)
+  const setDefault = () => {
+    state.value = []
+  }
+
+  const createSong = async (songData: ISong) => {
+    const data = await createUserSong(songData)
+    state.value.push(data)
+  }
+
+  const getSongs = async (username: string) => {
+    if (state.value.length) return
+    state.value = await getSongsByUsername(username)
+  }
+
+  const getAnotherUserSongs = async (username: string) => {
+    if (!songs.has(username)) {
+      songs.set(username, await getSongsByUsername(username))
     }
+    return songs.get(username) ?? []
+  }
 
-    const getSongs = async (username: string) => {
-      if (state.value.length) return
-      state.value = await getSongsByUsername(username)
-    }
+  const setSong = (data: ISongGetted) => {
+    selectedSongs.set(data._id, data)
+  }
 
-    const getAnotherUserSongs = async (username: string) => {
-      if (!songs.has(username)) {
-        songs.set(username, await getSongsByUsername(username))
-      }
-      return songs.get(username) ?? []
-    }
+  const getSong = async (id: string) => {
+    if (selectedSongs.has(id)) return selectedSongs.get(id)
 
-    const setSong = (data: ISongGetted) => {
-      selectedSongs.set(data._id, data)
-    }
+    const data = await getSongById(id)
+    setSong(data)
+    return data
+  }
 
-    const getSong = async (id: string) => {
-      if (selectedSongs.has(id)) return selectedSongs.get(id)
+  const likeSong = async (id: string) => {
+    const data = await getSong(id)
+    const userInfo = JSON.parse(localStorage.getItem('userInfo') || '')
 
-      const data = await getSongById(id)
-      setSong(data)
-      return data
-    }
+    if (!data.likes.includes(userInfo.id)) await likeSongById(id)
+    else await dislikeSongById(id)
 
-    const likeSong = async (id: string) => {
-      const data = await getSong(id)
-      const userInfo = JSON.parse(localStorage.getItem('userInfo') || '')
+    const updatedSong = await getSongById(id)
+    setSong(updatedSong)
+  }
 
-      if (!data.likes.includes(userInfo.id)) await likeSongById(id)
-      else await dislikeSongById(id)
-
-      const updatedSong = await getSongById(id)
-      setSong(updatedSong)
-    }
-
-    return {
-      state,
-      createSong,
-      getSongs,
-      getAnotherUserSongs,
-      setSong,
-      getSong,
-      likeSong,
-    }
-  },
-  {
-    persist: true,
-  },
-)
+  return {
+    state,
+    createSong,
+    getSongs,
+    getAnotherUserSongs,
+    setSong,
+    getSong,
+    likeSong,
+    setDefault,
+  }
+})

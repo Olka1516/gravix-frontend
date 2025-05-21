@@ -3,7 +3,7 @@
     <div class="modal-container">
       <div class="top">
         <div class="modal-content top-content">
-          <h3>Create Playlist</h3>
+          <h3>{{ text[isUpdate ? 'update' : 'create'].top }}</h3>
           <button @click="$emit('close')">
             <img src="@/assets/images/icons/exitWhite.svg" alt="" />
           </button>
@@ -40,24 +40,38 @@
         </transition>
       </div>
       <div class="modal-content">
-        <button class="modal-cancel" @click="$emit('close')">Cencel</button>
-        <button class="border-button" @click="submit">Create</button>
+        <button class="modal-cancel" @click="$emit('close')">Cancel</button>
+        <button class="border-button" @click="submit">
+          {{ text[isUpdate ? 'update' : 'create'].btn }}
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import BaseText from '../inputs/BaseText.vue'
 import ErrorMessage from '../inputs/ErrorMessage.vue'
 import { required } from '@vuelidate/validators'
 import type { TRequestError } from '@/types'
 import useVuelidate from '@vuelidate/core'
-import { IPlaylistVisibility } from '@/types/playlist'
+import { IPlaylistVisibility, type IPlaylist } from '@/types/playlist'
 import { playlistStore } from '@/stores/playlist'
 
-const emit = defineEmits<{ (e: 'close'): void }>()
+const props = defineProps<{ isUpdate?: boolean; playlist?: IPlaylist }>()
+const emit = defineEmits<{ (e: 'close', name?: string): string | void }>()
+
+const text = {
+  create: {
+    top: 'Create Playlist',
+    btn: 'Create',
+  },
+  update: {
+    top: 'Update Playlist',
+    btn: 'Update',
+  },
+}
 
 const store = playlistStore()
 const open = ref(false)
@@ -83,13 +97,25 @@ const submit = async () => {
     return
   }
   try {
-    await store.createPlaylist(playlistData)
-    emit('close')
+    if (props.playlist) {
+      await store.updatePlaylist(playlistData, props.playlist._id)
+    } else {
+      await store.createPlaylist(playlistData)
+    }
+    emit('close', playlistData.name)
   } catch (err) {
     const message = err as TRequestError
     console.log(message)
   }
 }
+
+onMounted(() => {
+  if (props.playlist) {
+    console.log(props.playlist)
+    playlistData.name = props.playlist?.name
+    playlistData.visibility = props.playlist?.visibility
+  }
+})
 </script>
 
 <style scoped lang="scss">

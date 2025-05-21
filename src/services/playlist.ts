@@ -11,6 +11,14 @@ export const createUserPlaylist = async (playlistData: IPlaylistCreate) => {
   return data.data
 }
 
+export const updateUserPlaylist = async (playlistData: IPlaylistCreate, id: string) => {
+  const formData = new FormData()
+  formData.append('name', playlistData.name)
+  formData.append('visibility', playlistData.visibility)
+
+  await http.put(ENDPOINTS.UPDATE_PLAYLIST(id), formData)
+}
+
 export const getMyPlayList = async () => {
   const data = await http.get(ENDPOINTS.GET_MY_PLAYLIST)
   return data.data
@@ -23,6 +31,11 @@ export const getPlayListByUsername = async (username: string) => {
 
 export const getPlayListById = async (id: string) => {
   const data = await http.get(ENDPOINTS.GET_PLAYLIST_BY_ID(id))
+  return data.data[0]
+}
+
+export const getMyPlayListById = async (id: string) => {
+  const data = await http.get(ENDPOINTS.GET_MY_PLAYLIST_BY_ID(id))
   return data.data[0]
 }
 

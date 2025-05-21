@@ -2,6 +2,7 @@
 
 @mixin playlist-component {
   .playlist-card {
+    cursor: pointer;
     width: 350px;
     height: 350px;
     border-radius: 8px;
@@ -12,13 +13,28 @@
       width: 348px;
       height: 100%;
       object-fit: cover;
+      transition: all 0.7s ease-in-out;
     }
+
     &:hover > .playlist-card-text {
       opacity: 1;
       bottom: 0;
       backdrop-filter: blur(2px);
       background-color: $background_color_header;
       height: 40px;
+    }
+
+    &:hover > img {
+      filter: brightness(0.4);
+    }
+
+    &:hover > .playlist-head {
+      opacity: 1;
+      height: 40px;
+    }
+
+    &:hover > .playlist-head .playlist-settings {
+      top: 15px;
     }
   }
 
@@ -39,17 +55,51 @@
     border-bottom-left-radius: 8px;
   }
 
-  .playlist-play {
+  .playlist-head {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    top: 0;
+    opacity: 0;
+    backdrop-filter: blur(2);
+    background: $black;
+    background: $transparent_black;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    transition: all 0.8s ease-out;
+  }
+
+  .playlist-play,
+  .playlist-settings {
     position: absolute;
     top: -25px;
     right: 10px;
     width: 45px;
     height: 45px;
     padding: 16px 16px 16px 18px;
-
     img {
       width: 24px;
       height: 24px;
     }
+  }
+
+  .playlist-settings {
+    transition: all 0.8s ease-out;
+    top: -10px;
+  }
+
+  .settings {
+    padding: 12px;
+    position: absolute;
+    height: 120px;
+    top: 65px;
+    right: -20px;
+    background-color: $light_grey;
+  }
+
+  .settings-btn {
+    padding: 6px;
+    font-size: 12px;
+    border: 1px solid $white;
   }
 }
