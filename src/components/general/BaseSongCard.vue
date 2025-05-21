@@ -125,8 +125,8 @@ const closeDeleteModal = () => {
   document.body.style.overflow = ''
 }
 
-const chooseSong = (event: Event) => {
-  event.stopPropagation()
+const chooseSong = (event?: Event) => {
+  if (event) event.stopPropagation()
   songInject?.updateSong(songData.value)
 }
 

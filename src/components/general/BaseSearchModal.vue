@@ -115,7 +115,7 @@ const getName = (item: ISongGetted | IAllUserData | IPlaylist) => {
 
 const getDetails = (item: ISongGetted | IAllUserData | IPlaylist) => {
   if ('email' in item) return item.email
-  if ('description' in item) return item.description
+  if ('description' in item) return item.author
 }
 
 const handleInput = () => {

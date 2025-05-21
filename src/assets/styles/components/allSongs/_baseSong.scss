@@ -2,6 +2,7 @@
 
 @mixin base-song-component {
   .base-song {
+    cursor: pointer;
     padding: 8px 12px;
     display: flex;
     justify-content: space-between;

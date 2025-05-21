@@ -11,15 +11,18 @@
   .form {
     max-width: 700px;
     min-width: 600px;
-    height: calc(100% - 200px);
+    height: calc(100% - 600px);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 36px;
-    padding: 10px 80px;
+    padding: 80px;
     border-radius: 8px;
     border: 1px solid $pink;
+    @media screen and (max-height: 1150px) {
+      height: calc(100% - 200px);
+    }
     @media screen and (max-width: 768px) {
       min-width: 400px;
     }

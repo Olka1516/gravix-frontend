@@ -5,9 +5,13 @@
     width: 20vmin;
     height: 20vmin;
     position: relative;
-    top: -60px;
-    left: 100px;
+    top: -120px;
+    left: 60px;
     z-index: 1;
+    @media screen and (max-width: 1920px) {
+      top: -60px;
+      left: 100px;
+    }
     @media screen and (max-width: 1440px) {
       left: 4px;
     }

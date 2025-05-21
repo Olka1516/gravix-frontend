@@ -10,28 +10,28 @@
     </div>
 
     <div class="songs-info">
-      <h4>Songs Recommended For You</h4>
+      <h4>Songs by Similar Genres</h4>
       <div class="songs-content">
         <BaseSongCard v-for="song in store.sGenres" :key="song._id" :song></BaseSongCard>
       </div>
     </div>
 
     <div class="songs-info">
-      <h4>Songs Recommended For You</h4>
+      <h4>Songs by Author</h4>
       <div class="songs-content">
         <BaseSongCard v-for="song in store.sAuthors" :key="song._id" :song></BaseSongCard>
       </div>
     </div>
 
     <div class="songs-info">
-      <h4>Playlists Recommended For You</h4>
+      <h4>Playlists by Similar Genres</h4>
       <div class="songs-content">
         <BasePlaylist v-for="playlist in store.pGenres" :key="playlist._id" :playlist />
       </div>
     </div>
 
     <div class="songs-info">
-      <h4>Playlists Recommended For You</h4>
+      <h4>Playlists by Author</h4>
       <div class="songs-content">
         <BasePlaylist v-for="playlist in store.pAuthors" :key="playlist._id" :playlist />
       </div>

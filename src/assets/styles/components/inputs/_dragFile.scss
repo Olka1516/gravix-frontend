@@ -10,6 +10,13 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    @media screen and (max-width: 1200px) {
+      padding: 4px;
+      display: grid;
+      grid-template-rows: 1fr;
+      grid-template-columns: 1fr;
+      width: 60%;
+    }
   }
 
   .invalid {
@@ -25,7 +32,11 @@
     height: 450px;
     border-radius: 16px;
     object-fit: cover;
-    object-position: top;
+    object-position: center;
+    @media screen and (max-width: 1200px) {
+      width: 100%;
+      height: 240px;
+    }
   }
 
   .my-form {
@@ -35,6 +46,9 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
+    @media screen and (max-width: 1200px) {
+      padding: 24px;
+    }
   }
 
   #fileElem {
