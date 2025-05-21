@@ -1,5 +1,6 @@
 import {
   createUserSong,
+  deleteSongById,
   dislikeSongById,
   getSongById,
   getSongsByUsername,
@@ -25,7 +26,6 @@ export const songStore = defineStore('songInfo', () => {
   }
 
   const getSongs = async (username: string) => {
-    if (state.value.length) return
     state.value = await getSongsByUsername(username)
   }
 
@@ -38,6 +38,11 @@ export const songStore = defineStore('songInfo', () => {
 
   const setSong = (data: ISongGetted) => {
     selectedSongs.set(data._id, data)
+  }
+
+  const deleteSong = async (id: string) => {
+    await deleteSongById(id)
+    state.value = state.value.filter((song) => song._id !== id)
   }
 
   const getSong = async (id: string) => {
@@ -68,5 +73,6 @@ export const songStore = defineStore('songInfo', () => {
     getSong,
     likeSong,
     setDefault,
+    deleteSong,
   }
 })

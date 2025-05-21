@@ -13,10 +13,22 @@
 
     <div v-if="hasContent">
       <div class="songs" v-if="activeNav === 'Songs'">
-        <BaseSongCard v-for="song in songs" :key="song._id" v-bind:song="song" />
+        <BaseSongCard
+          v-for="song in songs"
+          :key="song._id"
+          :song
+          :isCurrentUser
+          @deleteSong="(id) => $emit('deleteSong', id)"
+        />
       </div>
       <div class="playlists" v-if="activeNav === 'Playlists'">
-        <BasePlaylist v-for="playlist in playlists" :key="playlist._id" :playlist :isCurrentUser />
+        <BasePlaylist
+          v-for="playlist in playlists"
+          :key="playlist._id"
+          :playlist
+          :isCurrentUser
+          @deletePlaylist="(id) => $emit('deletePlaylist', id)"
+        />
       </div>
     </div>
 

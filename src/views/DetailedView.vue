@@ -20,7 +20,6 @@ const storeSongs = songStore()
 const route = useRoute()
 
 const song = ref<ISongGetted>({
-  username: '',
   title: '',
   description: '',
   lyrics: '',

@@ -8,6 +8,7 @@
       <div v-if="open">
         <div class="settings">
           <button class="settings-btn" @click="changeVisibility">Change info</button>
+          <button class="settings-btn" @click="deletePlaylistModal">Delete</button>
         </div>
       </div>
     </div>
@@ -24,6 +25,16 @@
         <CreatePlaylist v-if="isModalOpen" @close="closeModal" :isUpdate="true" :playlist />
       </Transition>
     </Teleport>
+    <Teleport to="body">
+      <Transition name="modal">
+        <DeleteModal
+          v-if="isDeleteModelopen"
+          @close="closeDeleteModal"
+          @delete="deletePlaylist"
+          text="Playlist"
+        />
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
@@ -32,10 +43,13 @@ import { type IPlaylist } from '@/types/playlist'
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import CreatePlaylist from '../playlist/CreatePlaylist.vue'
+import DeleteModal from '../general/BaseDeleteModal.vue'
 
 const router = useRouter()
 const props = defineProps<{ playlist: IPlaylist; isCurrentUser?: boolean }>()
+const emit = defineEmits<{ (e: 'deletePlaylist', value: string): void }>()
 const open = ref(false)
+const isDeleteModelopen = ref(false)
 const isModalOpen = ref(false)
 
 const getPlaylistImage = computed(() => {
@@ -46,6 +60,11 @@ const getPlaylistImage = computed(() => {
 
 const closeModal = () => {
   isModalOpen.value = false
+  document.body.style.overflow = ''
+}
+
+const closeDeleteModal = () => {
+  isDeleteModelopen.value = false
   document.body.style.overflow = ''
 }
 
@@ -61,6 +80,16 @@ const openSettings = (event: Event) => {
 
 const closeSettings = () => {
   open.value = false
+}
+
+const deletePlaylistModal = (event: Event) => {
+  event.stopPropagation()
+  isDeleteModelopen.value = true
+  document.body.style.overflow = 'hidden'
+}
+
+const deletePlaylist = () => {
+  emit('deletePlaylist', props.playlist._id)
 }
 
 const changeVisibility = (event: Event) => {

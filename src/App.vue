@@ -34,7 +34,6 @@ const detailedSong = ref<ISongGetted>({
   title: '',
   author: '',
   image: '',
-  username: '',
   description: '',
   lyrics: '',
   genres: [],
