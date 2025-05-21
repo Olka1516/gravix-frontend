@@ -122,8 +122,8 @@ const submit = async () => {
   }
   try {
     data.author = localStorage.getItem('username') || ''
-    await store.updateSong(data)
     if (data._id) {
+      await store.updateSong(data)
     } else {
       await store.createSong(data)
     }
@@ -134,10 +134,12 @@ const submit = async () => {
 }
 
 onMounted(async () => {
-  const id = route.params.id.toString()
-  if (id) {
-    const tempSong = await store.getSong(id)
-    Object.assign(data, tempSong)
+  if (route.params.id) {
+    const id = route.params.id.toString()
+    if (id) {
+      const tempSong = await store.getSong(id)
+      Object.assign(data, tempSong)
+    }
   }
   loading.value = false
 })

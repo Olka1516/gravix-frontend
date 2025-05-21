@@ -80,7 +80,7 @@ const submit = async () => {
       email,
       password,
     })
-    await routeNavigateTo('profile/' + userData.username)
+    await routeNavigateTo('questions/genres')
   } catch (err) {
     const message = err as TRequestError
     error.value = message.response?.data.message || ''

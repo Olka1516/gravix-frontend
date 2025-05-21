@@ -17,11 +17,9 @@
             <img :src="getImage(item.icon())" alt="" />
           </button>
         </div>
-        <div v-if="open">
-          <div class="settings">
-            <button class="settings-btn" @click="changeVisibility">Change info</button>
-            <button class="settings-btn" @click="deletePlaylistModal">Delete</button>
-          </div>
+        <div v-show="open" class="settings">
+          <button class="settings-btn" @click="changeVisibility">Change info</button>
+          <button class="settings-btn" @click="deletePlaylistModal">Delete</button>
         </div>
       </div>
       <div class="playlist-songs">
@@ -105,8 +103,8 @@ const playlistActions = [
   },
   {
     icon: () => 'play',
-    action: () => {
-      songRefs.value[playedIndex.value]?.chooseSong()
+    action: (event: Event) => {
+      songRefs.value[playedIndex.value]?.chooseSong(event)
     },
   },
   {
@@ -122,6 +120,7 @@ const playlistActions = [
 const changeVisibility = (event: Event) => {
   event.stopPropagation()
   isModalOpen.value = true
+  open.value = false
   document.body.style.overflow = 'hidden'
 }
 
@@ -133,6 +132,7 @@ const closeDeleteModal = () => {
 const deletePlaylistModal = (event: Event) => {
   event.stopPropagation()
   isDeleteModelopen.value = true
+  open.value = false
   document.body.style.overflow = 'hidden'
 }
 

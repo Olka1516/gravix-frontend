@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-    <div>
+    <div class="detailed-lyrics">
       <h5>Lyrics:</h5>
       <p>{{ song.lyrics }}</p>
     </div>

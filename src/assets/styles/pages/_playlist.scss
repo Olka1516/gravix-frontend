@@ -62,6 +62,7 @@
     border: $grey 1px solid;
     background-color: transparent;
   }
+
   .playlist-btns {
     display: flex;
     align-items: center;
@@ -75,9 +76,16 @@
     padding: 12px;
     position: absolute;
     height: 120px;
-    bottom: -100px;
-    left: 60px;
+    left: calc(50% - 150px);
+    bottom: -125px;
+    z-index: 2;
     background-color: $light_grey;
+    @media screen and (max-width: 1200px) {
+      left: -20px;
+    }
+    @media screen and (max-width: 540px) {
+      left: -80px;
+    }
   }
 
   .settings-btn {

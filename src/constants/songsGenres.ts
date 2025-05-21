@@ -5,6 +5,7 @@ export const songsGenres = [
   'Rap',
   'R&B',
   'Jazz',
+  'Hip-Hope',
   'Blues',
   'Soul',
   'Funk',

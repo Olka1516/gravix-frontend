@@ -1,5 +1,5 @@
 <template>
-  <div class="base-song">
+  <div class="base-song" @click="changeRoute(song._id)">
     <div class="song-content">
       <div class="song-assets">
         <img class="song-image" :src="song.image" alt="" />
@@ -24,7 +24,7 @@
     <div class="song-infos">
       <span class="song-duration">{{ song.duration }}</span>
       <div class="song-btns">
-        <button @click="likeSong(song._id)">
+        <button @click="likeSong($event, song._id)">
           <img v-if="isUserLikeSong" src="@/assets/images/icons/fullLike.svg" alt="Like" />
           <img v-else src="@/assets/images/icons/like.svg" alt="Like" />
         </button>
@@ -54,7 +54,9 @@ import type { ISongGetted, ISongItem } from '@/types'
 import { computed, inject, ref, type Ref } from 'vue'
 import CreatePlaylist from '../playlist/CreatePlaylist.vue'
 import AllPlaylistsModal from '../general/AllPlaylistsModal.vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const props = defineProps<{ song: ISongGetted; index: number }>()
 const emit = defineEmits<{
   (e: 'changeSong', id: number): void
@@ -77,7 +79,8 @@ const songData = computed(() => ({
   image: props.song.image,
 }))
 
-const chooseSong = () => {
+const chooseSong = (event?: Event) => {
+  if (event) event.stopPropagation()
   emit('changeSong', props.index)
   songInject?.updateSong(songData.value)
 }
@@ -112,7 +115,12 @@ const openModal = (event: Event) => {
   document.body.style.overflow = 'hidden'
 }
 
-const likeSong = (id: string) => {
+const changeRoute = async (id: string) => {
+  await router.push('/detailed/' + id)
+}
+
+const likeSong = (event: Event, id: string) => {
+  event.stopPropagation()
   const userInfo = JSON.parse(localStorage.getItem('userInfo') || '')
   songInject?.likeSong(id)
   songLikes.value = songLikes.value.includes(userInfo.id)

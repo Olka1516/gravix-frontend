@@ -65,8 +65,9 @@ const updateStoreSelection = () => {
 
 const handleNext = async () => {
   const step = route.params.id as string
+  const username = localStorage.getItem('username')
   const isLastStep = step === 'artists'
-  const nextPath = isLastStep ? '/songs' : '/questions/artists'
+  const nextPath = isLastStep ? `/profile/${username}` : '/questions/artists'
 
   updateStoreSelection()
 

@@ -8,7 +8,7 @@
   }
 
   .form {
-    height: calc(100vh - 90px);
+    height: calc(100vh - 20%);
     max-width: calc(100vw - 100px);
     width: 1200px;
     position: absolute;
@@ -19,8 +19,21 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 40px;
+    @media screen and (max-width: 1440px) {
+      height: calc(100vh - 90px);
+    }
+    @media screen and (max-width: 1200px) {
+      flex-direction: column;
+      overflow-y: auto;
+    }
     @media screen and (max-width: 768px) {
       max-width: calc(100vw - 50px);
+    }
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    &::-webkit-scrollbar-thumb {
+      display: none;
     }
   }
 
@@ -41,6 +54,13 @@
     &::-webkit-scrollbar-thumb {
       background-color: $grey;
       border-radius: 11px;
+    }
+
+    @media screen and (max-width: 1200px) {
+      padding-right: 0;
+      width: 100%;
+      overflow-y: hidden;
+      min-height: fit-content;
     }
   }
 }
