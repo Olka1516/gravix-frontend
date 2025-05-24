@@ -3,6 +3,9 @@
 @mixin card-component {
   .card-container {
     height: var(--height);
+    @media screen and (max-width: 1024px) {
+      height: 100%;
+    }
   }
 
   .card {

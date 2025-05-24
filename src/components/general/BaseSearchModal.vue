@@ -17,6 +17,7 @@
           class="border-button"
           v-for="text in btnsText"
           :key="text"
+          :class="{ active: selectedText === text }"
           @click="changeSelectedText(text)"
         >
           {{ text }}

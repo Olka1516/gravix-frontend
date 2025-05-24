@@ -3,7 +3,7 @@
     <BaseLoading v-if="loading" />
     <div v-else>
       <BaseHeader />
-      <ContentBlock @likeSong="(id: string) => likeSong(id)" />
+      <ContentBlock @likeSong="(id: string) => likeSong(id)" v-model:playedSong="playedSong" />
       <BaseFooter />
     </div>
   </div>
@@ -20,6 +20,7 @@ import type { ISongGetted } from '@/types'
 import { inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
+const playedSong = ref('')
 const storeSongs = songStore()
 const route = useRoute()
 const loading = ref(true)

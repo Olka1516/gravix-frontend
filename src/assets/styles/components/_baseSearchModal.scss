@@ -45,6 +45,12 @@
       max-width: 1000px;
       min-width: 400px;
     }
+    @media screen and (max-width: 540px) {
+      top: 0;
+      margin: auto 12px;
+      max-width: 400px;
+      min-width: 100px;
+    }
   }
 
   .modal-btns {
@@ -53,6 +59,12 @@
     @media screen and (max-width: 767px) {
       gap: 8px;
       flex-direction: column;
+    }
+  }
+
+  .active {
+    &::after {
+      background: linear-gradient(to left, $grey, $grey, $grey) border-box;
     }
   }
 

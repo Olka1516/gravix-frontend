@@ -29,12 +29,22 @@
     justify-content: center;
     gap: 44px;
     position: relative;
+    @media screen and (max-width: 540px) {
+      margin: auto 12px;
+    }
   }
 
   .modal-content {
     display: flex;
     justify-content: space-between;
     width: 100%;
+  }
+
+  .end-content {
+    @media screen and (max-width: 540px) {
+      flex-direction: column-reverse;
+      gap: 24px;
+    }
   }
 
   .field {

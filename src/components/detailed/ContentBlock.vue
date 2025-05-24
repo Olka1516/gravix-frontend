@@ -38,7 +38,16 @@
             </button>
           </div>
           <button class="border-button" @click="chooseSong">
-            <img src="@/assets/images/icons/play.svg" alt="Play" />
+            <img
+              v-show="songInject?.isSongPlay.value && playedSong === song._id"
+              src="@/assets/images/icons/pause.svg"
+              alt="Pause"
+            />
+            <img
+              v-show="!songInject?.isSongPlay.value || playedSong !== song._id"
+              src="@/assets/images/icons/play.svg"
+              alt="Play"
+            />
           </button>
         </div>
       </div>
@@ -83,12 +92,18 @@ import { notificationStore } from '@/stores/notificationStore'
 import AllPlaylistsModal from '../general/AllPlaylistsModal.vue'
 import CreatePlaylist from '../playlist/CreatePlaylist.vue'
 
+defineEmits<{
+  (e: 'likeSong', id: string): void
+}>()
 const storeNotification = notificationStore()
+const playedSong = defineModel('playedSong')
 const store = songStore()
 const router = useRouter()
-const songInject = inject<{ song: ISongGetted; updateSong: (item: ISongGetted) => void }>(
-  'songPlayDetails',
-)
+const songInject = inject<{
+  song: ISongGetted
+  updateSong: (item: ISongGetted) => void
+  isSongPlay: Ref<boolean>
+}>('songPlayDetails')
 const { detailedSong } = inject<{ detailedSong: Ref<ISongGetted> }>('detailedSong', {
   detailedSong: ref({
     title: '',
@@ -140,6 +155,7 @@ const openModal = (event: Event) => {
 
 const chooseSong = () => {
   if (song.value) songInject?.updateSong(song.value)
+  playedSong.value = song.value._id
 }
 
 const modalDeleteSong = () => {

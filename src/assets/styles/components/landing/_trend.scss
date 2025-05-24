@@ -10,6 +10,9 @@
     @media screen and (max-width: 1680px) {
       height: 140vh;
     }
+    @media screen and (max-width: 767px) {
+      height: 80vh;
+    }
   }
 
   .triangle-demo {
@@ -48,6 +51,17 @@
       background-color: $background_color_header;
       height: 40px;
     }
+
+    @media (max-width: 767px) {
+      flex: 0 0 auto;
+      min-width: 250px;
+      height: 300px;
+      scroll-snap-align: start;
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      transform: none !important;
+    }
   }
 
   .trend-card-text {
@@ -70,5 +84,12 @@
     margin: 46px auto 0;
     max-width: 1000px;
     position: relative;
+    @media (max-width: 767px) {
+      display: flex;
+      overflow-x: auto;
+      gap: 16px;
+      padding-bottom: 1rem;
+      scroll-snap-type: x mandatory;
+    }
   }
 }

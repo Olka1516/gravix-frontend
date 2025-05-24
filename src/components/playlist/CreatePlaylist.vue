@@ -39,7 +39,7 @@
           </div>
         </transition>
       </div>
-      <div class="modal-content">
+      <div class="modal-content end-content">
         <button class="modal-cancel" @click="$emit('close')">Cancel</button>
         <button class="border-button" @click="submit">
           {{ text[isUpdate ? 'update' : 'create'].btn }}
