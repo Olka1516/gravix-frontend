@@ -36,6 +36,8 @@
 import type { IPlaylist } from '@/types/playlist'
 import { onMounted } from 'vue'
 import { playlistStore } from '@/stores/playlist'
+import { notificationStore } from '@/stores/notificationStore'
+import { NotificationsEnum } from '@/types'
 
 const props = defineProps<{ id: string }>()
 const emit = defineEmits<{
@@ -43,11 +45,13 @@ const emit = defineEmits<{
   (e: 'openCreate', event: Event): void
 }>()
 
+const storeNotification = notificationStore()
 const store = playlistStore()
 
 const addToPlaylist = async (playlistId: string) => {
   emit('close')
   await store.addSongToPlaylist(props.id, playlistId)
+  storeNotification.sendSuccess(NotificationsEnum.songAddedSuccessful)
 }
 
 const getPhoto = (item: IPlaylist) => {

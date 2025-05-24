@@ -23,12 +23,12 @@
 
     <button class="circle-button card-play" @click="chooseSong($event)">
       <img
-        v-show="songInject?.isSongPlay.value"
+        v-show="songInject?.isSongPlay.value && playedSong === songData._id"
         src="../../assets/images/icons/pause.svg"
         alt="Pause"
       />
       <img
-        v-show="!songInject?.isSongPlay.value"
+        v-show="!songInject?.isSongPlay.value || playedSong !== songData._id"
         src="../../assets/images/icons/play.svg"
         alt="Play"
       />
@@ -68,6 +68,7 @@ import DeleteModal from './BaseDeleteModal.vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+const playedSong = defineModel('playedSong')
 const props = defineProps<{ song: ISongGetted; isCurrentUser?: boolean }>()
 const emit = defineEmits<{ (e: 'deleteSong', value: string): void }>()
 
@@ -86,6 +87,7 @@ const songData = computed(() => ({
   title: props.song.title,
   author: props.song.author,
   image: props.song.image,
+  _id: props.song._id,
 }))
 
 const closeModal = () => {
@@ -128,6 +130,7 @@ const closeDeleteModal = () => {
 const chooseSong = (event?: Event) => {
   if (event) event.stopPropagation()
   songInject?.updateSong(songData.value)
+  playedSong.value = songData.value._id
 }
 
 const openSettings = (event: Event) => {

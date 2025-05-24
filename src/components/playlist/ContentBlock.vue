@@ -27,9 +27,12 @@
           ref="songRefs"
           v-for="(song, index) in songs"
           :index="index"
+          :playedIndex
           :key="song._id"
           :song
+          :isCurrentUser
           @changeSong="(i) => (playedIndex = i)"
+          @deleteSong="(id) => deleteSongFromPlaylist(id)"
         ></BaseSong>
       </div>
     </div>
@@ -85,26 +88,29 @@ const playlist: Ref<IPlaylist> = ref({
 })
 const userId = ref('')
 const songs: Ref<ISongGetted[]> = ref([])
-const playedIndex = ref(0)
+const playedIndex = ref(-1)
 const songRefs = ref<InstanceType<typeof BaseSong>[]>([])
 
-const { isCanBeChanged } = inject<{
+const { isCanBeChanged, isSongPlay } = inject<{
   isCanBeChanged: Ref<boolean>
-}>('songPlayDetails', { isCanBeChanged: ref(false) })
+  isSongPlay: Ref<boolean>
+}>('songPlayDetails', { isCanBeChanged: ref(false), isSongPlay: ref(false) })
 
 const playlistActions = [
   {
-    icon: () => (userId.value === playlist.value.ownerID ? 'dots' : 'plus'),
-    action: () => {
-      if (userId.value === playlist.value.ownerID) {
+    icon: () => (isCurrentUser.value ? 'dots' : 'plus'),
+    action: async () => {
+      if (isCurrentUser.value) {
         open.value = !open.value
+      } else {
+        await store.createUserCopyPlaylist(playlist.value._id)
       }
     },
   },
   {
-    icon: () => 'play',
+    icon: () => (isSongPlay.value && playedIndex.value >= 0 ? 'pauseWhite' : 'play'),
     action: (event: Event) => {
-      songRefs.value[playedIndex.value]?.chooseSong(event)
+      songRefs.value[playedIndex.value === -1 ? 0 : playedIndex.value]?.chooseSong(event)
     },
   },
   {
@@ -116,6 +122,17 @@ const playlistActions = [
     },
   },
 ]
+
+const isCurrentUser = computed(() => {
+  return userId.value === playlist.value.ownerID
+})
+
+const deleteSongFromPlaylist = async (id: string) => {
+  await store.deleteSongFromPlaylist(id, playlist.value._id)
+  songs.value = songs.value.filter((item) => {
+    return item._id !== id
+  })
+}
 
 const changeVisibility = (event: Event) => {
   event.stopPropagation()

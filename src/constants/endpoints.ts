@@ -25,6 +25,7 @@ export const ENDPOINTS = {
   GET_PLAYLIST_BY_ID: (id: string) => `/playlists/${id}`,
   GET_MY_PLAYLIST_BY_ID: (id: string) => `/playlists/my/${id}`,
   GET_SONG: (id: string) => `/songs/${id}`,
+  CREATE_COPY_PLAYLIST: (id: string) => `/playlists/copy/${id}`,
   UPDATE_SONG_LIKE: (id: string) => `/songs/like/${id}`,
   UPDATE_SONG_DISLIKE: (id: string) => `/songs/dislike/${id}`,
   UPDATE_PLAYLIST_LIKE: (id: string) => `/playlists/like/${id}`,
@@ -34,4 +35,5 @@ export const ENDPOINTS = {
   USERS_INFO: (username: string) => `/users/info/${username}`,
   DELETE_SONG: (id: string) => `/songs/${id}`,
   DELETE_PLAYLIST: (id: string) => `/playlists/${id}`,
+  DELETE_SONG_FROM_PLAYLIST: (ids: string[]) => `/playlists/delete/song?ids=${ids.join(',')}`,
 }
