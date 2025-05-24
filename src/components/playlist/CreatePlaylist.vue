@@ -116,7 +116,7 @@ const submit = async () => {
   } catch (err) {
     storeNotification.sendSuccess(NotificationsEnum.generalError)
     const message = err as TRequestError
-    console.log(message)
+    console.log('err', message)
   }
 }
 
