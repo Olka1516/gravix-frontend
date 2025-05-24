@@ -59,12 +59,14 @@ import BaseTime from '@/components/inputs/BaseTime.vue'
 import ErrorMessage from '@/components/inputs/ErrorMessage.vue'
 import { songsGenres } from '@/constants'
 import { songStore } from '@/stores'
-import type { ISong } from '@/types'
+import { notificationStore } from '@/stores/notificationStore'
+import { NotificationsEnum, type ISong } from '@/types'
 import useVuelidate from '@vuelidate/core'
 import { minLength, required } from '@vuelidate/validators'
 import { onMounted, onUnmounted, reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
+const storeNotification = notificationStore()
 const loading = ref(true)
 const route = useRoute()
 const router = useRouter()
@@ -121,15 +123,25 @@ const submit = async () => {
     return
   }
   try {
+    let notification
     data.author = localStorage.getItem('username') || ''
     if (data._id) {
       await store.updateSong(data)
+      notification = NotificationsEnum.songUpdatedSuccessful
     } else {
       await store.createSong(data)
+      notification = NotificationsEnum.songAddedSuccessful
     }
     await router.push(`/profile/${data.author}`)
+    storeNotification.sendSuccess(notification)
   } catch {
-    console.log('error')
+    let notification
+    if (data._id) {
+      notification = NotificationsEnum.songUpdatedSuccessful
+    } else {
+      notification = NotificationsEnum.songAddedSuccessful
+    }
+    storeNotification.sendSuccess(notification)
   }
 }
 

@@ -1,0 +1,18 @@
+export enum NotificationsEnum {
+  generalError = 'Something went wrong. Please try again later.',
+  loginInSuccess = 'Welcome! You are logged in',
+  signUpSuccess = 'Registration successful!',
+  songUpdatedSuccessful = 'Song updated successfully',
+  songAddedSuccessful = 'Song added successfully',
+  songUpdatedError = 'Failed to update the song',
+  songAddedError = 'Failed to add the song',
+  userAddPhotoSuccessful = 'Profile photo added successfully',
+  userAddPhotoError = 'Failed to add profile photo',
+  playlistUpdatedSuccessful = 'Playlist updated successfully',
+  playlistAddedSuccessful = 'Playlist added successfully',
+  playlistUpdatedError = 'Failed to update the playlist',
+  playlistAddedError = 'Failed to add the playlist',
+  playlistAnsSongAddedSuccessful = 'Playlist and song added successfully',
+  songDeletedSuccessful = 'Song deleted successfully',
+  playlistDeletedSuccessful = 'Playlist deleted successfully',
+}

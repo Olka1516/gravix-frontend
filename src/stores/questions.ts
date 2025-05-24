@@ -1,4 +1,6 @@
 import { getArtistsByGenres, saveUserAnswers } from '@/services'
+import { getPopularAuthors } from '@/services/recommendations'
+import type { IAllUserData } from '@/types'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -15,7 +17,16 @@ export const useQuestionsStore = defineStore('questions', () => {
   }
 
   const getArtists = async () => {
-    const data = await getArtistsByGenres(genres.value)
+    let data
+    if (genres.value.length) data = await getArtistsByGenres(genres.value)
+    else {
+      const temp = await getPopularAuthors()
+      data = temp.map((user: IAllUserData) => ({
+        image: user.avatar,
+        text: user.username,
+        id: user.id,
+      }))
+    }
     return data
   }
 

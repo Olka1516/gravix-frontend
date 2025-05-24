@@ -64,6 +64,10 @@ export const useRecommendationsStore = defineStore('recommendations', () => {
     if (!popular.popularSongs.length) {
       popular.popularSongs = await getPopularSongs()
     }
+
+    if (!songs.sGenres.length) songs.sGenres = popular.popularSongs
+    if (!playlists.pGenres.length) playlists.pGenres = popular.popularPlaylists
+    if (!songs.random.length) songs.random = popular.popularSongs
   }
 
   const searchValue = async (data: string, selectedValue: string) => {

@@ -29,9 +29,12 @@
           </div>
         </div>
         <div class="detailed-end">
-          <div>
+          <div class="detailed-settings">
             <button v-if="isUser" @click="modalDeleteSong">
-              <img src="@/assets/images/icons/trash.png" alt="" />
+              <img src="@/assets/images/icons/trash.svg" alt="" />
+            </button>
+            <button @click="openPlaylistsModal">
+              <img src="@/assets/images/icons/plus.svg" alt="" />
             </button>
           </div>
           <button class="border-button" @click="chooseSong">
@@ -42,7 +45,7 @@
     </div>
     <div class="detailed-lyrics">
       <h5>Lyrics:</h5>
-      <p>{{ song.lyrics }}</p>
+      <p v-html="formattedLyrics"></p>
     </div>
     <Teleport to="body">
       <Transition name="modal">
@@ -54,16 +57,33 @@
         />
       </Transition>
     </Teleport>
+    <Teleport to="body">
+      <Transition name="modal">
+        <div v-show="isModalOpen || isAllPlaylists">
+          <CreatePlaylist v-if="isModalOpen" @close="closeModal" :songId="song._id" />
+          <AllPlaylistsModal
+            v-if="isAllPlaylists"
+            :id="song._id"
+            @close="closeModalPlaylists"
+            @openCreate="openModal"
+          />
+        </div>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
 import { songStore } from '@/stores'
-import type { ISongGetted } from '@/types'
+import { NotificationsEnum, type ISongGetted } from '@/types'
 import { computed, inject, ref, type Ref } from 'vue'
 import { useRouter } from 'vue-router'
 import DeleteModal from '../general/BaseDeleteModal.vue'
+import { notificationStore } from '@/stores/notificationStore'
+import AllPlaylistsModal from '../general/AllPlaylistsModal.vue'
+import CreatePlaylist from '../playlist/CreatePlaylist.vue'
 
+const storeNotification = notificationStore()
 const store = songStore()
 const router = useRouter()
 const songInject = inject<{ song: ISongGetted; updateSong: (item: ISongGetted) => void }>(
@@ -89,10 +109,33 @@ const { detailedSong } = inject<{ detailedSong: Ref<ISongGetted> }>('detailedSon
 
 const song = ref(detailedSong)
 const isDeleteModelopen = ref(false)
+const isModalOpen = ref(false)
+const isAllPlaylists = ref(false)
+
+const formattedLyrics = computed(() => {
+  return song.value.lyrics.replace(/\n/g, '<br>')
+})
 
 const isUserLikeSong = () => {
   const userInfo = JSON.parse(localStorage.getItem('userInfo') || '')
   return song.value.likes.includes(userInfo.id)
+}
+
+const closeModal = () => {
+  isModalOpen.value = false
+  document.body.style.overflow = ''
+}
+
+const closeModalPlaylists = () => {
+  isAllPlaylists.value = false
+  document.body.style.overflow = ''
+}
+
+const openModal = (event: Event) => {
+  event.stopPropagation()
+  isModalOpen.value = true
+  isAllPlaylists.value = false
+  document.body.style.overflow = 'hidden'
 }
 
 const chooseSong = () => {
@@ -109,10 +152,17 @@ const closeDeleteModal = () => {
   document.body.style.overflow = ''
 }
 
+const openPlaylistsModal = (event: Event) => {
+  event.stopPropagation()
+  isAllPlaylists.value = true
+  document.body.style.overflow = 'hidden'
+}
+
 const deleteSong = async () => {
   document.body.style.overflow = ''
   await store.deleteSong(detailedSong.value._id)
   await router.push('/songs')
+  storeNotification.sendSuccess(NotificationsEnum.songDeletedSuccessful)
 }
 
 const changeRoute = async () => {

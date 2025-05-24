@@ -56,6 +56,7 @@ const getError = () => {
     case 'username':
       if (message === IsRequired) return IsRequired
       else if (props.error === UsernameInUse) return 'Username already in use!'
+      else if (props.error === InvalidCredentials) return 'Username does not exist'
       break
     case 'title':
       if (message === IsRequired) return IsRequired

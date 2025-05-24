@@ -54,10 +54,11 @@ import { onMounted, reactive, ref } from 'vue'
 import BaseText from '../inputs/BaseText.vue'
 import ErrorMessage from '../inputs/ErrorMessage.vue'
 import { required } from '@vuelidate/validators'
-import type { TRequestError } from '@/types'
+import { NotificationsEnum, type TRequestError } from '@/types'
 import useVuelidate from '@vuelidate/core'
 import { IPlaylistVisibility, type IPlaylist } from '@/types/playlist'
 import { playlistStore } from '@/stores/playlist'
+import { notificationStore } from '@/stores/notificationStore'
 
 const props = defineProps<{ isUpdate?: boolean; playlist?: IPlaylist; songId?: string }>()
 const emit = defineEmits<{ (e: 'close', name?: string): string | void }>()
@@ -73,6 +74,7 @@ const text = {
   },
 }
 
+const storeNotification = notificationStore()
 const store = playlistStore()
 const open = ref(false)
 const playlistData = reactive({
@@ -97,16 +99,22 @@ const submit = async () => {
     return
   }
   try {
+    let notification
     if (props.playlist) {
       await store.updatePlaylist(playlistData, props.playlist._id)
+      notification = NotificationsEnum.playlistUpdatedSuccessful
     } else {
       const data: IPlaylist = await store.createPlaylist(playlistData)
+      notification = NotificationsEnum.playlistAddedSuccessful
       if (props.songId) {
         await store.addSongToPlaylist(props.songId, data._id)
+        notification = NotificationsEnum.playlistAnsSongAddedSuccessful
       }
     }
+    storeNotification.sendSuccess(notification)
     emit('close', playlistData.name)
   } catch (err) {
+    storeNotification.sendSuccess(NotificationsEnum.generalError)
     const message = err as TRequestError
     console.log(message)
   }

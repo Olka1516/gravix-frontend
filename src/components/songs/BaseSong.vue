@@ -5,12 +5,12 @@
         <img class="song-image" :src="song.image" alt="" />
         <button class="song-play" @click="chooseSong">
           <img
-            v-show="songInject?.isSongPlay.value"
+            v-show="songInject?.isSongPlay.value && playedIndex === index"
             src="../../assets/images/icons/pauseWhite.svg"
             alt="Pause"
           />
           <img
-            v-show="!songInject?.isSongPlay.value"
+            v-show="!songInject?.isSongPlay.value || playedIndex !== index"
             src="../../assets/images/icons/playWhite.svg"
             alt="Play"
           />
@@ -30,6 +30,9 @@
         </button>
         <button @click="openPlaylistsModal">
           <img src="@/assets/images/icons/plus.svg" alt="" />
+        </button>
+        <button @click="deleteSongFromPlaylist">
+          <img v-if="isCurrentUser" src="../../assets/images/icons/trash.svg" alt="Play" />
         </button>
       </div>
     </div>
@@ -57,9 +60,15 @@ import AllPlaylistsModal from '../general/AllPlaylistsModal.vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const props = defineProps<{ song: ISongGetted; index: number }>()
+const props = defineProps<{
+  song: ISongGetted
+  index: number
+  isCurrentUser: boolean
+  playedIndex: number
+}>()
 const emit = defineEmits<{
   (e: 'changeSong', id: number): void
+  (e: 'deleteSong', id: string): void
 }>()
 
 const songLikes = ref(props.song.likes)
@@ -126,6 +135,11 @@ const likeSong = (event: Event, id: string) => {
   songLikes.value = songLikes.value.includes(userInfo.id)
     ? songLikes.value.filter((userId) => userId !== userInfo.id)
     : [...songLikes.value, userInfo.id]
+}
+
+const deleteSongFromPlaylist = (event: Event) => {
+  event.stopPropagation()
+  emit('deleteSong', props.song._id)
 }
 </script>
 

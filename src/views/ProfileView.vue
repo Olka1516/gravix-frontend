@@ -32,10 +32,11 @@ import BaseFooter from '@/components/BaseFooter.vue'
 import { onMounted, onUnmounted, ref, watch, type Ref } from 'vue'
 import { songStore, userStore } from '@/stores'
 import { useRoute } from 'vue-router'
-import type { IAllUserData, ISongGetted } from '@/types'
+import { NotificationsEnum, type IAllUserData, type ISongGetted } from '@/types'
 import { playlistStore } from '@/stores/playlist'
 import type { IPlaylist } from '@/types/playlist'
 import BaseLoading from '@/components/general/BaseLoading.vue'
+import { notificationStore } from '@/stores/notificationStore'
 
 const loading = ref(true)
 const data = ref<IAllUserData>({
@@ -53,6 +54,7 @@ const isCurrentUser = ref(true)
 const songs: Ref<ISongGetted[]> = ref([])
 const playlists: Ref<IPlaylist[]> = ref([])
 
+const storeNotification = notificationStore()
 const route = useRoute()
 const store = userStore()
 const storeSongs = songStore()
@@ -65,13 +67,17 @@ const updateData = (user: IAllUserData, userSongs: ISongGetted[], userPlaylists:
 }
 
 const deletePlaylist = async (id: string) => {
-  await storePlaylist.deletePlaylist(id)
   document.body.style.overflow = ''
+  await storePlaylist.deletePlaylist(id)
+  storeNotification.sendSuccess(NotificationsEnum.playlistDeletedSuccessful)
 }
 
 const deleteSong = async (id: string) => {
-  await storeSongs.deleteSong(id)
   document.body.style.overflow = ''
+  await storeSongs.deleteSong(id)
+  await storePlaylist.getPlaylists()
+  playlists.value = storePlaylist.state
+  storeNotification.sendSuccess(NotificationsEnum.songDeletedSuccessful)
 }
 
 const updateSubscribers = async () => {
@@ -86,7 +92,12 @@ const updateSubscribers = async () => {
 }
 
 const updatePhoto = async (file: File) => {
-  await store.updateUserImage(file)
+  try {
+    await store.updateUserImage(file)
+    storeNotification.sendSuccess(NotificationsEnum.userAddPhotoSuccessful)
+  } catch {
+    storeNotification.sendSuccess(NotificationsEnum.userAddPhotoError)
+  }
 }
 
 const getUserInfo = async () => {
@@ -125,6 +136,7 @@ watch(
   async () => {
     playlists.value = storePlaylist.state
   },
+  { deep: true },
 )
 
 watch(

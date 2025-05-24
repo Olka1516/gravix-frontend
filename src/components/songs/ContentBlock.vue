@@ -12,14 +12,24 @@
     <div class="songs-info">
       <h4>Songs by Similar Genres</h4>
       <div class="songs-content">
-        <BaseSongCard v-for="song in store.sGenres" :key="song._id" :song></BaseSongCard>
+        <BaseSongCard
+          v-for="song in store.sGenres"
+          :key="song._id"
+          :song
+          v-model:playedSong="playedSong"
+        ></BaseSongCard>
       </div>
     </div>
 
-    <div class="songs-info">
+    <div class="songs-info" v-if="store.sAuthors.length">
       <h4>Songs by Author</h4>
       <div class="songs-content">
-        <BaseSongCard v-for="song in store.sAuthors" :key="song._id" :song></BaseSongCard>
+        <BaseSongCard
+          v-for="song in store.sAuthors"
+          :key="song._id"
+          :song
+          v-model:playedSong="playedSong"
+        ></BaseSongCard>
       </div>
     </div>
 
@@ -30,7 +40,7 @@
       </div>
     </div>
 
-    <div class="songs-info">
+    <div class="songs-info" v-if="store.pAuthors.length">
       <h4>Playlists by Author</h4>
       <div class="songs-content">
         <BasePlaylist v-for="playlist in store.pAuthors" :key="playlist._id" :playlist />
@@ -69,6 +79,7 @@ import type { IAllUserData, ISongGetted } from '@/types'
 import type { IPlaylist } from '@/types/playlist'
 import BaseLoading from '../general/BaseLoading.vue'
 
+const playedSong = ref('')
 const loading = ref(true)
 const searchOpen = ref(false)
 const store = useRecommendationsStore()

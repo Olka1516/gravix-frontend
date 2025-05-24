@@ -32,7 +32,10 @@ import { genresQuestions } from '@/constants'
 import { useQuestionsStore } from '@/stores/questions'
 import type { IAnswers } from '@/types/answer'
 import BaseLoading from '@/components/general/BaseLoading.vue'
+import { notificationStore } from '@/stores/notificationStore'
+import { NotificationsEnum } from '@/types'
 
+const storeNotification = notificationStore()
 const loading = ref(true)
 const route = useRoute()
 const router = useRouter()
@@ -72,7 +75,8 @@ const handleNext = async () => {
   updateStoreSelection()
 
   if (isLastStep) {
-    store.saveData()
+    await store.saveData()
+    storeNotification.sendSuccess(NotificationsEnum.signUpSuccess)
   }
 
   await router.push(nextPath)

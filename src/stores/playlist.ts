@@ -1,7 +1,9 @@
 import {
   addSongToPlaylistByIds,
+  createCopyPlaylist,
   createUserPlaylist,
   deletePlaylistById,
+  deleteSongFromPlaylistById,
   dislikePlaylistById,
   getMyPlayList,
   getMyPlayListById,
@@ -30,6 +32,11 @@ export const playlistStore = defineStore('playlistInfo', () => {
     return data
   }
 
+  const createUserCopyPlaylist = async (id: string) => {
+    const data = await createCopyPlaylist(id)
+    state.value.push(data)
+  }
+
   const updatePlaylist = async (playlistData: IPlaylistCreate, id: string) => {
     await updateUserPlaylist(playlistData, id)
     await getPlaylists()
@@ -37,11 +44,18 @@ export const playlistStore = defineStore('playlistInfo', () => {
 
   const getPlaylists = async () => {
     state.value = await getMyPlayList()
+    state.value.forEach((item) => {
+      selectedPlaylist.set(item._id, item)
+    })
   }
 
   const deletePlaylist = async (id: string) => {
     await deletePlaylistById(id)
     state.value = state.value.filter((playlist) => playlist._id !== id)
+  }
+
+  const deleteSongFromPlaylist = async (songId: string, playlistId: string) => {
+    await deleteSongFromPlaylistById(songId, playlistId)
   }
 
   const getAnotherUserPlaylists = async (username: string): Promise<IPlaylist[]> => {
@@ -103,5 +117,7 @@ export const playlistStore = defineStore('playlistInfo', () => {
     updatePlaylist,
     deletePlaylist,
     addSongToPlaylist,
+    createUserCopyPlaylist,
+    deleteSongFromPlaylist,
   }
 })

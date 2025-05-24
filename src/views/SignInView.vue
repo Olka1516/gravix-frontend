@@ -30,12 +30,14 @@ import ErrorMessage from '@/components/inputs/ErrorMessage.vue'
 import { required } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
 
-import type { TRequestError } from '@/types'
+import { NotificationsEnum, type TRequestError } from '@/types'
 import { authStore } from '@/stores'
 import BaseLoading from '@/components/general/BaseLoading.vue'
+import { notificationStore } from '@/stores/notificationStore'
 
 const loading = ref(true)
 const store = authStore()
+const storeNotification = notificationStore()
 const router = useRouter()
 const error = ref('')
 const userData = reactive({
@@ -57,6 +59,7 @@ const submit = async () => {
   try {
     await store.signIn(userData)
     await routeNavigateTo('profile/' + userData.username)
+    storeNotification.sendSuccess(NotificationsEnum.loginInSuccess)
   } catch (err) {
     const message = err as TRequestError
     error.value = message.response?.data.message || ''
