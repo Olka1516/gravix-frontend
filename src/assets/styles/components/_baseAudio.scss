@@ -16,6 +16,12 @@
     transition: opacity 0.3s ease;
     border: 1px $grey solid;
     border-radius: 12px;
+    @media screen and (max-width: 1024px) {
+      width: 90%;
+    }
+    @media screen and (max-width: 767px) {
+      flex-direction: column;
+    }
   }
 
   .audio-info {
@@ -31,9 +37,23 @@
     & h5 {
       color: $grey;
     }
+    @media screen and (max-width: 767px) {
+      width: 100%;
+    }
   }
 
   audio {
     width: 50%;
+    @media screen and (max-width: 767px) {
+      width: 100%;
+    }
+  }
+
+  .audio-exit {
+    @media screen and (max-width: 767px) {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+    }
   }
 }

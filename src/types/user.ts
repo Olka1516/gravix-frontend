@@ -14,3 +14,8 @@ export interface IAllUserData extends IUser {
 export interface IUserDictionary {
   [username: string]: IAllUserData
 }
+
+export interface IContactUs {
+  email: string
+  message: string
+}

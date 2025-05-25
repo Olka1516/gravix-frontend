@@ -7,8 +7,8 @@
         <ErrorMessage :v="v$.email" :error="error" />
       </div>
       <div class="field">
-        <BaseText v-model="form.text" :v="v$.text" type="Text" />
-        <ErrorMessage :v="v$.text" />
+        <BaseText v-model="form.message" :v="v$.message" type="Text" />
+        <ErrorMessage :v="v$.message" />
       </div>
       <button @click="send" class="border-button">Submit</button>
     </div>
@@ -21,16 +21,19 @@ import BaseText from '../inputs/BaseText.vue'
 import { email, required } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
 import ErrorMessage from '../inputs/ErrorMessage.vue'
+import { contactUs } from '@/services'
+import { notificationStore } from '@/stores/notificationStore'
 
+const store = notificationStore()
 const error = ref('')
 const form = reactive({
   email: '',
-  text: '',
+  message: '',
 })
 
 const rules = {
   email: { required, email },
-  text: { required },
+  message: { required },
 }
 
 const v$ = useVuelidate(rules, form)
@@ -38,6 +41,12 @@ const send = async () => {
   const isFormCorrect = await v$.value.$validate()
   if (!isFormCorrect) {
     return
+  }
+  try {
+    await contactUs(form)
+    store.sendSuccess('Message sent successfully')
+  } catch {
+    store.sendError('Message failed to send')
   }
 }
 </script>

@@ -1,5 +1,6 @@
 import { ENDPOINTS } from '@/constants'
 import http from '@/http'
+import type { IContactUs } from '@/types'
 
 export const getUserInfoByUsername = async (username: string) => {
   const data = await http.get(ENDPOINTS.USERS_INFO(username))
@@ -30,4 +31,8 @@ export const updateUsersSubscribers = async (username: string, followee: string)
   }
 
   await http.post(ENDPOINTS.UPDATE_SUBSCRIBERS, temp)
+}
+
+export const contactUs = async (info: IContactUs) => {
+  await http.post(ENDPOINTS.CONTACT_US, info)
 }

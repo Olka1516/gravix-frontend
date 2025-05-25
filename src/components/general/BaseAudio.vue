@@ -19,7 +19,9 @@
       <source :src="song.song" type="audio/mpeg" />
       Your browser does not support the audio element.
     </audio>
-    <button @click="$emit('exit')"><img src="@/assets/images/icons/exitWhite.svg" alt="" /></button>
+    <button @click="$emit('exit')" class="audio-exit">
+      <img src="@/assets/images/icons/exitWhite.svg" alt="" />
+    </button>
   </div>
 </template>
 

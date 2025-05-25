@@ -3,6 +3,7 @@ export const ENDPOINTS = {
   LOGIN: '/users/login',
   PROFILE: '/users/profile',
   INTERESTS: '/users/interests',
+  CONTACT_US: '/users/send',
   UPDATE_SUBSCRIBERS: '/users/update/subscribers',
   UPDATE_USER_PHOTO: '/users/update/photo',
   USERS: '/users/all',
