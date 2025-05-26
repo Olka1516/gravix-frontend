@@ -10,7 +10,11 @@
         </div>
       </div>
       <div class="modal-results">
+        <div v-if="!store.state.length">
+          <strong class="search-empty">It looks like you haven't created any playlists yet</strong>
+        </div>
         <div
+          v-else
           v-for="item in store.state"
           :key="item._id"
           class="search-result"

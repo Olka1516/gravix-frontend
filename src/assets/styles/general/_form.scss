@@ -21,16 +21,17 @@
     border-radius: 8px;
     border: 1px solid $pink;
     @media screen and (max-height: 1150px) {
-      height: calc(100% - 200px);
+      height: calc(100% - 150px);
     }
     @media screen and (max-width: 768px) {
-      min-width: 400px;
+      width: 90%;
+      min-width: 90%;
+      margin-block: 24px;
     }
 
     @media screen and (max-width: 540px) {
       padding: 24px;
-      max-width: 400px;
-      min-width: 280px;
+      min-height: 250px;
     }
   }
 }

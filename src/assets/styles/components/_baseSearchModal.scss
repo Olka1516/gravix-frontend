@@ -42,14 +42,18 @@
     @media screen and (max-height: 1280px) {
       top: 66px;
       max-height: calc(100vh - 20%);
-      max-width: 1000px;
-      min-width: 400px;
+      max-width: 67%;
+      min-width: 67%;
+    }
+    @media screen and (max-height: 767px) {
+      padding: 42px 24px 24px;
     }
     @media screen and (max-width: 540px) {
+      padding: 42px 18px 18px;
       top: 0;
-      margin: auto 12px;
-      max-width: 400px;
-      min-width: 100px;
+      margin: auto;
+      max-width: 90%;
+      min-width: 90%;
     }
   }
 

@@ -70,7 +70,9 @@ import type { ISongGetted } from '@/types'
 import CreatePlaylist from './CreatePlaylist.vue'
 import DeleteModal from '../general/BaseDeleteModal.vue'
 import BaseLoading from '../general/BaseLoading.vue'
+import { notificationStore } from '@/stores/notificationStore'
 
+const storeNotification = notificationStore()
 const loading = ref(true)
 const router = useRouter()
 const open = ref(false)
@@ -104,6 +106,7 @@ const playlistActions = [
         open.value = !open.value
       } else {
         await store.createUserCopyPlaylist(playlist.value._id)
+        storeNotification.sendSuccess('Playlist added successfully')
       }
     },
   },

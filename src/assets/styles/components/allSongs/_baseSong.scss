@@ -36,6 +36,9 @@
     &:hover .song-image {
       filter: brightness(0.5);
     }
+    @media screen and (max-width: 540px) {
+      padding: 0;
+    }
   }
 
   .song-assets {

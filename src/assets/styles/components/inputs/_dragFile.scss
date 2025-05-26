@@ -17,6 +17,9 @@
       grid-template-columns: 1fr;
       width: 60%;
     }
+    @media screen and (max-width: 540px) {
+      width: 100%;
+    }
   }
 
   .invalid {

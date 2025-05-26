@@ -8,7 +8,7 @@
     flex-direction: column;
     gap: 24px;
     @media screen and (max-width: 767px) {
-      padding-inline: 55px;
+      padding-inline: 18px;
     }
   }
 
@@ -65,7 +65,7 @@
       max-width: 300px;
     }
     @media screen and (max-width: 540px) {
-      max-width: 200px;
+      max-width: 100%;
     }
   }
 

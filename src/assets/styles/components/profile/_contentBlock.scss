@@ -43,6 +43,9 @@
     display: flex;
     align-items: center;
     gap: 24px;
+    @media screen and (max-width: 540px) {
+      flex-direction: column;
+    }
   }
 
   .content-avatar {
@@ -99,7 +102,7 @@
     position: absolute;
     bottom: 0;
     right: 24px;
-    background-color: $grey;
+    background-color: $dark_grey_avatar;
     visibility: hidden;
     opacity: 0;
     transition: all 0.3s ease-out;
